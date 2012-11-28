@@ -128,6 +128,11 @@
 		B1D8ECC71170310E00A8A49E /* homogeneous.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B1D8EC791170310E00A8A49E /* homogeneous.cpp */; };
 		B1D8ECC81170310E00A8A49E /* volumegrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B1D8EC7B1170310E00A8A49E /* volumegrid.cpp */; };
 		B1E1BB3F1177B63E00337ECE /* pbrtparse.yy in Sources */ = {isa = PBXBuildFile; fileRef = B1D8EB92117030F200A8A49E /* pbrtparse.yy */; };
+		D9D3969F16665BAE0004606C /* libIlmImf.6.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9D3969E16665BAE0004606C /* libIlmImf.6.0.0.dylib */; };
+		D9D396B216665D690004606C /* libIlmThread.6.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9D396B116665D690004606C /* libIlmThread.6.0.0.dylib */; };
+		D9D396B416665D690004606C /* libImath.6.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9D396B316665D690004606C /* libImath.6.0.0.dylib */; };
+		D9D396B616665D890004606C /* libIex.6.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9D396B516665D890004606C /* libIex.6.0.0.dylib */; };
+		D9D396D516665F6B0004606C /* libHalf.6.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9D396D416665F6B0004606C /* libHalf.6.0.0.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -411,6 +416,11 @@
 		B1D8EC7B1170310E00A8A49E /* volumegrid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = volumegrid.cpp; path = volumes/volumegrid.cpp; sourceTree = SOURCE_ROOT; };
 		B1D8EC7C1170310E00A8A49E /* volumegrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = volumegrid.h; path = volumes/volumegrid.h; sourceTree = SOURCE_ROOT; };
 		B1D8ECE2117032E500A8A49E /* pbrt */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pbrt; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9D3969E16665BAE0004606C /* libIlmImf.6.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIlmImf.6.0.0.dylib; path = usr/local/lib/libIlmImf.6.0.0.dylib; sourceTree = SDKROOT; };
+		D9D396B116665D690004606C /* libIlmThread.6.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIlmThread.6.0.0.dylib; path = usr/local/lib/libIlmThread.6.0.0.dylib; sourceTree = SDKROOT; };
+		D9D396B316665D690004606C /* libImath.6.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libImath.6.0.0.dylib; path = usr/local/lib/libImath.6.0.0.dylib; sourceTree = SDKROOT; };
+		D9D396B516665D890004606C /* libIex.6.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIex.6.0.0.dylib; path = usr/local/lib/libIex.6.0.0.dylib; sourceTree = SDKROOT; };
+		D9D396D416665F6B0004606C /* libHalf.6.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libHalf.6.0.0.dylib; path = usr/local/lib/libHalf.6.0.0.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -418,6 +428,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9D3969F16665BAE0004606C /* libIlmImf.6.0.0.dylib in Frameworks */,
+				D9D396B216665D690004606C /* libIlmThread.6.0.0.dylib in Frameworks */,
+				D9D396B416665D690004606C /* libImath.6.0.0.dylib in Frameworks */,
+				D9D396B616665D890004606C /* libIex.6.0.0.dylib in Frameworks */,
+				D9D396D516665F6B0004606C /* libHalf.6.0.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +445,11 @@
 				08FB7795FE84155DC02AAC07 /* Source */,
 				C6859E8C029090F304C91782 /* Documentation */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
+				D9D3969E16665BAE0004606C /* libIlmImf.6.0.0.dylib */,
+				D9D396B116665D690004606C /* libIlmThread.6.0.0.dylib */,
+				D9D396B316665D690004606C /* libImath.6.0.0.dylib */,
+				D9D396B516665D890004606C /* libIex.6.0.0.dylib */,
+				D9D396D416665F6B0004606C /* libHalf.6.0.0.dylib */,
 			);
 			name = pbrt;
 			sourceTree = "<group>";
@@ -1012,7 +1032,7 @@
 		1DEB923308733DC60010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
 				GCC_PREPROCESSOR_DEFINITIONS = PBRT_PROBES_NONE;
@@ -1021,7 +1041,9 @@
 					.,
 				);
 				INSTALL_PATH = /usr/local/bin;
+				LIBRARY_SEARCH_PATHS = "usr/local/**";
 				PRODUCT_NAME = pbrt;
+				USER_HEADER_SEARCH_PATHS = "/usr/local/include/OpenEXR/** $PROJECT_DIR/core/**";
 			};
 			name = Release;
 		};

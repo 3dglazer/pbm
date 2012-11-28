@@ -168,7 +168,7 @@
 
 
 /* Copy the first part of user declarations.  */
-#line 24 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 24 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
 
 #include "api.h"
 #include "pbrt.h"
@@ -313,14 +313,14 @@ static bool lookupType(const char *name, int *type, string &sname);
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 148 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 148 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
 {
 char string[1024];
 float num;
 ParamArray *ribarray;
 }
 /* Line 193 of yacc.c.  */
-#line 324 "/Users/zdenekglazer/Downloads/pbrt-v2/src/build/pbrt.build/Debug/pbrt.build/DerivedSources/Yacc/pbrtparse.cpp"
+#line 324 "/myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Debug/pbrt.build/DerivedSources/Yacc/pbrtparse.cpp"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -333,7 +333,7 @@ ParamArray *ribarray;
 
 
 /* Line 216 of yacc.c.  */
-#line 337 "/Users/zdenekglazer/Downloads/pbrt-v2/src/build/pbrt.build/Debug/pbrt.build/DerivedSources/Yacc/pbrtparse.cpp"
+#line 337 "/myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Debug/pbrt.build/DerivedSources/Yacc/pbrtparse.cpp"
 
 #ifdef short
 # undef short
@@ -1641,13 +1641,13 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 172 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 172 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
 ;}
     break;
 
   case 3:
-#line 178 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 178 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     if (cur_array) Severe("MUH");
     cur_array = new ParamArray;
@@ -1655,7 +1655,7 @@ yyreduce:
     break;
 
   case 4:
-#line 186 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 186 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     cur_array->element_size = sizeof(const char *);
     cur_array->isString = true;
@@ -1663,7 +1663,7 @@ yyreduce:
     break;
 
   case 5:
-#line 194 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 194 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     cur_array->element_size = sizeof(float);
     cur_array->isString = false;
@@ -1671,21 +1671,21 @@ yyreduce:
     break;
 
   case 6:
-#line 202 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 202 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     (yyval.ribarray) = (yyvsp[(1) - (1)].ribarray);
 ;}
     break;
 
   case 7:
-#line 208 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 208 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     (yyval.ribarray) = (yyvsp[(1) - (1)].ribarray);
 ;}
     break;
 
   case 8:
-#line 215 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 215 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     (yyval.ribarray) = cur_array;
     cur_array = NULL;
@@ -1693,7 +1693,7 @@ yyreduce:
     break;
 
   case 9:
-#line 222 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 222 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     (yyval.ribarray) = cur_array;
     cur_array = NULL;
@@ -1701,25 +1701,25 @@ yyreduce:
     break;
 
   case 10:
-#line 230 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 230 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
 ;}
     break;
 
   case 11:
-#line 236 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 236 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
 ;}
     break;
 
   case 12:
-#line 241 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 241 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
 ;}
     break;
 
   case 13:
-#line 247 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 247 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     char *to_add = strdup((yyvsp[(2) - (2)].string));
     AddArrayElement(&to_add);
@@ -1727,7 +1727,7 @@ yyreduce:
     break;
 
   case 14:
-#line 255 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 255 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     (yyval.ribarray) = cur_array;
     cur_array = NULL;
@@ -1735,7 +1735,7 @@ yyreduce:
     break;
 
   case 15:
-#line 262 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 262 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     (yyval.ribarray) = cur_array;
     cur_array = NULL;
@@ -1743,25 +1743,25 @@ yyreduce:
     break;
 
   case 16:
-#line 270 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 270 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
 ;}
     break;
 
   case 17:
-#line 276 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 276 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
 ;}
     break;
 
   case 18:
-#line 281 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 281 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
 ;}
     break;
 
   case 19:
-#line 287 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 287 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     float to_add = (yyvsp[(2) - (2)].num);
     AddArrayElement(&to_add);
@@ -1769,13 +1769,13 @@ yyreduce:
     break;
 
   case 20:
-#line 295 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 295 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
 ;}
     break;
 
   case 21:
-#line 301 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 301 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     for (uint32_t i = 0; i < cur_paramlist.size(); ++i) {
         if (cur_paramlist[i].isString) {
@@ -1788,19 +1788,19 @@ yyreduce:
     break;
 
   case 22:
-#line 314 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 314 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
 ;}
     break;
 
   case 23:
-#line 319 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 319 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
 ;}
     break;
 
   case 24:
-#line 325 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 325 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     cur_paramlist.push_back(ParamListItem((yyvsp[(1) - (2)].string), (yyvsp[(2) - (2)].ribarray)));
     ArrayFree((yyvsp[(2) - (2)].ribarray));
@@ -1808,19 +1808,19 @@ yyreduce:
     break;
 
   case 25:
-#line 333 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 333 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
 ;}
     break;
 
   case 26:
-#line 338 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 338 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
 ;}
     break;
 
   case 27:
-#line 344 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 344 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     ParamSet params;
     InitParamSet(params, SPECTRUM_REFLECTANCE);
@@ -1830,28 +1830,28 @@ yyreduce:
     break;
 
   case 28:
-#line 353 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 353 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     pbrtActiveTransformAll();
 ;}
     break;
 
   case 29:
-#line 359 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 359 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     pbrtActiveTransformEndTime();
 ;}
     break;
 
   case 30:
-#line 365 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 365 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     pbrtActiveTransformStartTime();
 ;}
     break;
 
   case 31:
-#line 371 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 371 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     ParamSet params;
     InitParamSet(params, SPECTRUM_ILLUMINANT);
@@ -1861,21 +1861,21 @@ yyreduce:
     break;
 
   case 32:
-#line 380 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 380 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     pbrtAttributeBegin();
 ;}
     break;
 
   case 33:
-#line 386 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 386 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     pbrtAttributeEnd();
 ;}
     break;
 
   case 34:
-#line 392 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 392 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     ParamSet params;
     InitParamSet(params, SPECTRUM_REFLECTANCE);
@@ -1885,7 +1885,7 @@ yyreduce:
     break;
 
   case 35:
-#line 401 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 401 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     if (VerifyArrayLength((yyvsp[(2) - (2)].ribarray), 16, "ConcatTransform"))
         pbrtConcatTransform((float *) (yyvsp[(2) - (2)].ribarray)->array);
@@ -1894,21 +1894,21 @@ yyreduce:
     break;
 
   case 36:
-#line 409 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 409 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     pbrtCoordinateSystem((yyvsp[(2) - (2)].string));
 ;}
     break;
 
   case 37:
-#line 415 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 415 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     pbrtCoordSysTransform((yyvsp[(2) - (2)].string));
 ;}
     break;
 
   case 38:
-#line 421 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 421 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     ParamSet params;
     InitParamSet(params, SPECTRUM_REFLECTANCE);
@@ -1918,21 +1918,21 @@ yyreduce:
     break;
 
   case 39:
-#line 430 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 430 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     pbrtIdentity();
 ;}
     break;
 
   case 40:
-#line 436 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 436 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
   include_push((yyvsp[(2) - (2)].string));
 ;}
     break;
 
   case 41:
-#line 442 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 442 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     ParamSet params;
     InitParamSet(params, SPECTRUM_ILLUMINANT);
@@ -1942,14 +1942,14 @@ yyreduce:
     break;
 
   case 42:
-#line 451 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 451 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     pbrtLookAt((yyvsp[(2) - (10)].num), (yyvsp[(3) - (10)].num), (yyvsp[(4) - (10)].num), (yyvsp[(5) - (10)].num), (yyvsp[(6) - (10)].num), (yyvsp[(7) - (10)].num), (yyvsp[(8) - (10)].num), (yyvsp[(9) - (10)].num), (yyvsp[(10) - (10)].num));
 ;}
     break;
 
   case 43:
-#line 457 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 457 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     ParamSet params;
     InitParamSet(params, SPECTRUM_REFLECTANCE);
@@ -1959,7 +1959,7 @@ yyreduce:
     break;
 
   case 44:
-#line 466 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 466 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     ParamSet params;
     InitParamSet(params, SPECTRUM_REFLECTANCE);
@@ -1969,35 +1969,35 @@ yyreduce:
     break;
 
   case 45:
-#line 475 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 475 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     pbrtNamedMaterial((yyvsp[(2) - (2)].string));
 ;}
     break;
 
   case 46:
-#line 481 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 481 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     pbrtObjectBegin((yyvsp[(2) - (2)].string));
 ;}
     break;
 
   case 47:
-#line 487 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 487 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     pbrtObjectEnd();
 ;}
     break;
 
   case 48:
-#line 493 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 493 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     pbrtObjectInstance((yyvsp[(2) - (2)].string));
 ;}
     break;
 
   case 49:
-#line 499 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 499 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     ParamSet params;
     InitParamSet(params, SPECTRUM_REFLECTANCE);
@@ -2007,7 +2007,7 @@ yyreduce:
     break;
 
   case 50:
-#line 508 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 508 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     ParamSet params;
     InitParamSet(params, SPECTRUM_REFLECTANCE);
@@ -2017,21 +2017,21 @@ yyreduce:
     break;
 
   case 51:
-#line 517 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 517 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     pbrtReverseOrientation();
 ;}
     break;
 
   case 52:
-#line 523 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 523 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     pbrtRotate((yyvsp[(2) - (5)].num), (yyvsp[(3) - (5)].num), (yyvsp[(4) - (5)].num), (yyvsp[(5) - (5)].num));
 ;}
     break;
 
   case 53:
-#line 529 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 529 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     ParamSet params;
     InitParamSet(params, SPECTRUM_REFLECTANCE);
@@ -2041,14 +2041,14 @@ yyreduce:
     break;
 
   case 54:
-#line 538 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 538 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     pbrtScale((yyvsp[(2) - (4)].num), (yyvsp[(3) - (4)].num), (yyvsp[(4) - (4)].num));
 ;}
     break;
 
   case 55:
-#line 544 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 544 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     ParamSet params;
     InitParamSet(params, SPECTRUM_REFLECTANCE);
@@ -2058,7 +2058,7 @@ yyreduce:
     break;
 
   case 56:
-#line 553 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 553 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     ParamSet params;
     InitParamSet(params, SPECTRUM_REFLECTANCE);
@@ -2068,7 +2068,7 @@ yyreduce:
     break;
 
   case 57:
-#line 562 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 562 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     ParamSet params;
     InitParamSet(params, SPECTRUM_REFLECTANCE);
@@ -2078,28 +2078,28 @@ yyreduce:
     break;
 
   case 58:
-#line 571 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 571 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     pbrtTransformBegin();
 ;}
     break;
 
   case 59:
-#line 577 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 577 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     pbrtTransformEnd();
 ;}
     break;
 
   case 60:
-#line 583 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 583 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     pbrtTransformTimes((yyvsp[(2) - (3)].num), (yyvsp[(3) - (3)].num));
 ;}
     break;
 
   case 61:
-#line 589 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 589 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     if (VerifyArrayLength( (yyvsp[(2) - (2)].ribarray), 16, "Transform" ))
         pbrtTransform( (float *) (yyvsp[(2) - (2)].ribarray)->array );
@@ -2108,14 +2108,14 @@ yyreduce:
     break;
 
   case 62:
-#line 597 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 597 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     pbrtTranslate((yyvsp[(2) - (4)].num), (yyvsp[(3) - (4)].num), (yyvsp[(4) - (4)].num));
 ;}
     break;
 
   case 63:
-#line 603 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 603 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     ParamSet params;
     InitParamSet(params, SPECTRUM_REFLECTANCE);
@@ -2125,7 +2125,7 @@ yyreduce:
     break;
 
   case 64:
-#line 612 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 612 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     ParamSet params;
     InitParamSet(params, SPECTRUM_REFLECTANCE);
@@ -2135,14 +2135,14 @@ yyreduce:
     break;
 
   case 65:
-#line 621 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 621 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     pbrtWorldBegin();
 ;}
     break;
 
   case 66:
-#line 627 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 627 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
     {
     pbrtWorldEnd();
 ;}
@@ -2150,7 +2150,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 2154 "/Users/zdenekglazer/Downloads/pbrt-v2/src/build/pbrt.build/Debug/pbrt.build/DerivedSources/Yacc/pbrtparse.cpp"
+#line 2154 "/myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Debug/pbrt.build/DerivedSources/Yacc/pbrtparse.cpp"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2364,7 +2364,7 @@ yyreturn:
 }
 
 
-#line 632 "/Users/zdenekglazer/Downloads/pbrt-v2/src/core/pbrtparse.yy"
+#line 632 "/myPrograms/PBRT-hratky/pbm/src/core/pbrtparse.yy"
 
 static const char *paramTypeToName(int type) {
     switch (type) {

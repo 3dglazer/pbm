@@ -21,6 +21,11 @@
 
  */
 
+
+// pridal jsem ja 
+#define PBRT_HAS_OPENEXR
+// tak snad
+
 #if defined(_MSC_VER)
 #define NOMINMAX 
 #pragma once
