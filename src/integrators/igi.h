@@ -29,8 +29,10 @@
 #define PBRT_INTEGRATORS_IGI_H
 
 // integrators/igi.h*
+#include "datadumper.h"
 #include "pbrt.h"
 #include "integrator.h"
+
 
 // IGIIntegrator Local Structures
 struct VirtualLight {
@@ -42,6 +44,18 @@ struct VirtualLight {
     Normal n;
     Spectrum pathContrib;
     float rayEpsilon;
+	//MC added toString
+	string toString(){
+		std::ostringstream ss;
+		ss<<"[";
+		ss<<p.x;
+		ss<<",";
+		ss<<p.y;
+		ss<<",";
+		ss<<p.z;
+		ss<<"]";
+		return ss.str();	
+	}
 };
 
 
@@ -56,16 +70,21 @@ public:
         const Sample *sample, RNG &rng, MemoryArena &arena) const;
     void RequestSamples(Sampler *sampler, Sample *sample, const Scene *scene);
     void Preprocess(const Scene *, const Camera *, const Renderer *);
-    IGIIntegrator(uint32_t nl, uint32_t ns, float rrt, int maxd, float gl, int ng) {
+	//MC have added filename to args for dumping
+    IGIIntegrator(uint32_t nl, uint32_t ns, float rrt, int maxd, float gl, int ng, string fn) {
         nLightPaths = RoundUpPow2(nl);
         nLightSets = RoundUpPow2(ns);
         rrThreshold = rrt;
         maxSpecularDepth = maxd;
         virtualLights.resize(nLightSets);
+		//MC
+		virtualPaths.resize(nLightSets*nLightPaths);
+		//end MC
         gLimit = gl;
         nGatherSamples = ng;
         lightSampleOffsets = NULL;
         bsdfSampleOffsets = NULL;
+		filename=fn;
     }
 private:
     // IGIIntegrator Private Data
@@ -81,6 +100,10 @@ private:
     int vlSetOffset;
     BSDFSampleOffsets gatherSampleOffset;
     vector<vector<VirtualLight> > virtualLights;
+	//MC vector for virtualPaths containing virtual Lights as its vertices
+	vector<vector<VirtualLight> > virtualPaths;
+	string filename;
+	DataDumper dd;
 };
 
 

@@ -89,7 +89,7 @@ public:
     const string *FindString(const string &, int *nItems) const;
     void ReportUnused() const;
     void Clear();
-    string ToString() const;
+    const string ToString() const;
     
 private:
     // ParamSet Private Data

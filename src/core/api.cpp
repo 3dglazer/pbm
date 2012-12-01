@@ -58,6 +58,8 @@
 #include "integrators/path.h"
 #include "integrators/photonmap.h"
 #include "integrators/single.h"
+//MC sem bych mel pridat svuj VolumeIntegrator
+
 #include "integrators/useprobes.h"
 #include "integrators/whitted.h"
 #include "lights/diffuse.h"
@@ -558,6 +560,8 @@ SurfaceIntegrator *MakeSurfaceIntegrator(const string &name,
 VolumeIntegrator *MakeVolumeIntegrator(const string &name,
         const ParamSet &paramSet) {
     VolumeIntegrator *vi = NULL;
+	
+	//MC sem bych mel pridat svuj VolumeIntegrator
     if (name == "single")
         vi = CreateSingleScatteringIntegrator(paramSet);
     else if (name == "emission")

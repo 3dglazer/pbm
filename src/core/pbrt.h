@@ -58,6 +58,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <string>
+//MC have added sstream
+#include <sstream>
 using std::string;
 #include <vector>
 using std::vector;

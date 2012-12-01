@@ -37,6 +37,14 @@
 IGIIntegrator::~IGIIntegrator() {
     delete[] lightSampleOffsets;
     delete[] bsdfSampleOffsets;
+	for (int i=0; i<virtualPaths.size(); i++) {
+		for (int j=0; j<virtualPaths[i].size(); j++) {
+			printf("%s \n",virtualPaths[i][j].toString().c_str());
+			dd.dump("vpl",virtualPaths[i][j].toString().c_str());
+		}
+	}
+	dd.dump2File(filename);
+	printf("file in igi is: %s",filename.c_str());
 }
 
 
@@ -81,7 +89,7 @@ void IGIIntegrator::Preprocess(const Scene *scene, const Camera *camera,
         for (uint32_t i = 0; i < nLightPaths; ++i) {
             // Follow path _i_ from light to create virtual lights
             int sampOffset = s*nLightPaths + i;
-
+			
             // Choose light source to trace virtual light path from
             float lightPdf;
             int ln = lightDistribution->SampleDiscrete(lightNum[sampOffset],
@@ -100,6 +108,7 @@ void IGIIntegrator::Preprocess(const Scene *scene, const Camera *camera,
             if (pdf == 0.f || alpha.IsBlack()) continue;
             alpha /= pdf * lightPdf;
             Intersection isect;
+			
             while (scene->Intersect(ray, &isect) && !alpha.IsBlack()) {
                 // Create virtual light and sample new ray for path
                 alpha *= renderer->Transmittance(scene, RayDifferential(ray), NULL,
@@ -109,8 +118,12 @@ void IGIIntegrator::Preprocess(const Scene *scene, const Camera *camera,
 
                 // Create virtual light at ray intersection point
                 Spectrum contrib = alpha * bsdf->rho(wo, rng) / M_PI;
-                virtualLights[s].push_back(VirtualLight(isect.dg.p, isect.dg.nn, contrib,
-                                                        isect.rayEpsilon));
+				//MC
+				VirtualLight vlTemp= VirtualLight(isect.dg.p, isect.dg.nn, contrib, isect.rayEpsilon);
+				//s*i je index virtualni cesty
+				virtualPaths[s*i].push_back(vlTemp);
+				// end MC
+                virtualLights[s].push_back(vlTemp);
 
                 // Sample new ray direction and update weight for virtual light path
                 Vector wi;
@@ -228,8 +241,14 @@ IGIIntegrator *CreateIGISurfaceIntegrator(const ParamSet &params) {
     int maxDepth = params.FindOneInt("maxdepth", 5);
     float glimit = params.FindOneFloat("glimit", 10.f);
     int gatherSamples = params.FindOneInt("gathersamples", 16);
+	//MC stores image filename from params
+	string filename = params.FindOneString("filename", PbrtOptions.imageFile);
+	printf("file name is: %s",filename.c_str());
+	printf("\n params are %s \n",params.ToString().c_str());
     return new IGIIntegrator(nLightPaths, nLightSets, rrThresh,
-                             maxDepth, glimit, gatherSamples);
+                             maxDepth, glimit, gatherSamples,filename);
+	
+	
 }
 
 

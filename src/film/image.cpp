@@ -212,6 +212,9 @@ void ImageFilm::UpdateDisplay(int x0, int y0, int x1, int y1,
 
 ImageFilm *CreateImageFilm(const ParamSet &params, Filter *filter) {
     string filename = params.FindOneString("filename", PbrtOptions.imageFile);
+	//MC
+	//printf("\n Filename is from image cpp %s \n",filename.c_str());
+	
     if (filename == "")
 #ifdef PBRT_HAS_OPENEXR
         filename = "pbrt.exr";

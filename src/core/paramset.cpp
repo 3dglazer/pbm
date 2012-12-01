@@ -415,7 +415,7 @@ void ParamSet::Clear() {
 }
 
 
-string ParamSet::ToString() const {
+const string ParamSet::ToString() const {
     string ret;
     uint32_t i;
     int j;

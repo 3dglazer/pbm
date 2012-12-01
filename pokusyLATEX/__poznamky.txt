@@ -1,0 +1,2 @@
+Implementation details:
+scene description pbrt , pridal jsem parametr filename do sampleru abych mohl dumpnout data.

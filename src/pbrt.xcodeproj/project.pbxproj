@@ -128,6 +128,7 @@
 		B1D8ECC71170310E00A8A49E /* homogeneous.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B1D8EC791170310E00A8A49E /* homogeneous.cpp */; };
 		B1D8ECC81170310E00A8A49E /* volumegrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B1D8EC7B1170310E00A8A49E /* volumegrid.cpp */; };
 		B1E1BB3F1177B63E00337ECE /* pbrtparse.yy in Sources */ = {isa = PBXBuildFile; fileRef = B1D8EB92117030F200A8A49E /* pbrtparse.yy */; };
+		D9977D01166A420600EB087A /* datadumper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9977D00166A420600EB087A /* datadumper.cpp */; };
 		D9D3969F16665BAE0004606C /* libIlmImf.6.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9D3969E16665BAE0004606C /* libIlmImf.6.0.0.dylib */; };
 		D9D396B216665D690004606C /* libIlmThread.6.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9D396B116665D690004606C /* libIlmThread.6.0.0.dylib */; };
 		D9D396B416665D690004606C /* libImath.6.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9D396B316665D690004606C /* libImath.6.0.0.dylib */; };
@@ -416,6 +417,8 @@
 		B1D8EC7B1170310E00A8A49E /* volumegrid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = volumegrid.cpp; path = volumes/volumegrid.cpp; sourceTree = SOURCE_ROOT; };
 		B1D8EC7C1170310E00A8A49E /* volumegrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = volumegrid.h; path = volumes/volumegrid.h; sourceTree = SOURCE_ROOT; };
 		B1D8ECE2117032E500A8A49E /* pbrt */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pbrt; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9977CFF166A420600EB087A /* datadumper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = datadumper.h; sourceTree = "<group>"; };
+		D9977D00166A420600EB087A /* datadumper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = datadumper.cpp; sourceTree = "<group>"; };
 		D9D3969E16665BAE0004606C /* libIlmImf.6.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIlmImf.6.0.0.dylib; path = usr/local/lib/libIlmImf.6.0.0.dylib; sourceTree = SDKROOT; };
 		D9D396B116665D690004606C /* libIlmThread.6.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIlmThread.6.0.0.dylib; path = usr/local/lib/libIlmThread.6.0.0.dylib; sourceTree = SDKROOT; };
 		D9D396B316665D690004606C /* libImath.6.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libImath.6.0.0.dylib; path = usr/local/lib/libImath.6.0.0.dylib; sourceTree = SDKROOT; };
@@ -457,6 +460,7 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				D9977CFE166A41E100EB087A /* mc */,
 				B1D8EBD91170310E00A8A49E /* film */,
 				B1D8EBDC1170310E00A8A49E /* filters */,
 				B1D8EBE71170310E00A8A49E /* integrators */,
@@ -831,6 +835,15 @@
 			name = Documentation;
 			sourceTree = "<group>";
 		};
+		D9977CFE166A41E100EB087A /* mc */ = {
+			isa = PBXGroup;
+			children = (
+				D9977CFF166A420600EB087A /* datadumper.h */,
+				D9977D00166A420600EB087A /* datadumper.cpp */,
+			);
+			name = mc;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1004,6 +1017,7 @@
 				B1E1BB3F1177B63E00337ECE /* pbrtparse.yy in Sources */,
 				B19397BB12083210008317C5 /* shinymetal.cpp in Sources */,
 				B130248E1236EE5100206AC7 /* fileutil.cpp in Sources */,
+				D9977D01166A420600EB087A /* datadumper.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
