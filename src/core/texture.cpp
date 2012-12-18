@@ -226,6 +226,18 @@ float FBm(const Point &P, const Vector &dpdx, const Vector &dpdy,
     return sum;
 }
 
+//MC added SimpleTurbulence without filtering
+float SimpleTurbulence(const Point &P, float omega, int maxOctaves) {
+    // Compute sum of octaves of noise for turbulence
+    float sum = 0., lambda = 1., o = 1.;
+    for (int i = 0; i < maxOctaves; ++i) {
+        sum += o * fabsf(Noise(lambda * P));
+        lambda *= 1.99f;
+        o *= omega;
+    }
+    return sum;
+}
+//end MC
 
 float Turbulence(const Point &P, const Vector &dpdx, const Vector &dpdy,
                  float omega, int maxOctaves) {

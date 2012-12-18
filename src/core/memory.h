@@ -135,6 +135,15 @@ public:
             usedBlocks.pop_back();
         }
     }
+	//MC added this method for progressive rendering
+	bool isFree(){
+		if(curBlockPos==0){
+			return true;
+		}else {
+			return false;
+		}
+
+	}
 private:
     // MemoryArena Private Data
     uint32_t curBlockPos, blockSize;

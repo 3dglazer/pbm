@@ -365,7 +365,30 @@ public:
         rxDirection = d + (rxDirection - d) * s;
         ryDirection = d + (ryDirection - d) * s;
     }
-
+    string toString(){
+		std::ostringstream ss;
+		ss<<"[";
+		ss<<"[";
+		ss<<o.x;
+		ss<<",";
+		ss<<o.y;
+		ss<<",";
+		ss<<o.z;
+		ss<<"]";
+		ss<<",";
+		
+		ss<<"[";
+		ss<<o.x+d.x;
+		ss<<",";
+		ss<<o.y+d.y;
+		ss<<",";
+		ss<<o.z+d.z;
+		ss<<"]";
+		
+		ss<<"]";
+		
+		return ss.str();
+	}
     // RayDifferential Public Data
     bool hasDifferentials;
     Point rxOrigin, ryOrigin;

@@ -43,10 +43,11 @@ struct RadiancePhotonProcess;
 // PhotonIntegrator Declarations
 class PhotonIntegrator : public SurfaceIntegrator {
 public:
-    // PhotonIntegrator Public Methods
+    // PhotonIntegrator Public Methods 
+	//MC added int seed variable
     PhotonIntegrator(int ncaus, int nindir, int nLookup, int maxspecdepth,
         int maxphotondepth, float maxdist, bool finalGather, int gatherSamples,
-        float ga);
+        float ga,int seed);
     ~PhotonIntegrator();
     Spectrum Li(const Scene *scene, const Renderer *renderer,
         const RayDifferential &ray, const Intersection &isect, const Sample *sample,
@@ -73,6 +74,8 @@ private:
     KdTree<Photon> *causticMap;
     KdTree<Photon> *indirectMap;
     KdTree<RadiancePhoton> *radianceMap;
+	//MC added seed value for photon shooting rng generator
+	int rngSeed;
 };
 
 

@@ -43,10 +43,10 @@ class DataDumper {
 		it=data.find(keyString);
 		if (it==data.end()) {
 			data.insert(pair<string, string>(keyString, dataString));
-			printf("new data type: %s\n",keyString.c_str());
+			//printf("new data type: %s\n",keyString.c_str());
 		}else {
 			it->second=it->second+","+dataString;
-			printf("inserting [%s,%s] ",keyString.c_str(),dataString.c_str());
+			//printf("inserting [%s,%s] ",keyString.c_str(),dataString.c_str());
 		}
 
 	}

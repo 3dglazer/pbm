@@ -36,6 +36,7 @@ ImageFilm::ImageFilm(int xres, int yres, Filter *filt, const float crop[4],
     filter = filt;
     memcpy(cropWindow, crop, 4 * sizeof(float));
     filename = fn;
+		
     // Compute film image extent
     xPixelStart = Ceil2Int(xResolution * cropWindow[0]);
     xPixelCount = max(1, Ceil2Int(xResolution * cropWindow[1]) - xPixelStart);
@@ -58,13 +59,18 @@ ImageFilm::ImageFilm(int xres, int yres, Filter *filt, const float crop[4],
             *ftp++ = filter->Evaluate(fx, fy);
         }
     }
-
+	
+		
     // Possibly open window for image display
     if (openWindow || PbrtOptions.openWindow) {
         Warning("Support for opening image display window not available in this build.");
     }
 }
 
+void ImageFilm::resetPixels(){
+	delete pixels;
+	pixels=new BlockedArray<Pixel>(xPixelCount, yPixelCount);
+}
 
 void ImageFilm::AddSample(const CameraSample &sample,
                           const Spectrum &L) {
@@ -165,6 +171,56 @@ void ImageFilm::GetPixelExtent(int *xstart, int *xend,
     *ystart = yPixelStart;
     *yend   = yPixelStart + yPixelCount;
 }
+
+//MC added overrided function WriteImage to support proggressive rendering
+void ImageFilm::WriteIterImage(int imageNumber) {
+	printf("\n Writing file number %d \n",imageNumber);
+	float splatScale=1.0;
+    // Convert image to RGB and compute final pixel values
+    int nPix = xPixelCount * yPixelCount;
+    float *rgb = new float[3*nPix];
+    int offset = 0;
+    for (int y = 0; y < yPixelCount; ++y) {
+        for (int x = 0; x < xPixelCount; ++x) {
+            // Convert pixel XYZ color to RGB
+            XYZToRGB((*pixels)(x, y).Lxyz, &rgb[3*offset]);
+			
+            // Normalize pixel with weight sum
+            float weightSum = (*pixels)(x, y).weightSum;
+            if (weightSum != 0.f) {
+                float invWt = 1.f / weightSum;
+                rgb[3*offset  ] = max(0.f, rgb[3*offset  ] * invWt);
+                rgb[3*offset+1] = max(0.f, rgb[3*offset+1] * invWt);
+                rgb[3*offset+2] = max(0.f, rgb[3*offset+2] * invWt);
+            }
+			
+            // Add splat value at pixel
+            float splatRGB[3];
+            XYZToRGB((*pixels)(x, y).splatXYZ, splatRGB);
+            rgb[3*offset  ] += splatScale * splatRGB[0];
+            rgb[3*offset+1] += splatScale * splatRGB[1];
+            rgb[3*offset+2] += splatScale * splatRGB[2];
+            ++offset;
+        }
+    }
+	char num[16]; // string which will contain the number
+	
+	sprintf (num,"%d", imageNumber );
+    // Write RGB image
+	uint32_t suffixOffset = filename.size() - 4;
+	
+	
+	string path=filename.substr(0,suffixOffset)+"_"+string(num)+filename.substr(suffixOffset,filename.length());
+	printf("\nTrying to write it in %s\n",path.c_str());
+    ::WriteImage(path, rgb, NULL, xPixelCount, yPixelCount,
+                 xResolution, yResolution, xPixelStart, yPixelStart);
+	
+    // Release temporary image memory
+    delete[] rgb;
+}
+
+
+//end MC
 
 
 void ImageFilm::WriteImage(float splatScale) {

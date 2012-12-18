@@ -74,11 +74,16 @@ void WriteImage(const string &name, float *pixels, float *alpha, int xRes,
         if (!strcmp(name.c_str() + suffixOffset, ".exr") ||
             !strcmp(name.c_str() + suffixOffset, ".EXR")) {
 			WriteImageEXR(name, pixels, alpha, xRes, yRes, totalXRes,totalYRes, xOffset, yOffset);
+        }
+		// MC added eta format :) Which will write both tga and exr
+		if (!strcmp(name.c_str() + suffixOffset, ".eta") ||
+            !strcmp(name.c_str() + suffixOffset, ".ETA")) {
+			WriteImageEXR(name, pixels, alpha, xRes, yRes, totalXRes,totalYRes, xOffset, yOffset);
 			//MC
 			string tgaName=string(name);
 			WriteImageTGA(tgaName.substr(0,suffixOffset)+".tga", pixels, alpha, xRes, yRes, totalXRes,totalYRes, xOffset, yOffset);
-             return;
-        }
+			return;
+		}
 #endif // PBRT_HAS_OPENEXR
         if (!strcmp(name.c_str() + suffixOffset, ".tga") ||
             !strcmp(name.c_str() + suffixOffset, ".TGA")) {
@@ -429,7 +434,7 @@ void WriteImageTGA(const string &name, float *pixels,
         for (int x = 0; x < xRes; ++x) {
 //#define TO_BYTE(v) (uint8_t(Clamp(255.f * powf((v), 1.f/2.3f), 0.f, 255.f)))
 			//MC vypnout gama correction??? Linear mapping??
-			#define TO_BYTE(v) (uint8_t(Clamp(500.f * powf((v), 1.f/2.3f), 0.f, 255.f)))
+			#define TO_BYTE(v) (uint8_t(Clamp(255.f * powf((v), 1.f/2.3f), 0.f, 255.f)))
             dst[0] = TO_BYTE(pixels[3*(y*xRes+x)+2]);
             dst[1] = TO_BYTE(pixels[3*(y*xRes+x)+1]);
             dst[2] = TO_BYTE(pixels[3*(y*xRes+x)+0]);

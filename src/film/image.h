@@ -51,7 +51,10 @@ public:
     void GetSampleExtent(int *xstart, int *xend, int *ystart, int *yend) const;
     void GetPixelExtent(int *xstart, int *xend, int *ystart, int *yend) const;
     void WriteImage(float splatScale);
+	void WriteIterImage(int imageNumber);
     void UpdateDisplay(int x0, int y0, int x1, int y1, float splatScale);
+	//MC added function resetPixels, which deletes them and creates new ones because of progressiverenderer
+	void resetPixels();
 private:
     // ImageFilm Private Data
     Filter *filter;
@@ -69,7 +72,7 @@ private:
         float pad;
     };
     BlockedArray<Pixel> *pixels;
-    float *filterTable;
+    float *filterTable;	
 };
 
 

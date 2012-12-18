@@ -87,6 +87,9 @@
 #include "renderers/metropolis.h"
 #include "renderers/samplerrenderer.h"
 #include "renderers/surfacepoints.h"
+//MC added my progressive renderer
+#include "renderers/progressiveRenderer.h"
+//end MC
 #include "samplers/adaptive.h"
 #include "samplers/bestcandidate.h"
 #include "samplers/halton.h"
@@ -115,6 +118,8 @@
 #include "textures/uv.h"
 #include "textures/windy.h"
 #include "textures/wrinkled.h"
+//MC added perlinvolume
+#include "volumes/perlinvolume.h"
 #include "volumes/exponential.h"
 #include "volumes/homogeneous.h"
 #include "volumes/volumegrid.h"
@@ -517,6 +522,11 @@ VolumeRegion *MakeVolumeRegion(const string &name,
         vr = CreateGridVolumeRegion(volume2world, paramSet);
     else if (name == "exponential")
         vr = CreateExponentialVolumeRegion(volume2world, paramSet);
+	//MC added my perlinVolume
+	else if(name== "perlinVolume"){
+		vr = CreatePerlinVolumeRegion(volume2world,paramSet);
+	}
+	//end MC 
     else
         Warning("Volume region \"%s\" unknown.", name.c_str());
     paramSet.ReportUnused();
@@ -1214,6 +1224,31 @@ Renderer *RenderOptions::MakeRenderer() const {
             Warning("No light sources defined in scene; "
                 "possibly rendering a black image.");
     }
+	//MC my progressive renderer
+	else if (RendererName =="progressiverenderer"){
+		//MC added progressive camera to make average images
+		Camera * progressiveCamera=MakeCamera();
+        bool visIds = RendererParams.FindOneBool("visualizeobjectids", false);
+		//MC added nIters variable
+		int nIters=RendererParams.FindOneInt("iterations", 1);
+		int seed=RendererParams.FindOneInt("seed", 1);
+        RendererParams.ReportUnused();
+        Sampler *sampler = MakeSampler(SamplerName, SamplerParams, camera->film, camera);
+        if (!sampler) Severe("Unable to create sampler.");
+        // Create surface and volume integrators
+        SurfaceIntegrator *surfaceIntegrator = MakeSurfaceIntegrator(SurfIntegratorName,
+																	 SurfIntegratorParams);
+        if (!surfaceIntegrator) Severe("Unable to create surface integrator.");
+        VolumeIntegrator *volumeIntegrator = MakeVolumeIntegrator(VolIntegratorName,
+																  VolIntegratorParams);
+        if (!volumeIntegrator) Severe("Unable to create volume integrator.");
+        renderer = new ProgressiveRenderer(sampler, camera,progressiveCamera, surfaceIntegrator,volumeIntegrator, visIds,nIters,seed);
+        // Warn if no light sources are defined
+        if (lights.size() == 0)
+            Warning("No light sources defined in scene; "
+					"possibly rendering a black image.");
+	}
+	//end MC
     // Create remaining _Renderer_ types
     else if (RendererName == "createprobes") {
         // Create surface and volume integrators

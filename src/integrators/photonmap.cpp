@@ -47,17 +47,18 @@ struct Photon {
 
 class PhotonShootingTask : public Task {
 public:
+	//MC added int seed
     PhotonShootingTask(int tn, float ti, Mutex &m, PhotonIntegrator *in,
         ProgressReporter &prog, bool &at, int &ndp,
         vector<Photon> &direct, vector<Photon> &indir, vector<Photon> &caustic,
         vector<RadiancePhoton> &rps, vector<Spectrum> &rpR, vector<Spectrum> &rpT,
         uint32_t &ns, Distribution1D *distrib, const Scene *sc,
-        const Renderer *sr)
+        const Renderer *sr,int rndSeed)
     : taskNum(tn), time(ti), mutex(m), integrator(in), progress(prog),
       abortTasks(at), nDirectPaths(ndp),
       directPhotons(direct), indirectPhotons(indir), causticPhotons(caustic),
       radiancePhotons(rps), rpReflectances(rpR), rpTransmittances(rpT),
-      nshot(ns), lightDistribution(distrib), scene(sc), renderer (sr) { }
+      nshot(ns), lightDistribution(distrib), scene(sc), renderer (sr),seed(rndSeed) { }
     void Run();
 
     int taskNum;
@@ -74,6 +75,8 @@ public:
     const Distribution1D *lightDistribution;
     const Scene *scene;
     const Renderer *renderer;
+	//MC added int seed 
+	int seed;
 };
 
 
@@ -275,9 +278,10 @@ Spectrum EPhoton(KdTree<Photon> *map, int count, int nLookup,
 
 
 // PhotonIntegrator Method Definitions
+// MC added seed variable to seed rng
 PhotonIntegrator::PhotonIntegrator(int ncaus, int nind,
         int nl, int mdepth, int mphodepth, float mdist, bool fg,
-        int gs, float ga) {
+        int gs, float ga,int seed) {
     nCausticPhotonsWanted = ncaus;
     nIndirectPhotonsWanted = nind;
     nLookup = nl;
@@ -292,6 +296,7 @@ PhotonIntegrator::PhotonIntegrator(int ncaus, int nind,
     radianceMap = NULL;
     lightSampleOffsets = NULL;
     bsdfSampleOffsets = NULL;
+	rngSeed=seed;
 }
 
 
@@ -354,7 +359,7 @@ void PhotonIntegrator::Preprocess(const Scene *scene,
             i, camera ? camera->shutterOpen : 0.f, *mutex, this, progress, abortTasks, nDirectPaths,
             directPhotons, indirectPhotons, causticPhotons, radiancePhotons,
             rpReflectances, rpTransmittances,
-            nshot, lightDistribution, scene, renderer));
+            nshot, lightDistribution, scene, renderer,rngSeed*i));
     EnqueueTasks(photonShootingTasks);
     WaitForAllTasks();
     for (uint32_t i = 0; i < photonShootingTasks.size(); ++i)
@@ -397,7 +402,8 @@ void PhotonIntegrator::Preprocess(const Scene *scene,
 void PhotonShootingTask::Run() {
     // Declare local variables for _PhotonShootingTask_
     MemoryArena arena;
-    RNG rng(31 * taskNum);
+	
+    RNG rng(seed);
     vector<Photon> localDirectPhotons, localIndirectPhotons, localCausticPhotons;
     vector<RadiancePhoton> localRadiancePhotons;
     uint32_t totalPaths = 0;
@@ -425,6 +431,7 @@ void PhotonShootingTask::Run() {
                                           time, &photonRay, &Nl, &pdf);
             if (pdf == 0.f || Le.IsBlack()) continue;
             Spectrum alpha = (AbsDot(Nl, photonRay.d) * Le) / (pdf * lightPdf);
+			
             if (!alpha.IsBlack()) {
                 // Follow photon path through scene and record intersections
                 PBRT_PHOTON_MAP_STARTED_RAY_PATH(&photonRay, &alpha);
@@ -787,9 +794,11 @@ PhotonIntegrator *CreatePhotonMapSurfaceIntegrator(const ParamSet &params) {
     if (PbrtOptions.quickRender) gatherSamples = max(1, gatherSamples / 4);
     float maxDist = params.FindOneFloat("maxdist", .1f);
     float gatherAngle = params.FindOneFloat("gatherangle", 10.f);
+	float seed= params.FindOneInt("seed",1);
+	printf("Fucking seed is %f \n",seed);
     return new PhotonIntegrator(nCaustic, nIndirect,
         nUsed, maxSpecularDepth, maxPhotonDepth, maxDist, finalGather, gatherSamples,
-        gatherAngle);
+        gatherAngle,seed);
 }
 
 

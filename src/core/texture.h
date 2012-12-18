@@ -135,6 +135,9 @@ public:
 
 float Lanczos(float, float tau=2);
 float Noise(float x, float y = .5f, float z = .5f);
+//MC added SimpleTurbulence without octave filtering
+float SimpleTurbulence(const Point &P, float omega, int maxOctaves);
+//end MC
 float Noise(const Point &P);
 float FBm(const Point &P, const Vector &dpdx, const Vector &dpdy,
     float omega, int octaves);

@@ -32,31 +32,9 @@
 #include "datadumper.h"
 #include "pbrt.h"
 #include "integrator.h"
+#include "vlstructs.h"
 
 
-// IGIIntegrator Local Structures
-struct VirtualLight {
-    VirtualLight() { }
-    VirtualLight(const Point &pp, const Normal &nn, const Spectrum &c,
-                 float reps)
-        : p(pp), n(nn), pathContrib(c), rayEpsilon(reps) { }
-    Point p;
-    Normal n;
-    Spectrum pathContrib;
-    float rayEpsilon;
-	//MC added toString
-	string toString(){
-		std::ostringstream ss;
-		ss<<"[";
-		ss<<p.x;
-		ss<<",";
-		ss<<p.y;
-		ss<<",";
-		ss<<p.z;
-		ss<<"]";
-		return ss.str();	
-	}
-};
 
 
 
@@ -71,7 +49,8 @@ public:
     void RequestSamples(Sampler *sampler, Sample *sample, const Scene *scene);
     void Preprocess(const Scene *, const Camera *, const Renderer *);
 	//MC have added filename to args for dumping
-    IGIIntegrator(uint32_t nl, uint32_t ns, float rrt, int maxd, float gl, int ng, string fn) {
+    IGIIntegrator(uint32_t nl, uint32_t ns, float rrt, int maxd, float gl, int ng,bool dumpDataFlag, string fn) {
+		dump=dumpDataFlag;
         nLightPaths = RoundUpPow2(nl);
         nLightSets = RoundUpPow2(ns);
         rrThreshold = rrt;
@@ -102,8 +81,13 @@ private:
     vector<vector<VirtualLight> > virtualLights;
 	//MC vector for virtualPaths containing virtual Lights as its vertices
 	vector<vector<VirtualLight> > virtualPaths;
+	vector<RayDifferential *> differentialRays;
 	string filename;
+	//MC Local memory arena, which holds all the vsl brdf functions
+	float globalRadius;
+	MemoryArena igiLocalArena;
 	DataDumper dd;
+	bool dump;
 };
 
 

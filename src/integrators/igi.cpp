@@ -35,15 +35,26 @@
 
 // IGIIntegrator Method Definitions
 IGIIntegrator::~IGIIntegrator() {
+	
     delete[] lightSampleOffsets;
     delete[] bsdfSampleOffsets;
+	
+	if (dump==false) {
+		return;
+	}
 	for (int i=0; i<virtualPaths.size(); i++) {
 		for (int j=0; j<virtualPaths[i].size(); j++) {
-			printf("%s \n",virtualPaths[i][j].toString().c_str());
+			//printf("%s \n",virtualPaths[i][j].toString().c_str());
 			dd.dump("vpl",virtualPaths[i][j].toString().c_str());
 		}
 	}
+	for (int j=0;j<differentialRays.size();j++){
+		dd.dump("rdf",differentialRays[j]->toString().c_str());
+	}
 	dd.dump2File(filename);
+	
+	//freeing memory arena
+	igiLocalArena.FreeAll();
 	printf("file in igi is: %s",filename.c_str());
 }
 
@@ -71,8 +82,16 @@ void IGIIntegrator::RequestSamples(Sampler *sampler, Sample *sample,
 void IGIIntegrator::Preprocess(const Scene *scene, const Camera *camera,
                                const Renderer *renderer) {
     if (scene->lights.size() == 0) return;
-    MemoryArena arena;
+    //MC changed arena to localArena igi member variable MemoryArena arena; I have also added isFree() method to local Arena 
+	if (!igiLocalArena.isFree()) {
+		igiLocalArena.FreeAll();
+		
+	}
+	//have to delete all the lights created by now
+	virtualLights.clear();
+	printf("\n=====vl size is %d=====\n",virtualLights.size());
     RNG rng;
+	rng.Seed(1000);
     // Compute samples for emitted rays from lights
     vector<float> lightNum(nLightPaths * nLightSets);
     vector<float> lightSampPos(2 * nLightPaths * nLightSets, 0.f);
@@ -105,24 +124,31 @@ void IGIIntegrator::Preprocess(const Scene *scene, const Camera *camera,
             Spectrum alpha = light->Sample_L(scene, ls, lightSampDir[2*sampOffset],
                                              lightSampDir[2*sampOffset+1],
                                              camera->shutterOpen, &ray, &Nl, &pdf);
+			
             if (pdf == 0.f || alpha.IsBlack()) continue;
             alpha /= pdf * lightPdf;
             Intersection isect;
 			
+			
+			
+			
             while (scene->Intersect(ray, &isect) && !alpha.IsBlack()) {
                 // Create virtual light and sample new ray for path
                 alpha *= renderer->Transmittance(scene, RayDifferential(ray), NULL,
-                                                 rng, arena);
+                                                 rng, igiLocalArena);
                 Vector wo = -ray.d;
-                BSDF *bsdf = isect.GetBSDF(ray, arena);
+                BSDF *bsdf = isect.GetBSDF(ray, igiLocalArena);
 
                 // Create virtual light at ray intersection point
                 Spectrum contrib = alpha * bsdf->rho(wo, rng) / M_PI;
-				//MC
-				VirtualLight vlTemp= VirtualLight(isect.dg.p, isect.dg.nn, contrib, isect.rayEpsilon);
+				//MC saving the bsdf in the virtual light -- for now only global radius is used 
+				globalRadius=0.1;
+				VirtualLight vlTemp= VirtualLight(isect.dg.p, isect.dg.nn, contrib, isect.rayEpsilon,globalRadius,bsdf);
 				//s*i je index virtualni cesty
 				virtualPaths[s*i].push_back(vlTemp);
+				differentialRays.push_back(new RayDifferential(ray));
 				// end MC
+				
                 virtualLights[s].push_back(vlTemp);
 
                 // Sample new ray direction and update weight for virtual light path
@@ -141,7 +167,8 @@ void IGIIntegrator::Preprocess(const Scene *scene, const Camera *camera,
                 alpha *= contribScale / rrProb;
                 ray = RayDifferential(isect.dg.p, wi, ray, isect.rayEpsilon);
             }
-            arena.FreeAll();
+			//MC local arena is not freed until the igi object destruction 
+            //localArena.FreeAll();
         }
     }
     delete lightDistribution;
@@ -150,17 +177,17 @@ void IGIIntegrator::Preprocess(const Scene *scene, const Camera *camera,
 
 Spectrum IGIIntegrator::Li(const Scene *scene, const Renderer *renderer,
         const RayDifferential &ray, const Intersection &isect,
-        const Sample *sample, RNG &rng, MemoryArena &arena) const {
+        const Sample *sample, RNG &rng, MemoryArena &localArena) const {
     Spectrum L(0.);
     Vector wo = -ray.d;
     // Compute emitted light if ray hit an area light source
     L += isect.Le(wo);
 
     // Evaluate BSDF at hit point
-    BSDF *bsdf = isect.GetBSDF(ray, arena);
+    BSDF *bsdf = isect.GetBSDF(ray, localArena);
     const Point &p = bsdf->dgShading.p;
     const Normal &n = bsdf->dgShading.nn;
-    L += UniformSampleAllLights(scene, renderer, arena, p, n,
+    L += UniformSampleAllLights(scene, renderer, localArena, p, n,
                     wo, isect.rayEpsilon, ray.time, bsdf, sample, rng,
                     lightSampleOffsets, bsdfSampleOffsets);
     // Compute indirect illumination with virtual lights
@@ -178,7 +205,7 @@ Spectrum IGIIntegrator::Li(const Scene *scene, const Renderer *renderer,
         Spectrum Llight = f * G * vl.pathContrib / nLightPaths;
         RayDifferential connectRay(p, wi, ray, isect.rayEpsilon,
                                    sqrtf(d2) * (1.f - vl.rayEpsilon));
-        Llight *= renderer->Transmittance(scene, connectRay, NULL, rng, arena);
+        Llight *= renderer->Transmittance(scene, connectRay, NULL, rng, localArena);
 
         // Possibly skip virtual light shadow ray with Russian roulette
         if (Llight.y() < rrThreshold) {
@@ -192,6 +219,7 @@ Spectrum IGIIntegrator::Li(const Scene *scene, const Renderer *renderer,
         if (!scene->IntersectP(connectRay))
             L += Llight;
     }
+	/*
     if (ray.depth < maxSpecularDepth) {
         // Do bias compensation for bounding geometry term
         int nSamples = (ray.depth == 0) ? nGatherSamples : 1;
@@ -207,7 +235,7 @@ Spectrum IGIIntegrator::Li(const Scene *scene, const Renderer *renderer,
                 float maxDist = sqrtf(AbsDot(wi, n) / gLimit);
                 RayDifferential gatherRay(p, wi, ray, isect.rayEpsilon, maxDist);
                 Intersection gatherIsect;
-                Spectrum Li = renderer->Li(scene, gatherRay, sample, rng, arena,
+                Spectrum Li = renderer->Li(scene, gatherRay, sample, rng, localArena,
                                            &gatherIsect);
                 if (Li.IsBlack()) continue;
 
@@ -221,13 +249,15 @@ Spectrum IGIIntegrator::Li(const Scene *scene, const Renderer *renderer,
             }
         }
     }
+	
+	*/
     if (ray.depth + 1 < maxSpecularDepth) {
         Vector wi;
         // Trace rays for specular reflection and refraction
         L += SpecularReflect(ray, bsdf, rng, isect, renderer, scene, sample,
-                             arena);
+                             localArena);
         L += SpecularTransmit(ray, bsdf, rng, isect, renderer, scene, sample,
-                              arena);
+                              localArena);
     }
     return L;
 }
@@ -243,10 +273,11 @@ IGIIntegrator *CreateIGISurfaceIntegrator(const ParamSet &params) {
     int gatherSamples = params.FindOneInt("gathersamples", 16);
 	//MC stores image filename from params
 	string filename = params.FindOneString("filename", PbrtOptions.imageFile);
-	printf("file name is: %s",filename.c_str());
-	printf("\n params are %s \n",params.ToString().c_str());
+	bool dump=params.FindOneBool("dump", false);
+	//printf("file name is: %s",filename.c_str());
+	//printf("\n params are %s \n",params.ToString().c_str());
     return new IGIIntegrator(nLightPaths, nLightSets, rrThresh,
-                             maxDepth, glimit, gatherSamples,filename);
+                             maxDepth, glimit, gatherSamples,dump,filename);
 	
 	
 }

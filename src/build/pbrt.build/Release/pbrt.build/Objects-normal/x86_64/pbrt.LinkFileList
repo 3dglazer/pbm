@@ -119,3 +119,6 @@
 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/shinymetal.o
 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/fileutil.o
 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/datadumper.o
+/myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/progressiveRenderer.o
+/myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/perlinvolume.o
+/myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/vplpreprocess.o

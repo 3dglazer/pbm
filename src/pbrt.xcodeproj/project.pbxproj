@@ -128,6 +128,9 @@
 		B1D8ECC71170310E00A8A49E /* homogeneous.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B1D8EC791170310E00A8A49E /* homogeneous.cpp */; };
 		B1D8ECC81170310E00A8A49E /* volumegrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B1D8EC7B1170310E00A8A49E /* volumegrid.cpp */; };
 		B1E1BB3F1177B63E00337ECE /* pbrtparse.yy in Sources */ = {isa = PBXBuildFile; fileRef = B1D8EB92117030F200A8A49E /* pbrtparse.yy */; };
+		D992044C167B979C0091B470 /* progressiveRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D992044B167B979C0091B470 /* progressiveRenderer.cpp */; };
+		D99204A6167B9D080091B470 /* perlinvolume.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D99204A5167B9D080091B470 /* perlinvolume.cpp */; };
+		D99207391680CE290091B470 /* particleshooter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D99207381680CE290091B470 /* particleshooter.cpp */; };
 		D9977D01166A420600EB087A /* datadumper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9977D00166A420600EB087A /* datadumper.cpp */; };
 		D9D3969F16665BAE0004606C /* libIlmImf.6.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9D3969E16665BAE0004606C /* libIlmImf.6.0.0.dylib */; };
 		D9D396B216665D690004606C /* libIlmThread.6.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D9D396B116665D690004606C /* libIlmThread.6.0.0.dylib */; };
@@ -417,6 +420,13 @@
 		B1D8EC7B1170310E00A8A49E /* volumegrid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = volumegrid.cpp; path = volumes/volumegrid.cpp; sourceTree = SOURCE_ROOT; };
 		B1D8EC7C1170310E00A8A49E /* volumegrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = volumegrid.h; path = volumes/volumegrid.h; sourceTree = SOURCE_ROOT; };
 		B1D8ECE2117032E500A8A49E /* pbrt */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pbrt; sourceTree = BUILT_PRODUCTS_DIR; };
+		D992044A167B979C0091B470 /* progressiveRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = progressiveRenderer.h; sourceTree = "<group>"; };
+		D992044B167B979C0091B470 /* progressiveRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = progressiveRenderer.cpp; sourceTree = "<group>"; };
+		D99204A4167B9D080091B470 /* perlinvolume.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = perlinvolume.h; sourceTree = "<group>"; };
+		D99204A5167B9D080091B470 /* perlinvolume.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = perlinvolume.cpp; sourceTree = "<group>"; };
+		D99207371680CE290091B470 /* particleshooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = particleshooter.h; sourceTree = "<group>"; };
+		D99207381680CE290091B470 /* particleshooter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = particleshooter.cpp; sourceTree = "<group>"; };
+		D992073B1680D3A00091B470 /* vlstructs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vlstructs.h; sourceTree = "<group>"; };
 		D9977CFF166A420600EB087A /* datadumper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = datadumper.h; sourceTree = "<group>"; };
 		D9977D00166A420600EB087A /* datadumper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = datadumper.cpp; sourceTree = "<group>"; };
 		D9D3969E16665BAE0004606C /* libIlmImf.6.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIlmImf.6.0.0.dylib; path = usr/local/lib/libIlmImf.6.0.0.dylib; sourceTree = SDKROOT; };
@@ -730,6 +740,8 @@
 				B1D8EC341170310E00A8A49E /* metropolis.cpp */,
 				B1D8EC351170310E00A8A49E /* metropolis.h */,
 				B1D8EC361170310E00A8A49E /* samplerrenderer.cpp */,
+				D992044A167B979C0091B470 /* progressiveRenderer.h */,
+				D992044B167B979C0091B470 /* progressiveRenderer.cpp */,
 				B1D8EC371170310E00A8A49E /* samplerrenderer.h */,
 				B1D8EC381170310E00A8A49E /* surfacepoints.cpp */,
 				B1D8EC391170310E00A8A49E /* surfacepoints.h */,
@@ -824,6 +836,8 @@
 				B1D8EC7A1170310E00A8A49E /* homogeneous.h */,
 				B1D8EC7B1170310E00A8A49E /* volumegrid.cpp */,
 				B1D8EC7C1170310E00A8A49E /* volumegrid.h */,
+				D99204A4167B9D080091B470 /* perlinvolume.h */,
+				D99204A5167B9D080091B470 /* perlinvolume.cpp */,
 			);
 			path = volumes;
 			sourceTree = SOURCE_ROOT;
@@ -840,6 +854,9 @@
 			children = (
 				D9977CFF166A420600EB087A /* datadumper.h */,
 				D9977D00166A420600EB087A /* datadumper.cpp */,
+				D99207371680CE290091B470 /* particleshooter.h */,
+				D99207381680CE290091B470 /* particleshooter.cpp */,
+				D992073B1680D3A00091B470 /* vlstructs.h */,
 			);
 			name = mc;
 			sourceTree = "<group>";
@@ -1018,6 +1035,9 @@
 				B19397BB12083210008317C5 /* shinymetal.cpp in Sources */,
 				B130248E1236EE5100206AC7 /* fileutil.cpp in Sources */,
 				D9977D01166A420600EB087A /* datadumper.cpp in Sources */,
+				D992044C167B979C0091B470 /* progressiveRenderer.cpp in Sources */,
+				D99204A6167B9D080091B470 /* perlinvolume.cpp in Sources */,
+				D99207391680CE290091B470 /* particleshooter.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
