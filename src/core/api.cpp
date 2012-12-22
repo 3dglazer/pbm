@@ -166,6 +166,7 @@ struct RenderOptions {
     RenderOptions();
     Scene *MakeScene();
     Camera *MakeCamera() const;
+	Film *MakeFm() const;
     Renderer *MakeRenderer() const;
 
     // RenderOptions Public Data
@@ -1228,10 +1229,23 @@ Renderer *RenderOptions::MakeRenderer() const {
 	else if (RendererName =="progressiverenderer"){
 		//MC added progressive camera to make average images
 		Camera * progressiveCamera=MakeCamera();
+		// surface to surface
+		Film* ss=MakeFm();
+		// media to surface
+		Film* ms=MakeFm();
+		// media to media
+		Film* mm=MakeFm();
+		// surface to media
+		Film* sm=MakeFm();
+		
         bool visIds = RendererParams.FindOneBool("visualizeobjectids", false);
 		//MC added nIters variable
 		int nIters=RendererParams.FindOneInt("iterations", 1);
 		int seed=RendererParams.FindOneInt("seed", 1);
+		//MC for preprocessing stage where are paths for precomputed radiance particles shooted
+		int nPaths=RendererParams.FindOneInt("nPaths", 1000);
+		float radius=RendererParams.FindOneFloat("radius", 0.1);
+		//end of MC
         RendererParams.ReportUnused();
         Sampler *sampler = MakeSampler(SamplerName, SamplerParams, camera->film, camera);
         if (!sampler) Severe("Unable to create sampler.");
@@ -1242,7 +1256,7 @@ Renderer *RenderOptions::MakeRenderer() const {
         VolumeIntegrator *volumeIntegrator = MakeVolumeIntegrator(VolIntegratorName,
 																  VolIntegratorParams);
         if (!volumeIntegrator) Severe("Unable to create volume integrator.");
-        renderer = new ProgressiveRenderer(sampler, camera,progressiveCamera, surfaceIntegrator,volumeIntegrator, visIds,nIters,seed);
+        renderer = new ProgressiveRenderer(sampler, camera, progressiveCamera,ss,sm,ms, mm, surfaceIntegrator,volumeIntegrator, visIds,nIters,nPaths,radius,seed);
         // Warn if no light sources are defined
         if (lights.size() == 0)
             Warning("No light sources defined in scene; "
@@ -1310,5 +1324,9 @@ Camera *RenderOptions::MakeCamera() const {
     if (!camera) Severe("Unable to create camera.");
     return camera;
 }
-
+Film *RenderOptions::MakeFm() const{
+	Filter *filter = MakeFilter(FilterName, FilterParams);
+    Film *film = MakeFilm(FilmName, FilmParams, filter);
+	return film;
+}
 

@@ -23,8 +23,8 @@ public:
     // ExponentialDensity Public Methods
     PerlinDensity(const Spectrum &sa, const Spectrum &ss,
                        float gg, const Spectrum &emit, const BBox &e,
-                       const Transform &v2w,int nOctaves,float omega)
-	: DensityRegion(sa, ss, gg, emit, v2w), extent(e) ,omg(omega),octaves(nOctaves){
+                       const Transform &v2w,int nOctaves,float omega,float frequency,bool inv)
+	: DensityRegion(sa, ss, gg, emit, v2w), extent(e) ,omg(omega),octaves(nOctaves),freq(frequency),inverted(inv){
     }
     BBox WorldBound() const { return Inverse(WorldToVolume)(extent); }
     bool IntersectP(const Ray &r, float *t0, float *t1) const {
@@ -33,13 +33,19 @@ public:
     }
     float Density(const Point &Pobj) const {
         if (!extent.Inside(Pobj)) return 0;
-        return SimpleTurbulence(Pobj, omg, octaves);
+//		if (inverted) {
+//			return 1-SimpleTurbulence(Pobj, omg, octaves,freq);
+//		}
+        return SimpleTurbulence(Pobj, omg, octaves,freq);
     }
 private:
     // PerlinDensity Private Data
     BBox extent;
 	float omg;
 	int octaves;
+	float freq;
+	//for inverted volume density with finer details :)
+	bool inverted;
 };
 
 

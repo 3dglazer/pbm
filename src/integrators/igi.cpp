@@ -33,6 +33,11 @@
 #include "paramset.h"
 #include "camera.h"
 
+
+//MC tests with volumetric photon mapping
+#include "photonDisc.h"
+#include "bvh.h"
+
 // IGIIntegrator Method Definitions
 IGIIntegrator::~IGIIntegrator() {
 	
@@ -42,6 +47,7 @@ IGIIntegrator::~IGIIntegrator() {
 	if (dump==false) {
 		return;
 	}
+	/*
 	for (int i=0; i<virtualPaths.size(); i++) {
 		for (int j=0; j<virtualPaths[i].size(); j++) {
 			//printf("%s \n",virtualPaths[i][j].toString().c_str());
@@ -52,7 +58,7 @@ IGIIntegrator::~IGIIntegrator() {
 		dd.dump("rdf",differentialRays[j]->toString().c_str());
 	}
 	dd.dump2File(filename);
-	
+	*/
 	//freeing memory arena
 	igiLocalArena.FreeAll();
 	printf("file in igi is: %s",filename.c_str());
@@ -78,10 +84,30 @@ void IGIIntegrator::RequestSamples(Sampler *sampler, Sample *sample,
     gatherSampleOffset = BSDFSampleOffsets(nGatherSamples, sample);
 }
 
+void IGIIntegrator::setSurfaceLights(vector<VirtualSphericalLight> &vsl){
+	
+	vsls=vsl;
+	
+	int npd=vsls.size();
+	vector<Reference<Primitive> > photonDiscs;
+	photonDiscs.reserve(npd);
+	for (int i=0; i<npd; i++) {
+//		Shape* shape=new PhotonDisc(new Point(),0.7);
+		//Reference<Primitive> prim=new GeometricPrimitive(shape, NULL, NULL);
+		//photonDiscs.push_back(prim) ;
+	}
+	
 
+	//printf("\n in igi vsl size is %d \n",vsls.size());
+}
 void IGIIntegrator::Preprocess(const Scene *scene, const Camera *camera,
                                const Renderer *renderer) {
-    if (scene->lights.size() == 0) return;
+	
+	
+	
+	//vsls=ps->vsls;
+	
+    /*if (scene->lights.size() == 0) return;
     //MC changed arena to localArena igi member variable MemoryArena arena; I have also added isFree() method to local Arena 
 	if (!igiLocalArena.isFree()) {
 		igiLocalArena.FreeAll();
@@ -89,7 +115,7 @@ void IGIIntegrator::Preprocess(const Scene *scene, const Camera *camera,
 	}
 	//have to delete all the lights created by now
 	virtualLights.clear();
-	printf("\n=====vl size is %d=====\n",virtualLights.size());
+	printf("\n===== vl size is %d =====\n",virtualLights.size());
     RNG rng;
 	rng.Seed(1000);
     // Compute samples for emitted rays from lights
@@ -143,7 +169,7 @@ void IGIIntegrator::Preprocess(const Scene *scene, const Camera *camera,
                 Spectrum contrib = alpha * bsdf->rho(wo, rng) / M_PI;
 				//MC saving the bsdf in the virtual light -- for now only global radius is used 
 				globalRadius=0.1;
-				VirtualLight vlTemp= VirtualLight(isect.dg.p, isect.dg.nn, contrib, isect.rayEpsilon,globalRadius,bsdf);
+				VirtualLight vlTemp= VirtualLight(isect.dg.p, isect.dg.nn, contrib, isect.rayEpsilon,bsdf);
 				//s*i je index virtualni cesty
 				virtualPaths[s*i].push_back(vlTemp);
 				differentialRays.push_back(new RayDifferential(ray));
@@ -172,6 +198,7 @@ void IGIIntegrator::Preprocess(const Scene *scene, const Camera *camera,
         }
     }
     delete lightDistribution;
+	 */
 }
 
 
@@ -191,10 +218,12 @@ Spectrum IGIIntegrator::Li(const Scene *scene, const Renderer *renderer,
                     wo, isect.rayEpsilon, ray.time, bsdf, sample, rng,
                     lightSampleOffsets, bsdfSampleOffsets);
     // Compute indirect illumination with virtual lights
-    uint32_t lSet = min(uint32_t(sample->oneD[vlSetOffset][0] * nLightSets),
-                        nLightSets-1);
-    for (uint32_t i = 0; i < virtualLights[lSet].size(); ++i) {
-        const VirtualLight &vl = virtualLights[lSet][i];
+   // uint32_t lSet = min(uint32_t(sample->oneD[vlSetOffset][0] * nLightSets),
+                    //    nLightSets-1);
+	//MC deleted virtualLights sets
+    for (uint32_t i = 0; i < vsls.size(); ++i) {
+		//printf("\n======iterating over vsls========");
+        const VirtualSphericalLight &vl = vsls[i];
         // Compute virtual light's tentative contribution _Llight_
         float d2 = DistanceSquared(p, vl.p);
         Vector wi = Normalize(vl.p - p);
@@ -202,7 +231,7 @@ Spectrum IGIIntegrator::Li(const Scene *scene, const Renderer *renderer,
         G = min(G, gLimit);
         Spectrum f = bsdf->f(wo, wi);
         if (G == 0.f || f.IsBlack()) continue;
-        Spectrum Llight = f * G * vl.pathContrib / nLightPaths;
+        Spectrum Llight = f * G * vl.pathContrib;
         RayDifferential connectRay(p, wi, ray, isect.rayEpsilon,
                                    sqrtf(d2) * (1.f - vl.rayEpsilon));
         Llight *= renderer->Transmittance(scene, connectRay, NULL, rng, localArena);

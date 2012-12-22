@@ -34,14 +34,16 @@
 #include "pbrt.h"
 #include "renderer.h"
 #include "parallel.h"
+#include "particleshooter.h"
+
 
 // ProgressiveRenderer Declarations
 class ProgressiveRenderer : public Renderer {
 public:
     // SamplerRenderer Public Methods, should add something like nIterations,
 	//MC added nIterations
-    ProgressiveRenderer(Sampler *s, Camera *c,Camera *prc, SurfaceIntegrator *si,
-                    VolumeIntegrator *vi, bool visIds,int nIterations,int rndSeed);
+    ProgressiveRenderer(Sampler *s, Camera *c,Camera *prc,Film* surface2surface,Film* surface2media,Film* media2surface, Film* media2media, SurfaceIntegrator *si,
+                    VolumeIntegrator *vi, bool visIds,int nIterations,int nps,float rad,int rndSeed);
     ~ProgressiveRenderer();
     void Render(const Scene *scene);
     Spectrum Li(const Scene *scene, const RayDifferential &ray,
@@ -60,7 +62,22 @@ private:
 	void renderIter(int currentIter,const Scene *scene,Sample* sample);
 	int nIter;
 	int seed;
+	//MC added these params
 	Camera* progCamera;
+	//custom films for different light contribution computation types
+	// surface to surface
+	Film* ss;
+	// media to surface
+	Film* ms;
+	// media to media
+	Film* mm;
+	// surface to media
+	Film* sm;
+	//MC particle shooter stuff 
+	//ParticleShooter *particleShooter;
+	int nParticles;
+	float radius;
+	//end of MC
 };
 
 
@@ -69,13 +86,19 @@ private:
 class ProgressiveRendererTask : public Task {
 public:
     // ProgressiveRendererTask Public Methods added prc Camera which is used to compute averaged image
-    ProgressiveRendererTask(const Scene *sc, Renderer *ren, Camera *c, Camera * prc,
+    ProgressiveRendererTask(const Scene *sc, Renderer *ren, Camera *c, Camera * prc,Film* surface2surface,Film* surface2media,Film* media2surface, Film* media2media,
                         ProgressReporter &pr, Sampler *ms, Sample *sam, 
                         bool visIds, int tn, int tc,int sd)
 	: reporter(pr)
     {
         scene = sc; renderer = ren; camera = c; progCamera=prc; mainSampler = ms;
-        origSample = sam; visualizeObjectIds = visIds; taskNum = tn; taskCount = tc; seed=sd;
+        origSample = sam; visualizeObjectIds = visIds; taskNum = tn; taskCount = tc;
+		ss=surface2surface;
+		m2s=media2surface;
+		mm=media2media;
+		sm=surface2media;
+		seed=sd;
+		
     }
     void Run();
 private:
@@ -88,8 +111,18 @@ private:
     Sample *origSample;
     bool visualizeObjectIds;
     int taskNum, taskCount;
-//MC added seed value
+	//MC added these params
 	Camera* progCamera;
+	//custom films for different light contribution computation types
+	// surface to surface
+	Film* ss;
+	// media to surface
+	Film* m2s;
+	// media to media
+	Film* mm;
+	// surface to media
+	Film* sm;
+	
 	int seed;
 };
 

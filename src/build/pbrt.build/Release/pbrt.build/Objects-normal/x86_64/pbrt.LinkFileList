@@ -121,4 +121,5 @@
 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/datadumper.o
 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/progressiveRenderer.o
 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/perlinvolume.o
-/myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/vplpreprocess.o
+/myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/particleshooter.o
+/myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/photonDisc.o

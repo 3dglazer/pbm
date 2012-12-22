@@ -267,7 +267,8 @@ static uint32_t GeneratePath(const RayDifferential &r,
             return length+1;
         }
         alpha *= pathScale / rrSurviveProb;
-        //alpha *= renderer->Transmittance(scene, ray, NULL, rng, arena);
+		//MC uncommented alpha with transmittance
+        //alpha *= Transmittance(scene, ray, NULL, rng, arena);
         ray = RayDifferential(p, v.wNext, ray, v.isect.rayEpsilon);
     }
     PBRT_MLT_FINISHED_GENERATE_PATH();
@@ -797,6 +798,8 @@ Spectrum MetropolisRenderer::Li(const Scene *scene, const RayDifferential &ray,
 Spectrum MetropolisRenderer::Transmittance(const Scene *scene, const RayDifferential &ray,
     const Sample *sample, RNG &rng, MemoryArena &arena) const {
     return 1.f;
+	//MC commented return 1.f and added volumeIntegrator
+	//return volumeIntegrator->Transmittance(scene, this, ray, sample,rng, arena);
 }
 
 

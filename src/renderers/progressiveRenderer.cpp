@@ -136,6 +136,8 @@ void ProgressiveRendererTask::Run() {
                 camera->film->AddSample(samples[i], Ls[i]);
 				//MC added progCamera
 				progCamera->film->AddSample(samples[i], Ls[i]);
+				
+				
                 PBRT_FINISHED_ADDING_IMAGE_SAMPLE();
             }
         }
@@ -160,17 +162,25 @@ void ProgressiveRendererTask::Run() {
 
 
 // SamplerRenderer Method Definitions
-ProgressiveRenderer::ProgressiveRenderer(Sampler *s, Camera *c,Camera* prc,
-                                 SurfaceIntegrator *si, VolumeIntegrator *vi,
-                                 bool visIds, int nIterations,int rndSeed) {
+ProgressiveRenderer::ProgressiveRenderer(Sampler *s, Camera *c,Camera *prc,Film* surface2surface,Film* surface2media,Film* media2surface, Film* media2media, SurfaceIntegrator *si,
+										 VolumeIntegrator *vi, bool visIds,int nIterations,int nps,float rad,int rndSeed) {
     sampler = s;
     camera = c;
 	progCamera=prc;
+	//films
+	ss=surface2surface;
+	ms=media2surface;
+	mm=media2media;
+	sm=surface2media;
+	//end of films
     surfaceIntegrator = si;
     volumeIntegrator = vi;
     visualizeObjectIds = visIds;
 	nIter=nIterations;
 	seed=rndSeed;
+//MC for particle shooter 
+	nParticles=nps;
+	radius=rad;
 }
 
 
@@ -185,6 +195,11 @@ ProgressiveRenderer::~ProgressiveRenderer() {
 void ProgressiveRenderer::renderIter(int currentIter,const Scene *scene, Sample *sample){
 	// Allow integrators to do preprocessing for the scene
     PBRT_STARTED_PREPROCESSING();
+	//MC added particle shooter, which is preprocessing stage for photon or vpls,vsl,vrl shooting
+	ParticleShooter * particleShooter=new ParticleShooter(seed*(currentIter+1));
+	printf("Preprocessing stage shooting particles nPaths %d, %f",nParticles,radius);
+	particleShooter->shootParticles(scene, camera, this,nParticles,radius);
+	surfaceIntegrator->setSurfaceLights(particleShooter->vsls);
     surfaceIntegrator->Preprocess(scene, camera, this);
     volumeIntegrator->Preprocess(scene, camera, this);
     PBRT_FINISHED_PREPROCESSING();
@@ -205,10 +220,10 @@ void ProgressiveRenderer::renderIter(int currentIter,const Scene *scene, Sample 
     vector<Task *> renderTasks;
     for (int i = 0; i < nTasks; ++i)
 		//MC added progressive camera
-        renderTasks.push_back(new ProgressiveRendererTask(scene, this, camera,progCamera,
+        renderTasks.push_back(new ProgressiveRendererTask(scene, this, camera,progCamera,ss,sm,ms,mm,
 														  reporter, sampler, sample, 
 														  visualizeObjectIds, 
-														  nTasks-1-i, nTasks,seed));
+														  nTasks-1-i, nTasks,seed*(currentIter+1)));
     EnqueueTasks(renderTasks);
     WaitForAllTasks();
     for (uint32_t i = 0; i < renderTasks.size(); ++i)
@@ -218,6 +233,7 @@ void ProgressiveRenderer::renderIter(int currentIter,const Scene *scene, Sample 
    
 	//MC adding frame number after name 
     camera->film->WriteIterImage(currentIter);
+	delete particleShooter;
 	// have to 
 }
 

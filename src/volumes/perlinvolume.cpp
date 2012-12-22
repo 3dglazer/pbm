@@ -23,10 +23,12 @@ PerlinDensity *CreatePerlinVolumeRegion(const Transform &volume2world,
 	//need number of octaves
 	int nOctaves=params.FindOneInt("nOctaves", 3);
 	float omega=params.FindOneFloat("omega", 0.5);
+	float frequency=params.FindOneFloat("frequency", 2.0);
     Point p0 = params.FindOnePoint("p0", Point(0,0,0));
     Point p1 = params.FindOnePoint("p1", Point(1,1,1));
+	bool inverted=params.FindOneBool("inverted", false);
     return new PerlinDensity(sigma_a, sigma_s, g, Le, BBox(p0, p1),
-								  volume2world,nOctaves,omega);
+								  volume2world,nOctaves,omega,frequency,inverted);
 }
 
 

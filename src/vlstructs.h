@@ -10,12 +10,14 @@
 
 #ifndef PBRT_VLSTRUCTS_H
 #define PBRT_VLSTRUCTS_H
-
+#include "pbrt.h"
+#include "geometry.h"
+#include "integrator.h"
 // VirtualLight struct
 struct VirtualLight {
     VirtualLight() { }
     VirtualLight(const Point &pp, const Normal &nn, const Spectrum &c,
-                 float reps)
+                 float reps, BSDF *bs)
 	: p(pp), n(nn), pathContrib(c), rayEpsilon(reps) { }
 	
     Point p;
@@ -23,7 +25,17 @@ struct VirtualLight {
     Spectrum pathContrib;
 	
     float rayEpsilon;
-
+	string toString(){
+		std::ostringstream ss;
+		ss<<"[";
+		ss<<p.x;
+		ss<<",";
+		ss<<p.y;
+		ss<<",";
+		ss<<p.z;
+		ss<<"]";
+		return ss.str();	
+	}
 };
 
 struct VirtualSphericalLight {
@@ -53,7 +65,15 @@ struct VirtualSphericalLight {
     float rayEpsilon;
 	//MC added radius
 	float radius;
-}
+};
+
+struct VolumeVSL {
+	VolumeVSL();
+	
+};
+
+struct VolumePath{};
+struct SurfaceLight{};
 
 
 #endif

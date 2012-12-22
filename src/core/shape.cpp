@@ -31,6 +31,7 @@ Shape::~Shape() {
 }
 
 
+
 Shape::Shape(const Transform *o2w, const Transform *w2o, bool ro)
     : ObjectToWorld(o2w), WorldToObject(w2o), ReverseOrientation(ro),
       TransformSwapsHandedness(o2w->SwapsHandedness()),
@@ -42,6 +43,9 @@ Shape::Shape(const Transform *o2w, const Transform *w2o, bool ro)
 
 uint32_t Shape::nextshapeId = 1;
 BBox Shape::WorldBound() const {
+	if (ObjectToWorld==NULL) {
+		return (ObjectBound());
+	}
     return (*ObjectToWorld)(ObjectBound());
 }
 

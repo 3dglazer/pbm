@@ -32,9 +32,8 @@
 #include "datadumper.h"
 #include "pbrt.h"
 #include "integrator.h"
-#include "vlstructs.h"
-
-
+//#include "vlstructs.h"
+#include "particleshooter.h"
 
 
 
@@ -47,7 +46,8 @@ public:
         const RayDifferential &ray, const Intersection &isect,
         const Sample *sample, RNG &rng, MemoryArena &arena) const;
     void RequestSamples(Sampler *sampler, Sample *sample, const Scene *scene);
-    void Preprocess(const Scene *, const Camera *, const Renderer *);
+    void Preprocess(const Scene *scene, const Camera *camera, const Renderer *renderer);
+	void setSurfaceLights( vector<VirtualSphericalLight> &vsl);
 	//MC have added filename to args for dumping
     IGIIntegrator(uint32_t nl, uint32_t ns, float rrt, int maxd, float gl, int ng,bool dumpDataFlag, string fn) {
 		dump=dumpDataFlag;
@@ -55,7 +55,6 @@ public:
         nLightSets = RoundUpPow2(ns);
         rrThreshold = rrt;
         maxSpecularDepth = maxd;
-        virtualLights.resize(nLightSets);
 		//MC
 		virtualPaths.resize(nLightSets*nLightPaths);
 		//end MC
@@ -78,7 +77,8 @@ private:
     int maxSpecularDepth;
     int vlSetOffset;
     BSDFSampleOffsets gatherSampleOffset;
-    vector<vector<VirtualLight> > virtualLights;
+    vector<VirtualSphericalLight> vsls;
+	//ParticleShooter *ps;
 	//MC vector for virtualPaths containing virtual Lights as its vertices
 	vector<vector<VirtualLight> > virtualPaths;
 	vector<RayDifferential *> differentialRays;
@@ -86,7 +86,6 @@ private:
 	//MC Local memory arena, which holds all the vsl brdf functions
 	float globalRadius;
 	MemoryArena igiLocalArena;
-	DataDumper dd;
 	bool dump;
 };
 

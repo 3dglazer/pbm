@@ -42,7 +42,7 @@ public:
     Shape(const Transform *o2w, const Transform *w2o, bool ro);
     virtual ~Shape();
     virtual BBox ObjectBound() const = 0;
-    virtual BBox WorldBound() const;
+    virtual BBox WorldBound() const ;
     virtual bool CanIntersect() const;
     virtual void Refine(vector<Reference<Shape> > &refined) const;
     virtual bool Intersect(const Ray &ray, float *tHit,

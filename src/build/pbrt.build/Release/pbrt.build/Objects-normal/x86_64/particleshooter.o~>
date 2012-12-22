@@ -1,0 +1,10 @@
+In file included from /myPrograms/PBRT-hratky/pbm/src/core/integrator.h:43,
+                 from /myPrograms/PBRT-hratky/pbm/src/integrators/igi.h:34,
+                 from /myPrograms/PBRT-hratky/pbm/src/datadumper.h:11,
+                 from /myPrograms/PBRT-hratky/pbm/src/particleshooter.h:13,
+                 from /myPrograms/PBRT-hratky/pbm/src/particleshooter.cpp:10:
+/myPrograms/PBRT-hratky/pbm/src/vlstructs.h:75: error: multiple types in one declaration
+In file included from /myPrograms/PBRT-hratky/pbm/src/particleshooter.h:13,
+                 from /myPrograms/PBRT-hratky/pbm/src/particleshooter.cpp:10:
+/myPrograms/PBRT-hratky/pbm/src/datadumper.h: In member function 'void DataDumper::dump2File(const std::string&)':
+/myPrograms/PBRT-hratky/pbm/src/datadumper.h:25: warning: format '%d' expects type 'int', but argument 2 has type 'size_t'

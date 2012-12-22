@@ -39,6 +39,9 @@
 #include "probes.h"
 #include "renderer.h"
 
+//MC 
+#include "vlstructs.h"
+
 // Integrator Declarations
 class Integrator {
 public:
@@ -47,6 +50,7 @@ public:
     virtual void Preprocess(const Scene *scene, const Camera *camera,
                             const Renderer *renderer) {
     }
+
     virtual void RequestSamples(Sampler *sampler, Sample *sample,
                                 const Scene *scene) {
     }
@@ -56,6 +60,8 @@ public:
 class SurfaceIntegrator : public Integrator {
 public:
     // SurfaceIntegrator Interface
+	virtual void setSurfaceLights(vector<VirtualSphericalLight> &vsl){
+	}
     virtual Spectrum Li(const Scene *scene, const Renderer *renderer,
         const RayDifferential &ray, const Intersection &isect,
         const Sample *sample, RNG &rng, MemoryArena &arena) const = 0;

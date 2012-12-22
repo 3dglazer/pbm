@@ -227,11 +227,15 @@ float FBm(const Point &P, const Vector &dpdx, const Vector &dpdy,
 }
 
 //MC added SimpleTurbulence without filtering
-float SimpleTurbulence(const Point &P, float omega, int maxOctaves) {
+float SimpleTurbulence(const Point &P, float omega, int maxOctaves,float frequency) {
     // Compute sum of octaves of noise for turbulence
-    float sum = 0., lambda = 1., o = 1.;
-    for (int i = 0; i < maxOctaves; ++i) {
-        sum += o * fabsf(Noise(lambda * P));
+	//MC lambda was originaly 1.
+	Point mod= Point(P.x,P.y,0.);
+	mod=P;
+    float sum = 0., lambda = frequency, o = 1.;
+	sum=o * fabsf(Noise(lambda * mod));
+    for (int i = 1; i < maxOctaves; ++i) {
+        sum += o * fabsf(Noise(lambda * mod));
         lambda *= 1.99f;
         o *= omega;
     }
@@ -249,7 +253,7 @@ float Turbulence(const Point &P, const Vector &dpdx, const Vector &dpdy,
     // Compute sum of octaves of noise for turbulence
     float sum = 0., lambda = 1., o = 1.;
     for (int i = 0; i < octaves; ++i) {
-        sum += o * fabsf(Noise(lambda * P));
+        sum += o * fabs((Noise(lambda * P)));
         lambda *= 1.99f;
         o *= omega;
     }
