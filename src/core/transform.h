@@ -72,6 +72,21 @@ struct Matrix4x4 {
         }
         fprintf(f, " ] ");
     }
+	
+	string toString(){
+		std::ostringstream ss;
+		ss<<"[";
+        for (int i = 0; i < 4; ++i) {
+            ss<<"[";
+            for (int j = 0; j < 4; ++j)  {
+                ss<<m[i][j];
+                if (j != 3) ss<<", ";
+            }
+            ss<<"]\n";
+        }
+		ss<<"]";
+		return ss.str();
+	}
     static Matrix4x4 Mul(const Matrix4x4 &m1, const Matrix4x4 &m2) {
         Matrix4x4 r;
         for (int i = 0; i < 4; ++i)

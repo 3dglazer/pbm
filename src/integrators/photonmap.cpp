@@ -362,6 +362,7 @@ void PhotonIntegrator::Preprocess(const Scene *scene,
             nshot, lightDistribution, scene, renderer,rngSeed*i));
     EnqueueTasks(photonShootingTasks);
     WaitForAllTasks();
+	
     for (uint32_t i = 0; i < photonShootingTasks.size(); ++i)
         delete photonShootingTasks[i];
     Mutex::Destroy(mutex);

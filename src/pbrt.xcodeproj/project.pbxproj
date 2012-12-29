@@ -128,6 +128,7 @@
 		B1D8ECC71170310E00A8A49E /* homogeneous.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B1D8EC791170310E00A8A49E /* homogeneous.cpp */; };
 		B1D8ECC81170310E00A8A49E /* volumegrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B1D8EC7B1170310E00A8A49E /* volumegrid.cpp */; };
 		B1E1BB3F1177B63E00337ECE /* pbrtparse.yy in Sources */ = {isa = PBXBuildFile; fileRef = B1D8EB92117030F200A8A49E /* pbrtparse.yy */; };
+		D92C4C3F168DC93A001AA401 /* lighttracer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D92C4C3E168DC93A001AA401 /* lighttracer.cpp */; };
 		D92F04BA16862E3F00892A43 /* photonDisc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D92F04B916862E3F00892A43 /* photonDisc.cpp */; };
 		D992044C167B979C0091B470 /* progressiveRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D992044B167B979C0091B470 /* progressiveRenderer.cpp */; };
 		D99204A6167B9D080091B470 /* perlinvolume.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D99204A5167B9D080091B470 /* perlinvolume.cpp */; };
@@ -421,6 +422,8 @@
 		B1D8EC7B1170310E00A8A49E /* volumegrid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = volumegrid.cpp; path = volumes/volumegrid.cpp; sourceTree = SOURCE_ROOT; };
 		B1D8EC7C1170310E00A8A49E /* volumegrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = volumegrid.h; path = volumes/volumegrid.h; sourceTree = SOURCE_ROOT; };
 		B1D8ECE2117032E500A8A49E /* pbrt */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pbrt; sourceTree = BUILT_PRODUCTS_DIR; };
+		D92C4C3D168DC93A001AA401 /* lighttracer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lighttracer.h; sourceTree = "<group>"; };
+		D92C4C3E168DC93A001AA401 /* lighttracer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lighttracer.cpp; sourceTree = "<group>"; };
 		D92F04B816862E3F00892A43 /* photonDisc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = photonDisc.h; sourceTree = "<group>"; };
 		D92F04B916862E3F00892A43 /* photonDisc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = photonDisc.cpp; sourceTree = "<group>"; };
 		D992044A167B979C0091B470 /* progressiveRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = progressiveRenderer.h; sourceTree = "<group>"; };
@@ -748,6 +751,8 @@
 				B1D8EC371170310E00A8A49E /* samplerrenderer.h */,
 				B1D8EC381170310E00A8A49E /* surfacepoints.cpp */,
 				B1D8EC391170310E00A8A49E /* surfacepoints.h */,
+				D92C4C3D168DC93A001AA401 /* lighttracer.h */,
+				D92C4C3E168DC93A001AA401 /* lighttracer.cpp */,
 			);
 			path = renderers;
 			sourceTree = SOURCE_ROOT;
@@ -1044,6 +1049,7 @@
 				D99204A6167B9D080091B470 /* perlinvolume.cpp in Sources */,
 				D99207391680CE290091B470 /* particleshooter.cpp in Sources */,
 				D92F04BA16862E3F00892A43 /* photonDisc.cpp in Sources */,
+				D92C4C3F168DC93A001AA401 /* lighttracer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

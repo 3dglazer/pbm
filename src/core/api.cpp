@@ -89,6 +89,8 @@
 #include "renderers/surfacepoints.h"
 //MC added my progressive renderer
 #include "renderers/progressiveRenderer.h"
+// and unbiased light tracer
+#include "renderers/lighttracer.h"
 //end MC
 #include "samplers/adaptive.h"
 #include "samplers/bestcandidate.h"
@@ -1258,6 +1260,17 @@ Renderer *RenderOptions::MakeRenderer() const {
         if (!volumeIntegrator) Severe("Unable to create volume integrator.");
         renderer = new ProgressiveRenderer(sampler, camera, progressiveCamera,ss,sm,ms, mm, surfaceIntegrator,volumeIntegrator, visIds,nIters,nPaths,radius,seed);
         // Warn if no light sources are defined
+        if (lights.size() == 0)
+            Warning("No light sources defined in scene; "
+					"possibly rendering a black image.");
+	}
+	// lightTracing renderer implemented by me
+	else if (RendererName == "lighttracer") {
+		int seed=RendererParams.FindOneInt("seed", 1);
+		int nIters=RendererParams.FindOneInt("iterations", 1);
+		int nPaths=RendererParams.FindOneInt("nPaths", 1024*1024);
+		renderer =new LightTracerRenderer(camera,nIters,nPaths,seed);
+		// Warn if no light sources are defined
         if (lights.size() == 0)
             Warning("No light sources defined in scene; "
 					"possibly rendering a black image.");
