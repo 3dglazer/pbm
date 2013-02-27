@@ -1,6 +1,5 @@
-\contentsline {section}{\numberline {0.1}Introduction}{i}{section.0.1}
-\contentsline {chapter}{List of figures}{xi}{chapter*.8}
-\contentsline {chapter}{List of tables}{xiii}{chapter*.9}
+\contentsline {chapter}{List of figures}{ix}{chapter*.7}
+\contentsline {chapter}{List of tables}{xi}{chapter*.8}
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
 \contentsline {section}{\numberline {1.1}Podkapitola}{1}{section.1.1}
 \contentsline {chapter}{\numberline {2}Second Chapter}{3}{chapter.2}
@@ -10,7 +9,6 @@
 \contentsline {section}{\numberline {3.1} Podkapitola 1}{5}{section.3.1}
 \contentsline {chapter}{\numberline {4}Conclusion}{7}{chapter.4}
 \contentsline {subsection}{\numberline {4.0.1}Future work}{7}{subsection.4.0.1}
-\contentsline {chapter}{Literatura}{9}{chapter*.11}
+\contentsline {chapter}{Literatura}{7}{subsection.4.0.1}
 \contentsline {chapter}{\numberline {A}Appendix}{I}{appendix.A}
 \contentsline {chapter}{\numberline {B} DVD Content }{III}{appendix.B}
-\contentsline {chapter}{\numberline {C} DVD Content }{V}{appendix.C}

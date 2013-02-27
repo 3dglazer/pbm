@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2012.4.2)  21 NOV 2012 13:56
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2012.4.2)  20 FEB 2013 12:44
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -620,24 +620,24 @@ File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
 (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
 \AtBeginShipoutBox=\box32
-Package hyperref Info: Link coloring OFF on input line 33.
+Package hyperref Info: Link coloring OFF on input line 35.
  (/usr/local/texlive/2011/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2010/04/30 v2.40 Cross-referencing by name of section
 (/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
@@ -645,9 +645,9 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count137
 )
-LaTeX Info: Redefining \ref on input line 33.
-LaTeX Info: Redefining \pageref on input line 33.
-LaTeX Info: Redefining \nameref on input line 33.
+LaTeX Info: Redefining \ref on input line 35.
+LaTeX Info: Redefining \pageref on input line 35.
+LaTeX Info: Redefining \nameref on input line 35.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfigure package is loaded.
 Package caption Info: End \AtBeginDocument code.
@@ -691,7 +691,7 @@ df>
 (epstopdf)                    size: 36067 bytes
 (epstopdf)             Command: <epstopdf --outfile=00_Chapters/Figures/lev-eps
 -converted-to.pdf 00_Chapters/Figures/lev.eps>
-(epstopdf)             \includegraphics on input line 37.
+(epstopdf)             \includegraphics on input line 39.
 Package epstopdf Info: Output file is already uptodate.
 
 <00_Chapters/Figures/lev-eps-converted-to.pdf, id=4, 194.7275pt x 149.55875pt>
@@ -699,20 +699,17 @@ File: 00_Chapters/Figures/lev-eps-converted-to.pdf Graphic file (type pdf)
 
 <use 00_Chapters/Figures/lev-eps-converted-to.pdf>
 Package pdftex.def Info: 00_Chapters/Figures/lev-eps-converted-to.pdf used on i
-nput line 37.
+nput line 39.
 (pdftex.def)             Requested size: 142.26378pt x 109.26825pt.
  [1
 
 {/usr/local/texlive/2011/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./00_Ch
 apters/Figures/lev-eps-converted-to.pdf>] [2
 
-] <example.jpg, id=19, 321.2pt x 240.9pt>
-File: example.jpg Graphic file (type jpg)
- <use example.jpg>
-Package pdftex.def Info: example.jpg used on input line 47.
-(pdftex.def)             Requested size: 321.19922pt x 240.8994pt.
+] (./00_Chapters/Acknow.tex) [3] [4
 
-(./00_Chapters/Declar.tex [1 <./example.jpg>]
+]
+(./00_Chapters/Declar.tex
 LaTeX Font Info:    Try loading font information for U+msa on input line 22.
 
 (/usr/local/texlive/2011/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -727,51 +724,48 @@ LaTeX Font Info:    Try loading font information for U+lasy on input line 22.
 
 (/usr/local/texlive/2011/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
-)) [2]
-(./00_Chapters/Acknow.tex) [3] [4
+)) [1] [2
 
-] (./00_Chapters/Abstract.tex [5]) [6]
-[7
+]
+(./00_Chapters/Abstract.tex) [3] [4
+
+] [5] [6
+
+] (./main.toc)
+\tf@toc=\write4
+\openout4 = `main.toc'.
+
+ [7
 
 ] [8
 
-]
+] (./main.lof)
+\tf@lof=\write5
+\openout5 = `main.lof'.
 
-Package hyperref Warning: old toc file detected, not used; run LaTeX again.
-
-\tf@toc=\write4
-\openout4 = `main.toc'.
 
 [9
 
 ] [10
 
-]
-
-Package hyperref Warning: old lof file detected, not used; run LaTeX again.
-
-\tf@lof=\write5
-\openout5 = `main.lof'.
-
-[11
-
-] [12
-
-]
-
-Package hyperref Warning: old lot file detected, not used; run LaTeX again.
-
+] (./main.lot)
 \tf@lot=\write6
 \openout6 = `main.lot'.
 
-[13
+ [11
 
-] [14
+] [12
 
 ] (./01_Intro/Intro.tex
 Chapter 1.
-) (./02_Chap2/Chap2.texpdfTeX warning (ext4): destination with the same identif
-ier (name{page.1}) has been already used, duplicate ignored
+<example.jpg, id=113, 321.2pt x 240.9pt>
+File: example.jpg Graphic file (type jpg)
+ <use example.jpg>
+Package pdftex.def Info: example.jpg used on input line 6.
+(pdftex.def)             Requested size: 321.19922pt x 240.8994pt.
+)
+(./02_Chap2/Chap2.texpdfTeX warning (ext4): destination with the same identifie
+r (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.1 \chapter
@@ -782,11 +776,21 @@ l.1 \chapter
 <to be read again> 
                    \relax 
 l.1 \chapter
-            {Second Chapter} [2
-
-]
+            {Second Chapter} [2 <./example.jpg>]
 Chapter 2.
-) (./03_Chap3/Chap3.tex [3] [4
+) (./03_Chap3/Chap3.texpdfTeX warning (ext4): destination with the same identif
+ier (name{page.3}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.1 \chapter
+            {Third chapter} [3
+
+]pdfTeX warning (ext4): destination with the same identifier (name{page.4}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.1 \chapter
+            {Third chapter} [4
 
 ]
 Chapter 3.
@@ -794,13 +798,7 @@ Chapter 3.
 
 ]
 Chapter 4.
-) (./main.bbl [7] [8
-
-]
-
-LaTeX Warning: Empty `thebibliography' environment on input line 3.
-
-) [9] [10
+) (./main.bbl) [7] [8
 
 ] (./06_Appendix/Appen1.tex
 Appendinx A.
@@ -810,84 +808,23 @@ Appendinx A.
 
 ]
 Appendinx B.
-) (./06_Appendix/Appen3.tex [3] [4
-
-]
-Appendinx C.
-
-./06_Appendix/Appen3.tex:4: LaTeX Error: Environment  itemize  undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.4 \begin{ itemize }
-                     
-? 
-
-./06_Appendix/Appen3.tex:5: LaTeX Error: Lonely \item--perhaps a missing list e
-nvironment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.5     \item s
-               rc
-? 
-
-Underfull \hbox (badness 10000) detected at line 5
-[][]
- []
-
-
-./06_Appendix/Appen3.tex:6: LaTeX Error: Lonely \item--perhaps a missing list e
-nvironment.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.6     \item p
-               df
-? 
-
-Underfull \hbox (badness 10000) detected at line 6
-[][]
- []
-
-
-./06_Appendix/Appen3.tex:7: LaTeX Error: \begin{appendix} on input line 131 end
-ed by \end{ itemize }.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.7 \end{ itemize }
-                   
-? 
 )
 \tf@thm=\write7
 \openout7 = `main.thm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 140.
- [5]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 140.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 132.
+ [3]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 132.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 140.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 140.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 140.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 132.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 132.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 132.
  ) 
 Here is how much of TeX's memory you used:
- 9663 strings out of 493633
- 135236 string characters out of 3143378
- 210085 words of memory out of 3000000
- 12739 multiletter control sequences out of 15000+200000
+ 9654 strings out of 493633
+ 135134 string characters out of 3143378
+ 211271 words of memory out of 3000000
+ 12736 multiletter control sequences out of 15000+200000
  12497 words of font info for 48 fonts, out of 3000000 for 9000
  832 hyphenation exceptions out of 8191
  43i,16n,45p,468b,387s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -896,10 +833,10 @@ Here is how much of TeX's memory you used:
 ></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><
 /usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></u
 sr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb>
-Output written on main.pdf (31 pages, 256816 bytes).
+Output written on main.pdf (27 pages, 255594 bytes).
 PDF statistics:
- 197 PDF objects out of 1000 (max. 8388607)
- 155 compressed objects within 2 object streams
- 54 named destinations out of 1000 (max. 500000)
+ 189 PDF objects out of 1000 (max. 8388607)
+ 151 compressed objects within 2 object streams
+ 45 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,10 +1,14 @@
 00000000000000000000000000000000 c28fc7499f6fba1434b6195b52f0967f ffffffffffffffffffffffffffffffff 102 /myPrograms/PBRT-hratky/pbm/src/build/Release/pbrt.dSYM
-73c6d603c7f9604e6cb1e89ed0622366 ba3dff8df419c2378e0d360e152f2d33 ffffffffffffffffffffffffffffffff 1655784 /myPrograms/PBRT-hratky/pbm/src/build/Release/pbrt
-00000000554998610000000000007690 e24832aee078e4688335f8b3e5b75007 ffffffffffffffffffffffffffffffff 223888 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/lighttracer.o
+000000004e5e23f70000000000004791 a6f87615ae18491495f9e769a645f8f4 ffffffffffffffffffffffffffffffff 0 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/DerivedSources/Yacc/pbrtparse.hpp
+73c6d603c6235e656cb1e89ed062233a ba3dff8df419c2378e0d360e152f2d33 ffffffffffffffffffffffffffffffff 1655784 /myPrograms/PBRT-hratky/pbm/src/build/Release/pbrt
+a6f87615b162f9c995f9e769a645baea 80896b70e7b2d691b5b046c1e6b25031 ffffffffffffffffffffffffffffffff 272216 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/pbrtparse.o
+000000004e5e23f70000000000004791 a6f87615ae18491495f9e769a645f8f4 ffffffffffffffffffffffffffffffff 73866 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/DerivedSources/Yacc/pbrtparse.cpp
+00000000554997f3000000000000751e e24832aee078e4688335f8b3e5b75007 ffffffffffffffffffffffffffffffff 223888 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/lighttracer.o
 00000000047899550000000000002de2 7fc5323aa46cf3ffe11a4c35a4899e9c ffffffffffffffffffffffffffffffff 63948 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/photonDisc.o
 000000004e2f9d2700000000000045a5 b4b0bad8dc9ba989e444f4f84391f5f9 ffffffffffffffffffffffffffffffff 193860 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/particleshooter.o
 00000000555fd1e70000000000004cfb 9be0c054500713e22307ab425910b4b9 ffffffffffffffffffffffffffffffff 175540 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/perlinvolume.o
 00000000001be158000000000000401f 76aca711f35ac2a5cb147825cb996419 ffffffffffffffffffffffffffffffff 231316 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/progressiveRenderer.o
+0000000050ba31d90000000000000080 6cf74b40786cc49daf1091d0e055cdd4 ffffffffffffffffffffffffffffffff 1416 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/datadumper.o
 000000004fbc976d0000000000003510 73f8a17e82da1a09d978ce2bccc8ce0a ffffffffffffffffffffffffffffffff 46248 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/fileutil.o
 000000005557f13300000000000032a7 6e0310bf822d8bc7d72596cf85fd6b6f ffffffffffffffffffffffffffffffff 207388 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/shinymetal.o
 000000005526f0710000000000006399 9c9148ea624835d483d0825050112ba6 ffffffffffffffffffffffffffffffff 187108 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/volumegrid.o
@@ -60,10 +64,6 @@
 000000001a8f2680000000000000068b e504410734ecfeb7cb9f0f4b1f7dc2ef ffffffffffffffffffffffffffffffff 229668 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/projection.o
 000000001f15199e00000000000010dc d2b8d0c3c22543971d03d3db9b798f01 ffffffffffffffffffffffffffffffff 217948 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/point.o
 0000000005f3261900000000000052f3 318bc30fe08c9e56735a56137acd17a5 ffffffffffffffffffffffffffffffff 299840 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/infinite.o
-a6f87615b162f9c995f9e769a645baea 80896b70e7b2d691b5b046c1e6b25031 ffffffffffffffffffffffffffffffff 272216 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/pbrtparse.o
-000000004e5e23f70000000000004791 a6f87615ae18491495f9e769a645f8f4 ffffffffffffffffffffffffffffffff 73866 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/DerivedSources/Yacc/pbrtparse.cpp
-000000004e5e23f70000000000004791 a6f87615ae18491495f9e769a645f8f4 ffffffffffffffffffffffffffffffff 0 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/DerivedSources/Yacc/pbrtparse.hpp
-0000000050ba31d90000000000000080 6cf74b40786cc49daf1091d0e055cdd4 ffffffffffffffffffffffffffffffff 1416 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/datadumper.o
 00000000018ea9d00000000000005833 2662b27dc008a4e886e98456ce3f8aa6 ffffffffffffffffffffffffffffffff 255180 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/goniometric.o
 000000001b11b4f700000000000011c9 2d0eaa10d02e1d4e8042b8188ee03ead ffffffffffffffffffffffffffffffff 216268 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/distant.o
 00000000046359be0000000000004e48 51b8881edfdef255ff41dec49e4e628a ffffffffffffffffffffffffffffffff 201324 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/diffuse.o
@@ -85,7 +85,7 @@ a6f87615b162f9c995f9e769a645baea 80896b70e7b2d691b5b046c1e6b25031 ffffffffffffff
 000000004a2018370000000000003580 1fd3d70f11814c59b36f234db7339820 ffffffffffffffffffffffffffffffff 136276 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/mitchell.o
 000000004a201837000000000000351b 8313516e2dd8ce1128bd951a954f78d2 ffffffffffffffffffffffffffffffff 136528 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/gaussian.o
 000000004a20183700000000000036f8 90468060a3455f6022966f530625e2e2 ffffffffffffffffffffffffffffffff 133208 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/box.o
-00000000006162850000000000005eda 45d288eb7df2682c5f529b3ad7b0e1ed ffffffffffffffffffffffffffffffff 182688 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/image.o
+0000000001bb533c0000000000005d08 45d288eb7df2682c5f529b3ad7b0e1ed ffffffffffffffffffffffffffffffff 182884 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/image.o
 000000000402635b00000000000020c8 dfb5264abd39b0f26348536e9caedabc ffffffffffffffffffffffffffffffff 152624 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/volume.o
 0000000050a4c58a00000000000002cb d14969bf6d73f3bebc5d7e9b1ca9e814 ffffffffffffffffffffffffffffffff 120648 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/transform.o
 000000001c7a799c00000000000001e6 4de42440baf658ead58e42820a3b720a ffffffffffffffffffffffffffffffff 43508 /myPrograms/PBRT-hratky/pbm/src/build/pbrt.build/Release/pbrt.build/Objects-normal/x86_64/timer.o

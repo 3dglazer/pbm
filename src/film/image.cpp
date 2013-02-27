@@ -212,6 +212,10 @@ void ImageFilm::WriteIterImage(int imageNumber) {
 	
 	string path=filename.substr(0,suffixOffset)+"_"+string(num)+filename.substr(suffixOffset,filename.length());
 	printf("\nTrying to write it in %s\n",path.c_str());
+	
+	printf("For exr export: xPixelCount %d, yPixelCount %d,xResolution %d, yResolution %d, xPixelStart %d, yPixelStart %d\n",xPixelCount, yPixelCount,
+		   xResolution, yResolution, xPixelStart, yPixelStart);
+	
     ::WriteImage(path, rgb, NULL, xPixelCount, yPixelCount,
                  xResolution, yResolution, xPixelStart, yPixelStart);
 	
