@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2012.4.2)  10 MAR 2013 11:13
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2012.4.2)  10 MAR 2013 13:27
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -774,14 +774,14 @@ l.1 \chapter
 ]
 Chapter 2.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 6961) has occurred while \output is active []
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.3}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.22 \subsection
-                {Phase functions} [3]) (./03_Chap3/Chap3.texpdfTeX warning (ext
+l.27 \section
+             {Volume interaction} [3]) (./03_Chap3/Chap3.texpdfTeX warning (ext
 4): destination with the same identifier (name{page.4}) has been already used, 
 duplicate ignored
 <to be read again> 
@@ -835,8 +835,8 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 139.
  ) 
 Here is how much of TeX's memory you used:
  9692 strings out of 493633
- 135640 string characters out of 3143378
- 213295 words of memory out of 3000000
+ 135625 string characters out of 3143378
+ 214295 words of memory out of 3000000
  12734 multiletter control sequences out of 15000+200000
  12197 words of font info for 47 fonts, out of 3000000 for 9000
  832 hyphenation exceptions out of 8191
@@ -845,10 +845,10 @@ Here is how much of TeX's memory you used:
 ></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb
 ></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><
 /usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb>
-Output written on main.pdf (35 pages, 112712 bytes).
+Output written on main.pdf (35 pages, 114425 bytes).
 PDF statistics:
- 250 PDF objects out of 1000 (max. 8388607)
- 205 compressed objects within 3 object streams
+ 256 PDF objects out of 1000 (max. 8388607)
+ 211 compressed objects within 3 object streams
  70 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
