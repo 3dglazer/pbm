@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2012.4.2)  20 FEB 2013 12:44
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2012.4.2)  10 MAR 2013 09:54
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -620,24 +620,24 @@ File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
 (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
 \AtBeginShipoutBox=\box32
-Package hyperref Info: Link coloring OFF on input line 35.
+Package hyperref Info: Link coloring OFF on input line 39.
  (/usr/local/texlive/2011/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2010/04/30 v2.40 Cross-referencing by name of section
 (/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
@@ -645,9 +645,9 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count137
 )
-LaTeX Info: Redefining \ref on input line 35.
-LaTeX Info: Redefining \pageref on input line 35.
-LaTeX Info: Redefining \nameref on input line 35.
+LaTeX Info: Redefining \ref on input line 39.
+LaTeX Info: Redefining \pageref on input line 39.
+LaTeX Info: Redefining \nameref on input line 39.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfigure package is loaded.
 Package caption Info: End \AtBeginDocument code.
@@ -691,7 +691,7 @@ df>
 (epstopdf)                    size: 36067 bytes
 (epstopdf)             Command: <epstopdf --outfile=00_Chapters/Figures/lev-eps
 -converted-to.pdf 00_Chapters/Figures/lev.eps>
-(epstopdf)             \includegraphics on input line 39.
+(epstopdf)             \includegraphics on input line 43.
 Package epstopdf Info: Output file is already uptodate.
 
 <00_Chapters/Figures/lev-eps-converted-to.pdf, id=4, 194.7275pt x 149.55875pt>
@@ -699,7 +699,7 @@ File: 00_Chapters/Figures/lev-eps-converted-to.pdf Graphic file (type pdf)
 
 <use 00_Chapters/Figures/lev-eps-converted-to.pdf>
 Package pdftex.def Info: 00_Chapters/Figures/lev-eps-converted-to.pdf used on i
-nput line 39.
+nput line 43.
 (pdftex.def)             Requested size: 142.26378pt x 109.26825pt.
  [1
 
@@ -731,20 +731,19 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 
 ] [5] [6
 
-] (./main.toc)
+] (./main.toc [7
+
+])
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
- [7
-
-] [8
-
-] (./main.lof)
+ [8] (./main.lof)
 \tf@lof=\write5
 \openout5 = `main.lof'.
 
 
 [9
+
 
 ] [10
 
@@ -758,47 +757,57 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 
 ] (./01_Intro/Intro.tex
 Chapter 1.
-<example.jpg, id=113, 321.2pt x 240.9pt>
-File: example.jpg Graphic file (type jpg)
- <use example.jpg>
-Package pdftex.def Info: example.jpg used on input line 6.
-(pdftex.def)             Requested size: 321.19922pt x 240.8994pt.
-)
-(./02_Chap2/Chap2.texpdfTeX warning (ext4): destination with the same identifie
-r (name{page.1}) has been already used, duplicate ignored
+) (./02_Chap2/Chap2.texpdfTeX warning (ext4): destination with the same identif
+ier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.1 \chapter
-            {Second Chapter} [1
+            {Fundamentals of realistic image synthesis} [1
 
 ]pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.1 \chapter
-            {Second Chapter} [2 <./example.jpg>]
+            {Fundamentals of realistic image synthesis} [2
+
+]
 Chapter 2.
 ) (./03_Chap3/Chap3.texpdfTeX warning (ext4): destination with the same identif
 ier (name{page.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.1 \chapter
-            {Third chapter} [3
-
-]pdfTeX warning (ext4): destination with the same identifier (name{page.4}) has
- been already used, duplicate ignored
+            {Common solutions} [3]pdfTeX warning (ext4): destination with the s
+ame identifier (name{page.4}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.1 \chapter
-            {Third chapter} [4
+            {Common solutions} [4
 
 ]
 Chapter 3.
-) (./04_Concl/Concl.tex [5] [6
+) (./04_SelectedAlgos/Chap4.tex [5] [6
 
 ]
 Chapter 4.
-) (./main.bbl) [7] [8
+) (./05_Proposedsolution/Chap5.tex [7] [8
+
+]
+Chapter 5.
+) (./06_Implementation/Chap6.tex [9] [10
+
+]
+Chapter 6.
+) (./07_Results/Chap7.tex [11] [12
+
+]
+Chapter 7.
+) (./04_Concl/Concl.tex [13] [14
+
+]
+Chapter 8.
+) (./main.bbl) [15] [16
 
 ] (./06_Appendix/Appen1.tex
 Appendinx A.
@@ -812,31 +821,30 @@ Appendinx B.
 \tf@thm=\write7
 \openout7 = `main.thm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 132.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 141.
  [3]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 132.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 141.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 132.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 132.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 132.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 141.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 141.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 141.
  ) 
 Here is how much of TeX's memory you used:
- 9654 strings out of 493633
- 135134 string characters out of 3143378
- 211271 words of memory out of 3000000
- 12736 multiletter control sequences out of 15000+200000
- 12497 words of font info for 48 fonts, out of 3000000 for 9000
+ 9686 strings out of 493633
+ 135554 string characters out of 3143378
+ 213295 words of memory out of 3000000
+ 12734 multiletter control sequences out of 15000+200000
+ 12197 words of font info for 47 fonts, out of 3000000 for 9000
  832 hyphenation exceptions out of 8191
- 43i,16n,45p,468b,387s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 43i,16n,45p,459b,387s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb
-></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><
-/usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></u
-sr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb>
-Output written on main.pdf (27 pages, 255594 bytes).
+></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><
+/usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb>
+Output written on main.pdf (35 pages, 111272 bytes).
 PDF statistics:
- 189 PDF objects out of 1000 (max. 8388607)
- 151 compressed objects within 2 object streams
- 45 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 242 PDF objects out of 1000 (max. 8388607)
+ 198 compressed objects within 2 object streams
+ 64 named destinations out of 1000 (max. 500000)
+ 6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
