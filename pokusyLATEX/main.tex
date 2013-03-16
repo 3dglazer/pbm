@@ -1,6 +1,6 @@
 \documentclass [a4paper,12pt,twoside,notitlepage,openright]{report} %print on both side
 \usepackage[bookmarks=false, colorlinks=false,unicode]{hyperref}
-\usepackage[abbr,dcucite]{harvard}      %style ofliterature
+%\usepackage[abbr,dcucite]{harvard}      %style ofliterature
 \usepackage{Styles/Skripta}
 \usepackage{Styles/Diplomka}
 \usepackage{Styles/Colors}
@@ -8,7 +8,20 @@
 
 \usepackage{graphicx}
 
-
+%------<<<<<<<<<< CUSTOM COMMANDS DEFINITIONS >>>>>>>>>>------------
+\newcommand{\myFigure}[4]{
+  \begin{figure}
+    \centering
+    \includegraphics[width=#1cm]{#2}
+    \caption[#3]{#4}\label{fig:#2}
+  \end{figure}
+}
+%\begin{figure}
+%   \centering
+%   \includegraphics{example.jpg} % requires the graphicx package
+%   \caption{example caption}
+%   \label{fig:example}
+%\end{figure}
 
 %-----<<<<<<<<<<<< NAMES NAD PATHS >>>>>>>>>>>>-----
 \def \BookName {Masterer Thesis}
@@ -29,6 +42,7 @@
 \def \cestaSeven{07_Results/}
 \def \cestaCtyri {04_Concl/}
 \def \cestaAP {06_Appendix/}
+\def \cestaImg{images/}
 %-----<<< --------------------------------- >>>-----
 
 
@@ -118,8 +132,11 @@ Vložit zadani prace
 
 %-----<<< REFERENCES >>>-----
 %\input{05_Refer/Refer.tex}
-\bibliographystyle{Styles/Skripta}
-\bibliography{Styles/Refer}                   %references from BIBTEX
+\bibliographystyle{plainnat}
+\bibliography{mybibliography}
+
+%\bibliographystyle{Styles/Skripta}
+%\bibliography{Styles/Refer}                   %references from BIBTEX
 \addcontentsline{toc}{chapter}{Literatura}
 %-----<<< ---------- >>>-----
 

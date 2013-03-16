@@ -5,17 +5,24 @@ In this chapter we will try to summarize the most common technics for solving th
 Films - 
 
 krakatoa rendering engine
-nvidia smoke particles demo
-pixar deep shadow maps
+\myFigure{8}{\cestaImg nvidiasmokeparticles.jpg}{Nvidia smoke particle demo.}{This image has been rendered using multiple shadow maps for direct illumination on gpu.}
+
+nvidia smoke particles demo 
+pixar deep shadow maps \cite{LokDSM}
 
 Still most used in films and games - fast approximation.
 Particle rasterization + rendering slices of 3D volumes can solve only direct illumination.
 \section{Raytracing}
+\subsection{Raymarching volumes}
+More recently, another technique has become popular for sampling distances along a ray in an inhomogeneous medium. The idea comes from the neutron transport community in the 60s and has various names (delta tracking, pseudo-scattering); we’ll call it Woodcock tracking in effort to promote original paper.
+
+
 pbrt single scattering
 can support procedural volumes and any type of lighting
 \subsection{Unbiased methods}
 Plus and cons - very slow no caching recomputation of visibility factor
 \subsection{Biased methods}
+\cite{jarosz08thesis} %jarosz thesis irradiance caching
 irradiance caching, Photon tracing, final gather ...
 Plus and cons
 

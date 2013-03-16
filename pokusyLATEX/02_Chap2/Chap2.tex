@@ -1,6 +1,14 @@
 \chapter{Fundamentals of realistic image synthesis}
 
+In this chapter we briefly revise fundamental theory behind realistic computer generated imagery. We first describe basic radiometry quantities and inspect problem of light interaction with surfaces. This gives us enough fundaments to formulate rendering equation. We continue with light interaction with participating media, which leads us to extended rendering equation. Algorithms mentioned in the next chapters are based on this theory and they present various methods solving this complex equation.
+
 \section{Radiometry}
+
+% great page for latex equation typing http://www.codecogs.com/latex/eqneditor.php
+Quasi Monte Carlo equation
+%\int _{I^{S}}f(x)dx\approx\frac{1}{N}\sum_{i=1}^{N}f(x_{i})),
+
+\cite{Dutre01globalillumination} %global illuminaiton compendium.
 1) what is radiometry
 - asi z Jarosze + wikipedia
 
@@ -29,6 +37,12 @@ assumptions made of particles simplification using probability
 -advanced illum techniques
 -popsat absorbci a dalsi veci
 \subsection{Phase functions}
+\myFigure{12}{02_Chap2/Figures/heneygreenstein2dgraph}{2D plot of Plot of Heney-Greenstein phase function.}{Plot of Heney-Greenstein phase function with different g \\ coefficients. For g\textless0 the function represents backscattering media, for g=0 isometric scattering and for g\textgreater0 growing \\forward scattering tendencies.}
+
+
+
+-isotropic
+-anisotropic name hg,shlick aprox, reylight (atmosphere)
 -jak dochazi k rozptylu svetla
 -pouzit matlabacky obrazky heney-g funkce ruzne koeficienty
 
