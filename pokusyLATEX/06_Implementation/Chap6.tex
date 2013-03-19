@@ -1,5 +1,11 @@
 \chapter{Implementation}
+\section{Volume representation}
+both unified grid and procedural volume (multiple octaves of perlin noise)
+
 I have decided to implement it using pbrt. what is pbrt what structures I will use, which I have to create.
+
+\section{Ground truth}
+light tracer - dual algorithm to path tracer. It is able to capture caustic effects. Maybe path tracer too??
 
 \myFigure{14}{images/rr_sampling.png}{Energy contribution of phase functions, inverse squared distance and both samples on ray lights.}{Different functions have been evaluated in discreet point pairs (from 0 to 1 parametric range) on two randomly placed rays.\\ On the left image only contribution using ray moderately forward scattering (g=0.75) Heney-Greenstein phase functions has been evaluated. In the middle inverse squared contribution and on the right contribution using both phase function and inverse sqared distance.}
 
