@@ -13,6 +13,12 @@ pixar deep shadow maps \cite{LokDSM}
 Still most used in films and games - fast approximation.
 Particle rasterization + rendering slices of 3D volumes can solve only direct illumination.
 \section{Raytracing}
+% great page for latex equation typing http://www.codecogs.com/latex/eqneditor.php
+Quasi Monte Carlo equation
+\begin{equation*}
+\int _{I^{S}}f(x)dx\approx\frac{1}{N}\sum_{i=1}^{N}f(x_{i})),
+\end{equation*}
+%\int _{I^{S}}f(x)dx\approx\frac{1}{N}\sum_{i=1}^{N}f(x_{i})),
 \subsection{Raymarching volumes}
 More recently, another technique has become popular for sampling distances along a ray in an inhomogeneous medium. The idea comes from the neutron transport community in the 60s and has various names (delta tracking, pseudo-scattering); we’ll call it Woodcock tracking in effort to promote original paper.
 

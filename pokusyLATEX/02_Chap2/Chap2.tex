@@ -1,5 +1,5 @@
 \chapter{Fundamentals of realistic image synthesis}
-
+\label{ch:2}
 In this chapter we briefly revise fundamental theory behind realistic computer generated imagery. Our aim is to synthesize (render) image of a virtual scene. To do this properly, with physical accuracy in mind, we have to find a suitable physical model of light.
 \\
 \\
@@ -9,14 +9,12 @@ If we would like to be absolutely correct, we would have to use quantum optics m
 When the suitable light model is chosen, we should define some numerical quantities we can compute with. In the next section we will start with radiometry quantities and inspect problem of light interaction with surfaces. This gives us enough fundaments to formulate rendering equation. We continue with light interaction with participating media, which leads us to extended rendering equation. Algorithms mentioned in the next chapters are based on this theory and they present various methods solving this complex equation.
 \\
 \\
-
-
 \section{Radiometry}
 
 Radiometry is set of techniques for measuring different kinds of electromagnetic radiation such as light. We could have used a photometry, which on the other hand measures the response of a human eye to visible light. This basically corresponds to measurements retrieved using radiometry and weighted with an eye response function. For the purposes of this thesis we will use radiometric quantities, because corresponding photometric quantities can be easily derived.
 
 \subsection{Radiometric quantities}
-\bd{Radiant flux}, also known as radiant power, denoted as $\phi$.
+\bd{Radiant flux}, also known as radiant power, denoted as $\phi$. This quantity corresponds to the light power mentioned on the light bulbs in Watts. The definition is:
 \begin{equation}
 \phi=\frac{dQ}{dt}\;\;[W=J.s^{-1}]
 \end{equation}
@@ -31,59 +29,101 @@ E(x)=\frac{d\phi(x)}{dA}\;\;[W.m^{-2}]
 The irradiance at a point \ita{x} on the surface \ita{S,} can be expressed as an amount of incident flux to differential area at a given time.
 \\
 \\
-\bd{Radiance} is probably the most important quantity. Denoted as $L(x,\omega)$, where x is a point of interest and $\omega$ is a differential angle in a given direction, also known as solid angle.
+\bd{Radiance} is probably the most important quantity. Denoted as $L(x,\omega)$, where x is a point of interest and $\omega$ is a differential angle coming in a given direction, also known as solid angle.
 \begin{equation}
 L(x,\omega)=\frac{d\phi(x)}{cos\theta dAd \omega}\;\;[W.m^{-2}.sr^{-1}]
 \end{equation}
-Radiance expresses how much flux is coming from a differential direction $d\omega$ onto a differential surface $dA$. The $cos\theta$ factor compensates the shortening amount of irradiance on the surface with growing $\theta$\footnote{The meaning of $\theta$ is $cos(\theta)=(\vec{n}.\vec{\omega})$, where $\vec{n}$ is surface normal at a point of interest (x) and $\vec{\omega}$ is a direction vector we want to compute radiance for.}, while the level of illumination is maintained. This is the quantity, which has to be gathered for every pixel in a rendered image. Furthermore other quantities can be computed from radiance using integration. 
+Radiance expresses how much flux is coming from a differential direction $d\omega$ onto a differential surface $dA$. The $cos\theta$ factor compensates the shortening amount of irradiance on the surface with growing $\theta$\footnote{The meaning of $\theta$ is $cos(\theta)=(\vec{n}.\vec{\omega})$, where $\vec{n}$ is surface normal at a point of interest (x) and $\vec{\omega}$ is a direction vector we want to compute radiance for.}, while the level of illumination is maintained. This is the quantity, which has to be gathered for every pixel in the rendered image.
 
 \subsection{Relationships between quantities}
-Tady tabulka nejzasadnejsich quantities a jejich jednotek 
+In order to render our image we have to compute radiance coming from the scene through every pixel of the virtual camera sensor. From the table \ref{tab:title} you can see that radiance units are Watts per square meter per steradian\footnote{Steradian is unit of a solid angle.}. According to the units of the remaining radiometry quantities we should be able to derive them using integration.\\
+\\
 
-%\begin{table}
-    \begin{tabular}
-        Radiant energy & $Q$    & [J]                \\ 
-        Radiant flux   & $\phi$ & [W]                \\ 
-        %Irradiance     & $E$    & [W.m^{-2}]         \\ 
-       % Radiance       & $L$    & [W.m^{-2}.sr^{-1}] \\
-    \end{tabular}
-%\end{table}
+\begin {table}[H]
+\centering
+\begin{tabular}{lll}
+\hline
+Radiant energy&$Q$&[J]\\
+Radiant flux&$\phi$&[W]\\ 
+Irradiance&$E$&[$W.m^{-2}$]\\ 
+Radiance&$L$& [$W.m^{-2}.sr^{-1}$]\\
+\hline
+\end{tabular}
+\caption {Table summary of the radiometric quantities.} \label{tab:title} 
+\end{table}
 
+\noindent{
+If we integrate incoming radiance over a hemisphere denoted as $\Omega$ in a given point \ita{x} \\we get equation \ref{eq:IrradianceInt}. Notice a $-\omega$ in the equation, this is caused by the fact that $\Omega$ usually refers to hemisphere consisting of outgoing solid angles. But when computing irradiance we are interested in the incoming radiance.
+}
 
-% great page for latex equation typing http://www.codecogs.com/latex/eqneditor.php
-Quasi Monte Carlo equation
-\begin{equation*}
-\int _{I^{S}}f(x)dx\approx\frac{1}{N}\sum_{i=1}^{N}f(x_{i})),
-\end{equation*}
-%\int _{I^{S}}f(x)dx\approx\frac{1}{N}\sum_{i=1}^{N}f(x_{i})),
+\begin{equation}
+E(x)=\int_{\Omega}L(x,-\vec\omega)*cos(\theta)d\vec\omega
+\label{eq:IrradianceInt} 
+\end{equation}
+\noindent{
+To get flux from radiance, we will have to perform two integration steps. We will have to integrate radiance over a hemisphere in every differential surface, which belongs\\ to the surface we are interested in. This is precisely written in the equation \ref{eq:fluxInt}.
+}
+\begin{equation}
+\phi=\int_{A}\int_{\Omega}L(x,\vec\omega)*cos(\theta)d\vec\omega dA
+\label{eq:fluxInt} 
+\end{equation}
 
 \cite{Dutre01globalillumination} %global illuminaiton compendium.
-1) what is radiometry
-- asi z Jarosze + wikipedia
-
-2) quantities:
-- z meho prehledu z rso
-flux: 
-irradiance:
-radiance:
-
-Relationships between named quantities.
--prehled rso
 
 \section{Surface interaction}
--advanced illum techniques
+Using ray optics model, light can interact with object in only four ways. It can be created by the object, which is referred as an emission. On the other way it can be partially or fully absorbed, reflected or refracted in the same time.
+\\
+\\
+As was mentioned in the beginning of this chapter, it's almost impossible to simulate these light interactions in large scenes using light interaction on a molecular level. Currently the most used scene representation is probably an object boundary representation\footnote{Consisting of a finite set of triangles, quadrangles and other n-gons.}. Unfortunately the microscopic structure of the object plays a huge role in the light interaction as can be seen on the fig (figure brushed metal and unbrushed metal) and would again result in an immense complexity if represented using triangles. To cope with this problem we usually model the corse object shapes using the boundary representation and we call the microscopic behavior "the material behavior". To model the material behavior we use the BRDF function.
 
-assumptions and symplificaitions 
 \subsection{BRDF}
--pbrt
+The \ita{bidirectional reflectance distribution function} describes what is the probability that an incoming light from a given incoming direction will reflect to a given outcoming direction from the given surface. As stated before we can define the BRDF function as:
+\begin{equation}
+f(\omega_{i},x,\omega_{o})=\frac{dL_{o}(x,\omega_{o})}{dE(x,\omega_{i})}=\frac{L(x,\omega_{o})}{L_{i}(x,\omega_{i})*cos(\theta_{i})d\omega_{i}}
+\end{equation}
+
+\noindent{
+To formulate the BRDF function more precisely we should define it's properties:
+}
+\\
+ \begin{enumerate}
+\item \bd{Function domain:}\\
+For a given surface point \ita{x} the BRDF is four dimensional function. Two dimensions for the incoming direction and two for the outgoing direction.
+\item \bd{Value range:}\\
+BRDF can gain any positive value. Using constant BRDF function we can model diffuse materials.
+\item \bd{Reciprocity:}\\
+The BRDF value stays the same if we interchange incoming and outgoing direction. This is a the very fundamental property many global illumination algorithms rely on. Thanks to this behavior we can gather or shoot light energy using the same BRDF functions and all light interactions remain the same. 
+\item \bd{Linearity:}\\
+It's a linear function, thus it is not dependent on irradiance from other directions. To get total reflected radiance in the given direction $\omega_{o}$ and given point we get an equation \ref{eq:brdfrad}.
+ \begin{equation}
+L_{o}(\vec\omega_{o})=\int_{\Omega}L_{i}(\vec\omega_{i})*f_{r}(\vec\omega_{i},\vec\omega_{O})*cos(\theta)d\vec\omega
+\label{eq:brdfrad} 
+\end{equation}
+
+\item \bd{Energy conservation:}\\
+Total reflected energy to all directions is smaller or equal to the total irradiance in any given point. This ensures that an object can't reflect more light than it receives. 
+
+\end{enumerate}
 \subsection{Rendering equation}
--advanced illum techniques
-Theory behind rendering equation, integration of radiometry quantities. Both surface and solid angle deffinisions
+We have successfully defined the quantities we want to compute and models we want to use for the light surface interaction. What we want to achieve is to distribute the light energy in the scene and compute the energy fraction which reaches our image pixels.
+\\
+\\
+To describe the energetic equilibrial state in the scene\footnote{This refers to the light distribution in the scene.} we use rendering equation \ref{eq:rend}. As you can see it closely resembles the equation \ref{eq:brdfrad}. The main difference between these two equations is the fact that the unknown radiance \footnote{Both $L(r(x,\omega_i),-\omega_{i})$ and $L(x,\omega_{o})$ are unknown.} is on both sides of the equation and that instead of the local radiance $L(x,\omega_{o})$ we want to trace a ray in a direction $\omega_{i}$ to the scene and compute the radiance in closest ray surface intersection $L(r(x,\omega_i),-\omega_{i})$.
+\begin{equation}
+L(x,\omega_{o})=\int_{\Omega}L(r(x,\omega_i),-\omega_{i})*f(\omega_{i},x,\omega_{o})*cos(\theta_{i})d\omega_{i}
+\label{eq:rend}
+\end{equation}
+\begin{equation}
+L(x,\omega_{o})=L_{e}(x,\omega_{o})+\int_{\Omega}L(r(x,\omega_i),-\omega_{i})*f(\omega_{i},x,\omega_{o})*cos(\theta_{i})d\omega_{i}
+\label{eq:rendem}
+\end{equation}
+\noindent{
+The equation \ref{eq:rend} can deal with light reflection, refraction and absorption. To consider the light emitting objects in our scene we have to introduce an emitted radiance \footnote{$L_{e}(x,\omega_{o})$ } into the equation. Which result in eq \ref{eq:rendem} To get an actual image of our scene $L(x,\omega_{o})$ has to be computed for every image pixel.
+}
 
 \section{Volume interaction}
-assumptions made of particles simplification using probability
--advanced illum techniques
--popsat absorbci a dalsi veci
+To simulate volumetric phenomenons correctly we have to consider not only the light surface interaction, but also light volume interaction. 
+
 \subsection{Phase functions}
 \myFigure{12}{02_Chap2/Figures/heneygreenstein2dgraph}{2D plot of Plot of Heney-Greenstein phase function.}{Plot of Heney-Greenstein phase function with different g \\ coefficients. For g\textless0 the function represents backscattering media, for g=0 isometric scattering and for g\textgreater0 growing \\forward scattering tendencies.}
 

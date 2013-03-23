@@ -5,13 +5,13 @@ People have always been curious about new forms of visualization and illusion of
 Even though many things are possible to simulate and visualize efficiently these days volumetric phenomenons such as clouds, smoke and other optically active medias are still real challenge even for high-end computers. This is all caused by the fact that the data we try to visualized are volumetric and that light passing through can be absorbed, scattered or even emitted in different wavelength (fig aurea borealis). This means that we can no longer assume that visibility of an object can be determined simply by determining if it is hidden behind other object or not.
 \\
 \\
-In terms of feasible render times only direct illumination component can be computed. This approach can give us satisfying results such as those on the figure (fig good rays).  Unfortunately many cool looking effects such as volumetric caustics, which can be seen on the figure (fig lasers) are really hard to simulate.
+In terms of feasible render times only direct illumination component can be computed. This approach can give us satisfying results such as those on the figure (fig good rays).  Unfortunately many cool looking effects such as volumetric caustics, which can be seen on the figure (fig lasers) are impossible to get using this approach.
 \\
 \\
 This thesis focuses on methods, which can render anything with physical accuracy and without restrictions on the rendered scene. The other very important bonus of these methods is their progressive nature. In the first passes the corse illumination of the scene is computed and it's progressively refined (fig image getting better). This for example means, that artist defining lighting mood of the visual effect shots can iterate faster. They have got something to show to the director, which results in quick turnarounds and substantial cost and time savings.
 \\
 \\
-Our aim is to implement these progressive methods in the presence of heterogenous, optically active media and test them on scenes with varying complexity.
+Our aim is to implement these progressive Monte Carlo methods in the presence of heterogenous, optically active media and test them on scenes with varying complexity.
 \\
 \\
 

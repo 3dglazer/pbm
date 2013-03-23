@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2012.4.2)  19 MAR 2013 16:42
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2012.4.2)  23 MAR 2013 15:43
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -594,6 +594,17 @@ File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
 (/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/dvipsnam.def
 File: dvipsnam.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
 )))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/tools/dcolumn.sty
+Package: dcolumn 2001/05/28 v1.06 decimal alignment package (DPC)
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/tools/array.sty
+Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
+\col@sep=\dimen128
+\extrarowheight=\dimen129
+\NC@list=\toks42
+\extratabsurround=\skip68
+\backup@length=\skip69
+))
 (/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
@@ -612,8 +623,8 @@ Package graphics Info: Driver file: pdftex.def on input line 91.
 File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
 \Gread@gobject=\count136
 ))
-\Gin@req@height=\dimen128
-\Gin@req@width=\dimen129
+\Gin@req@height=\dimen130
+\Gin@req@width=\dimen131
 )
 (./main.aux)
 \openout1 = `main.aux'.
@@ -653,16 +664,16 @@ Package caption Info: End \AtBeginDocument code.
 (/usr/local/texlive/2011/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count138
-\scratchdimen=\dimen130
+\scratchdimen=\dimen132
 \scratchbox=\box33
 \nofMPsegments=\count139
 \nofMParguments=\count140
-\everyMPshowfont=\toks42
+\everyMPshowfont=\toks43
 \MPscratchCnt=\count141
-\MPscratchDim=\dimen131
+\MPscratchDim=\dimen133
 \MPnumerator=\count142
 \makeMPintoPDFobject=\count143
-\everyMPtoPDFconversion=\toks43
+\everyMPtoPDFconversion=\toks44
 ) (/usr/local/texlive/2011/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
 
@@ -702,4 +713,362 @@ nput line 65.
  [1
 
 {/usr/local/texlive/2011/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./00_Ch
-apters/Figures
+apters/Figures/lev-eps-converted-to.pdf>] [2
+
+] (./00_Chapters/Acknow.tex) [3] [4
+
+]
+(./00_Chapters/Declar.tex
+LaTeX Font Info:    Try loading font information for U+msa on input line 22.
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2009/06/22 v3.00 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 22.
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2009/06/22 v3.00 AMS symbols B
+)
+LaTeX Font Info:    Try loading font information for U+lasy on input line 22.
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+)) [1] [2
+
+]
+(./00_Chapters/Abstract.tex) [3] [4
+
+] [5] [6
+
+] (./main.toc [7
+
+])
+\tf@toc=\write4
+\openout4 = `main.toc'.
+
+ [8] (./main.lof)
+\tf@lof=\write5
+\openout5 = `main.lof'.
+
+
+[9
+
+
+] [10
+
+] (./main.lot)
+\tf@lot=\write6
+\openout6 = `main.lot'.
+
+ [11
+
+] [12
+
+] (./01_Intro/Intro.tex
+Chapter 1.
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--17
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--17
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--17
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--17
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--17
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--17
+
+ []
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.17 
+      [1
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 31--39
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 31--39
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 31--39
+
+ []
+
+) (./02_Chap2/Chap2.texpdfTeX warning (ext4): destination with the same identif
+ier (name{page.2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.1 \chapter
+            {Fundamentals of realistic image synthesis} [2]
+Chapter 2.
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--12
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--12
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--12
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--12
+
+ []
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.3}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.12 \section
+             {Radiometry} [3
+
+]
+
+Package amsmath Warning: Foreign command \over;
+(amsmath)                \frac or \genfrac should be used instead
+(amsmath)                 on input line 19.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 20--26
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 28--33
+
+ []
+
+
+LaTeX Font Warning: Font shape `OT1/mnozina/m/n' in size <7> not available
+(Font)              size <6> substituted on input line 36.
+
+
+LaTeX Font Warning: Font shape `OT1/mnozina/m/n' in size <5> not available
+(Font)              size <6> substituted on input line 36.
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.4}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.37 
+      [4]
+Underfull \hbox (badness 10000) in paragraph at lines 39--41
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 39--41
+
+ []
+
+
+Overfull \hbox (68.54065pt too wide) in paragraph at lines 71--72
+[]\OT1/cmr/m/n/12 [[]] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 74--78
+
+ []
+
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 85--89
+
+ []
+
+[6]
+Underfull \hbox (badness 10000) in paragraph at lines 108--112
+
+ []
+
+[7]
+Package epstopdf Info: Source file: <02_Chap2/Figures/heneygreenstein2dgraph.ep
+s>
+(epstopdf)                    date: 2013-03-15 18:07:51
+(epstopdf)                    size: 25166 bytes
+(epstopdf)             Output file: <02_Chap2/Figures/heneygreenstein2dgraph-ep
+s-converted-to.pdf>
+(epstopdf)                    date: 2013-03-15 18:31:47
+(epstopdf)                    size: 20221 bytes
+(epstopdf)             Command: <epstopdf --outfile=02_Chap2/Figures/heneygreen
+stein2dgraph-eps-converted-to.pdf 02_Chap2/Figures/heneygreenstein2dgraph.eps>
+(epstopdf)             \includegraphics on input line 128.
+Package epstopdf Info: Output file is already uptodate.
+
+<02_Chap2/Figures/heneygreenstein2dgraph-eps-converted-to.pdf, id=243, 495.8525
+pt x 404.51125pt>
+File: 02_Chap2/Figures/heneygreenstein2dgraph-eps-converted-to.pdf Graphic file
+ (type pdf)
+
+<use 02_Chap2/Figures/heneygreenstein2dgraph-eps-converted-to.pdf>
+Package pdftex.def Info: 02_Chap2/Figures/heneygreenstein2dgraph-eps-converted-
+to.pdf used on input line 128.
+(pdftex.def)             Requested size: 341.43306pt x 278.53903pt.
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 128.
+
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/omlcmr.fd
+File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10.95> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 128.
+ [8 <./02_Chap2/Figures/heneygreenstein2dgraph-eps-converted-to.pdf>]) (./03_Ch
+ap3/Chap3.tex
+[9] [10
+
+]
+Chapter 3.
+<images/nvidiasmokeparticles.jpg, id=263, 440.64626pt x 440.64626pt>
+File: images/nvidiasmokeparticles.jpg Graphic file (type jpg)
+
+<use images/nvidiasmokeparticles.jpg>
+Package pdftex.def Info: images/nvidiasmokeparticles.jpg used on input line 8.
+(pdftex.def)             Requested size: 227.62204pt x 227.61781pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [11])
+(./04_SelectedAlgos/Chap4.tex [12 <./images/nvidiasmokeparticles.jpg>]
+Chapter 4.
+
+Overfull \hbox (4.22046pt too wide) in paragraph at lines 7--9
+\OT1/cmr/m/n/12 [[]] Hy-brid so-lu-tion
+ []
+
+) (./05_Proposedsolution/Chap5.tex [13
+
+] [14]
+Chapter 5.
+) (./06_Implementation/Chap6.tex [15
+
+] [16
+
+]
+Chapter 6.
+<images/rr_sampling.png, id=305, 1027.84pt x 335.2525pt>
+File: images/rr_sampling.png Graphic file (type png)
+
+<use images/rr_sampling.png>
+Package pdftex.def Info: images/rr_sampling.png used on input line 10.
+(pdftex.def)             Requested size: 398.33858pt x 129.92946pt.
+) (./07_Results/Chap7.tex [17] [18 <./images/rr_sampling.png>]
+Chapter 7.
+) (./04_Concl/Concl.tex [19
+
+] [20
+
+]
+Chapter 8.
+) (./main.bbl [21] [22
+
+]
+Overfull \hbox (56.79077pt too wide) in paragraph at lines 10--13
+[]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 32--37
+[]\OT1/cmr/m/n/12 Wojciech
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 54--58
+[]\OT1/cmr/m/n/12 Jan Nov^^Sak,
+ []
+
+[23]
+Underfull \hbox (badness 10000) in paragraph at lines 61--65
+[]\OT1/cmr/m/n/12 Jan Nov^^Sak,
+ []
+
+) [24] (./06_Appendix/Appen1.tex
+Appendinx A.
+) (./06_Appendix/Appen2.tex [1
+
+
+] [2
+
+]
+Appendinx B.
+)
+\tf@thm=\write7
+\openout7 = `main.thm'.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 166.
+ [3]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 166.
+ (./main.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 166.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 166.
+
+
+LaTeX Font Warning: Size substitutions with differences
+(Font)              up to 1.0pt have occurred.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 166.
+ ) 
+Here is how much of TeX's memory you used:
+ 9787 strings out of 493633
+ 137216 string characters out of 3143378
+ 217939 words of memory out of 3000000
+ 12756 multiletter control sequences out of 15000+200000
+ 15389 words of font info for 62 fonts, out of 3000000 for 9000
+ 832 hyphenation exceptions out of 8191
+ 43i,16n,45p,913b,424s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
+></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb
+></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb>
+</usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
+/usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></
+usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></us
+r/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/
+local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/lo
+cal/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loca
+l/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/
+texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/tex
+live/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texliv
+e/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/local/texlive
+/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/
+2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/20
+11/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/201
+1/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on main.pdf (43 pages, 547962 bytes).
+PDF statistics:
+ 441 PDF objects out of 1000 (max. 8388607)
+ 369 compressed objects within 4 object streams
+ 117 named destinations out of 1000 (max. 500000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+
