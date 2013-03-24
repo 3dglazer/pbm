@@ -89,10 +89,13 @@ To formulate the BRDF function more precisely we should define it's properties:
  \begin{enumerate}
 \item \bd{Function domain:}\\
 For a given surface point \ita{x} the BRDF is four dimensional function. Two dimensions for the incoming direction and two for the outgoing direction.
+
 \item \bd{Value range:}\\
-BRDF can gain any positive value. Using constant BRDF function we can model diffuse materials.
+BRDF can gain any positive value. For example using constant BRDF functions we can model diffuse materials.
+
 \item \bd{Reciprocity:}\\
 The BRDF value stays the same if we interchange incoming and outgoing direction. This is a the very fundamental property many global illumination algorithms rely on. Thanks to this behavior we can gather or shoot light energy using the same BRDF functions and all light interactions remain the same. 
+
 \item \bd{Linearity:}\\
 It's a linear function, thus it is not dependent on irradiance from other directions. To get total reflected radiance in the given direction $\omega_{o}$ and given point we get an equation \ref{eq:brdfrad}.
  \begin{equation}
@@ -114,17 +117,46 @@ L(x,\omega_{o})=\int_{\Omega}L(r(x,\omega_i),-\omega_{i})*f(\omega_{i},x,\omega_
 \label{eq:rend}
 \end{equation}
 \begin{equation}
-L(x,\omega_{o})=L_{e}(x,\omega_{o})+\int_{\Omega}L(r(x,\omega_i),-\omega_{i})*f(\omega_{i},x,\omega_{o})*cos(\theta_{i})d\omega_{i}
+\overbrace{L(x,\omega_{o})}^\text{outgoing}=\underbrace{L_{e}(x,\omega_{o})}_\text{emited}+\underbrace{\int_{\Omega}L(r(x,\omega_i),-\omega_{i})*f(\omega_{i},x,\omega_{o})*cos(\theta_{i})d\omega_{i}}_\text{reflected}
 \label{eq:rendem}
 \end{equation}
 \noindent{
-The equation \ref{eq:rend} can deal with light reflection, refraction and absorption. To consider the light emitting objects in our scene we have to introduce an emitted radiance \footnote{$L_{e}(x,\omega_{o})$ } into the equation. Which result in eq \ref{eq:rendem} To get an actual image of our scene $L(x,\omega_{o})$ has to be computed for every image pixel.
+The equation \ref{eq:rend} can deal with light reflection, refraction and absorption. To consider the light emitting objects in our scene we have to introduce an emitted radiance \footnote{$L_{e}(x,\omega_{o})$ } into the equation. Which result in eq \ref{eq:rendem}. To get an actual image of our scene $L(x,\omega_{o})$ (outgoing radiance) has to be computed for every image pixel.
 }
 
 \section{Volume interaction}
-To simulate volumetric phenomenons correctly we have to consider not only the light surface interaction, but also light volume interaction. 
+By now we have assumed that radiance is conserved along its ray path between surfaces. It's time to consider participating media interaction in our computation. We distinguish four different types of interaction events:
+ \begin{enumerate}
+\item \bd{Volume emission:}\\
+\item \bd{Absorption:}\\
+\item \bd{In-scattering:}\\
+\item \bd{Out-scattering:}\\
+\end{enumerate}
+\noindent{
+For better understanding take a look on the picture fig(emis abs out in).
+}
+
 
 \subsection{Phase functions}
+To model a light interaction on a molecular level, we use phase functions\footnote{Analogically to the BRDF functions, which model light surface interaction on microscopical level and simulate different surface materials.}, which can be used to model different volumetric media types. It describes the probability of scattering light from incoming direction $\omega_{i}$ to the outgoing direction $\omega_{o}$.
+\\
+\\
+Phase function has got these useful properties:
+ \begin{enumerate}
+\item \bd{Function domain:}\\
+Is the same as in the case of the BRDF function. For the given point in the space it is four dimensional function. Two dimensions for incoming and to for the outgoing direction.
+\item \bd{Value range:}\\
+Greater than zero and it's very useful to normalize phase function values so that:
+\begin{equation}
+\int_{\Omega\text{4}\pi}p(\omega_{i},x,\omega_{i})=1
+\end{equation}
+This way we can be sure that the energy will be conserved.
+\item \bd{Reciprocity:}\\
+The phase function value stays the same if we interchange incoming and outgoing direction.
+\item \bd{Conservation:}\\
+The incoming radiance is always greater or equal to the sum of the distributed energy into all directions.
+\end{enumerate}
+
 \myFigure{12}{02_Chap2/Figures/heneygreenstein2dgraph}{2D plot of Plot of Heney-Greenstein phase function.}{Plot of Heney-Greenstein phase function with different g \\ coefficients. For g\textless0 the function represents backscattering media, for g=0 isometric scattering and for g\textgreater0 growing \\forward scattering tendencies.}
 
 
