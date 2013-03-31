@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2012.4.2)  23 MAR 2013 19:24
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2012.4.2)  31 MAR 2013 19:55
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -912,27 +912,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 111--115
  []
 
 [7]
-Underfull \hbox (badness 10000) in paragraph at lines 130--131
+LaTeX Font Info:    Font shape `U/lasy/b/n' in size <8> not available
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 131.
+LaTeX Font Info:    Font shape `U/lasy/b/n' in size <6> not available
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 131.
+
+Underfull \hbox (badness 10000) in paragraph at lines 146--147
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 131--132
+Underfull \hbox (badness 10000) in paragraph at lines 153--154
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 132--133
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 133--134
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 141--145
+Underfull \hbox (badness 10000) in paragraph at lines 172--176
 
  []
 
@@ -947,31 +942,51 @@ s-converted-to.pdf>
 (epstopdf)                    size: 20221 bytes
 (epstopdf)             Command: <epstopdf --outfile=02_Chap2/Figures/heneygreen
 stein2dgraph-eps-converted-to.pdf 02_Chap2/Figures/heneygreenstein2dgraph.eps>
-(epstopdf)             \includegraphics on input line 160.
+(epstopdf)             \includegraphics on input line 200.
 Package epstopdf Info: Output file is already uptodate.
 
-<02_Chap2/Figures/heneygreenstein2dgraph-eps-converted-to.pdf, id=254, 495.8525
+<02_Chap2/Figures/heneygreenstein2dgraph-eps-converted-to.pdf, id=262, 495.8525
 pt x 404.51125pt>
 File: 02_Chap2/Figures/heneygreenstein2dgraph-eps-converted-to.pdf Graphic file
  (type pdf)
 
 <use 02_Chap2/Figures/heneygreenstein2dgraph-eps-converted-to.pdf>
 Package pdftex.def Info: 02_Chap2/Figures/heneygreenstein2dgraph-eps-converted-
-to.pdf used on input line 160.
+to.pdf used on input line 200.
 (pdftex.def)             Requested size: 341.43306pt x 278.53903pt.
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 160.
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 200.
 
 
 (/usr/local/texlive/2011/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 160.
- [9 <./02_Chap2/Figures/heneygreenstein2dgraph-eps-converted-to.pdf>]) (./03_Ch
-ap3/Chap3.tex
-[10]
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 200.
+Package epstopdf Info: Source file: <images/reyleigh2dgraph.eps>
+(epstopdf)                    date: 2013-03-30 15:34:06
+(epstopdf)                    size: 12862 bytes
+(epstopdf)             Output file: <images/reyleigh2dgraph-eps-converted-to.pd
+f>
+(epstopdf)                    date: 2013-03-30 15:36:23
+(epstopdf)                    size: 10218 bytes
+(epstopdf)             Command: <epstopdf --outfile=images/reyleigh2dgraph-eps-
+converted-to.pdf images/reyleigh2dgraph.eps>
+(epstopdf)             \includegraphics on input line 201.
+Package epstopdf Info: Output file is already uptodate.
+
+<images/reyleigh2dgraph-eps-converted-to.pdf, id=263, 492.84125pt x 404.51125pt
+>
+File: images/reyleigh2dgraph-eps-converted-to.pdf Graphic file (type pdf)
+ <use images/reyleigh2dgraph-eps-converted-to.pdf>
+Package pdftex.def Info: images/reyleigh2dgraph-eps-converted-to.pdf used on in
+put line 201.
+(pdftex.def)             Requested size: 341.43306pt x 280.25494pt.
+ [9] [10 <./02_Chap2/Figures/heneygreenstein2dgraph-eps-converted-to.pdf>]) (./
+03_Chap3/Chap3.tex [11 <./images/reyleigh2dgraph-eps-converted-to.pdf>] [12
+
+]
 Chapter 3.
-<images/nvidiasmokeparticles.jpg, id=274, 440.64626pt x 440.64626pt>
+<images/nvidiasmokeparticles.jpg, id=302, 440.64626pt x 440.64626pt>
 File: images/nvidiasmokeparticles.jpg Graphic file (type jpg)
 
 <use images/nvidiasmokeparticles.jpg>
@@ -980,41 +995,39 @@ Package pdftex.def Info: images/nvidiasmokeparticles.jpg used on input line 8.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [11
-
-])
-(./04_SelectedAlgos/Chap4.tex [12 <./images/nvidiasmokeparticles.jpg>]
+ [13])
+(./04_SelectedAlgos/Chap4.tex [14 <./images/nvidiasmokeparticles.jpg>]
 Chapter 4.
 
 Overfull \hbox (4.22046pt too wide) in paragraph at lines 7--9
 \OT1/cmr/m/n/12 [[]] Hy-brid so-lu-tion
  []
 
-) (./05_Proposedsolution/Chap5.tex [13
+) (./05_Proposedsolution/Chap5.tex [15
 
-] [14]
+] [16]
 Chapter 5.
-) (./06_Implementation/Chap6.tex [15
+) (./06_Implementation/Chap6.tex [17
 
-] [16
+] [18
 
 ]
 Chapter 6.
-<images/rr_sampling.png, id=316, 1027.84pt x 335.2525pt>
+<images/rr_sampling.png, id=342, 1027.84pt x 335.2525pt>
 File: images/rr_sampling.png Graphic file (type png)
 
 <use images/rr_sampling.png>
 Package pdftex.def Info: images/rr_sampling.png used on input line 10.
 (pdftex.def)             Requested size: 398.33858pt x 129.92946pt.
-) (./07_Results/Chap7.tex [17] [18 <./images/rr_sampling.png>]
+) (./07_Results/Chap7.tex [19] [20 <./images/rr_sampling.png>]
 Chapter 7.
-) (./04_Concl/Concl.tex [19
+) (./04_Concl/Concl.tex [21
 
-] [20
+] [22
 
 ]
 Chapter 8.
-) (./main.bbl [21] [22
+) (./main.bbl [23] [24
 
 ]
 Overfull \hbox (56.79077pt too wide) in paragraph at lines 10--13
@@ -1031,12 +1044,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 54--58
 []\OT1/cmr/m/n/12 Jan Nov^^Sak,
  []
 
-[23]
+[25]
 Underfull \hbox (badness 10000) in paragraph at lines 61--65
 []\OT1/cmr/m/n/12 Jan Nov^^Sak,
  []
 
-) [24] (./06_Appendix/Appen1.tex
+) [26] (./06_Appendix/Appen1.tex
 Appendinx A.
 ) (./06_Appendix/Appen2.tex [1
 
@@ -1063,34 +1076,39 @@ LaTeX Font Warning: Size substitutions with differences
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 166.
  ) 
 Here is how much of TeX's memory you used:
- 9798 strings out of 493633
- 137305 string characters out of 3143378
- 217939 words of memory out of 3000000
- 12757 multiletter control sequences out of 15000+200000
- 15389 words of font info for 62 fonts, out of 3000000 for 9000
+ 9831 strings out of 493633
+ 137846 string characters out of 3143378
+ 218028 words of memory out of 3000000
+ 12773 multiletter control sequences out of 15000+200000
+ 17957 words of font info for 71 fonts, out of 3000000 for 9000
  832 hyphenation exceptions out of 8191
- 43i,16n,45p,913b,454s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
-></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb
-></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb>
-</usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
-/usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></
-usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></us
-r/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/
-local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/lo
-cal/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loca
-l/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/
-texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/tex
-live/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texliv
-e/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/local/texlive
-/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/
-2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/20
-11/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/201
-1/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on main.pdf (43 pages, 554160 bytes).
+ 43i,16n,45p,913b,424s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmbsy
+8.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12
+.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10
+.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.
+pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cmextra/cme
+x8.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi1
+0.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12
+.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.p
+fb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb
+></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><
+/usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb><
+/usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib8.p
+fb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
+></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><
+/usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></us
+r/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/l
+ocal/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/loca
+l/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/local
+/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/
+texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/te
+xlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/tex
+live/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on main.pdf (45 pages, 600153 bytes).
 PDF statistics:
- 454 PDF objects out of 1000 (max. 8388607)
- 382 compressed objects within 4 object streams
- 127 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 497 PDF objects out of 1000 (max. 8388607)
+ 415 compressed objects within 5 object streams
+ 134 named destinations out of 1000 (max. 500000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
 

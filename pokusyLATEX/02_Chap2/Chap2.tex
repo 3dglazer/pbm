@@ -125,13 +125,44 @@ The equation \ref{eq:rend} can deal with light reflection, refraction and absorp
 }
 
 \section{Volume interaction}
-By now we have assumed that radiance is conserved along its ray path between surfaces. It's time to consider participating media interaction in our computation. We distinguish four different types of interaction events:
+By now we have assumed that radiance is conserved along its ray path between surfaces. It's time to consider participating media interaction in our computation. To do this we should define some properties, which can be used to model and describe different types of volumetric phonomenons.
+
+\begin{description}
+\item[$\boldsymbol{\kappa_{a}\; [m^-1]}$ - \bd{Absorption coefficient}] 
+
+\item[$\boldsymbol{\kappa_{s}\; [m^-1]}$ - \bd{Scattering coefficient }] 
+
+\item[$\boldsymbol{\kappa_{t}\; [m^-1]}$ - \bd{Extinction coefficient}]
+
+is composed from absorption and scattering coefficients as follows: $\kappa_{t}=\kappa_{a}+\kappa_{s}$.
+
+\end{description}
+\noindent{
+We distinguish four different types of interaction events:
+}
  \begin{enumerate}
 \item \bd{Volume emission:}\\
+To simulate any light emitting volumetric phenomenons like fire or aurora, we have to add some energy to the ray going through this media.
 \item \bd{Absorption:}\\
+
+\begin{equation}
+ 	dL(x,\omega)=-\kappa_a(x)*L(x,\omega)dx
+ \end{equation}
+ 
+ 
 \item \bd{In-scattering:}\\
+
+
 \item \bd{Out-scattering:}\\
+\begin{equation}
+	dL(x,\omega)=-\kappa_s(x)*L(x,\omega)dx 
+\end{equation}
 \end{enumerate}
+Transmitance
+$dL(x,\omega)=-\kappa_a(x)*L(x,\omega)dx-\kappa_s(x)*L(x,\omega)dx =-\kappa_t(x)*L(x,\omega)dx$
+Integration over ray path:
+$L(x,\omega)=L(x_0,\omega)*e^{-\int_{x_{0}}^{x}\kappa_t(u)du}=L(x_0,\omega)\tau(x_0,x)$
+
 \noindent{
 For better understanding take a look on the picture fig(emis abs out in).
 }
@@ -157,8 +188,17 @@ The phase function value stays the same if we interchange incoming and outgoing 
 The incoming radiance is always greater or equal to the sum of the distributed energy into all directions.
 \end{enumerate}
 
-\myFigure{12}{02_Chap2/Figures/heneygreenstein2dgraph}{2D plot of Plot of Heney-Greenstein phase function.}{Plot of Heney-Greenstein phase function with different g \\ coefficients. For g\textless0 the function represents backscattering media, for g=0 isometric scattering and for g\textgreater0 growing \\forward scattering tendencies.}
+\subsubsection{Reyleigh Scattering}
+\begin{equation}
+I=I_0\frac{8\pi^{4}N\alpha^{2}}{\lambda ^{4}R^{2}}(1+cos^{2}(\theta))
+\end{equation}
 
+
+
+
+
+\myFigure{12}{02_Chap2/Figures/heneygreenstein2dgraph}{2D plot of Plot of Heney-Greenstein phase function.}{Plot of Heney-Greenstein phase function with different g \\ coefficients. For g\textless0 the function represents backscattering media, for g=0 isometric scattering and for g\textgreater0 growing \\forward scattering tendencies.}
+\myFigure{12}{images/reyleigh2dgraph}{2D polar plot of  function Reyleigh scattering function.}{2D polar plot of  function Reyleigh scattering function.}
 
 
 -isotropic
