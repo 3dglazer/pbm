@@ -68,13 +68,14 @@ To get flux from radiance, we will have to perform two integration steps. We wil
 \label{eq:fluxInt} 
 \end{equation}
 
-\cite{Dutre01globalillumination} %global illuminaiton compendium.
 
 \section{Surface interaction}
 Using ray optics model, light can interact with object in only four ways. It can be created by the object, which is referred as an emission. On the other way it can be partially or fully absorbed, reflected or refracted in the same time.
 \\
 \\
-As was mentioned in the beginning of this chapter, it's almost impossible to simulate these light interactions in large scenes using light interaction on a molecular level. Currently the most used scene representation is probably an object boundary representation\footnote{Consisting of a finite set of triangles, quadrangles and other n-gons.}. Unfortunately the microscopic structure of the object plays a huge role in the light interaction as can be seen on the fig (figure brushed metal and unbrushed metal) and would again result in an immense complexity if represented using triangles. To cope with this problem we usually model the corse object shapes using the boundary representation and we call the microscopic behavior "the material behavior". To model the material behavior we use the BRDF function.
+As was mentioned in the beginning of this chapter, it's almost impossible to simulate these light interactions in large scenes using light interaction on a molecular level. Currently the most used scene representation is probably an object boundary representation\footnote{Consisting of a finite set of triangles, quadrangles and other n-gons.}. Unfortunately the microscopic structure of the object plays a huge role in the light interaction as can be seen on the fig  \ref{fig:METAL} and would again result in an immense complexity if represented using triangles. To cope with this problem we usually model the corse object shapes using the boundary representation and we call the microscopic behavior "the material behavior". To model the material behavior we use the BRDF function.
+
+\myFigure{0.7}{images/temp}{Brushed, unbrushed, diffuse BRDF metal surface.}{This is an example of the same material (aluminum metal) with different surface texture. From left to right brushed, polished and surface after abrasive blasting. Below each image you can see corresponding BRDF function}{fig:METAL}
 
 \subsection{BRDF}
 The \ita{bidirectional reflectance distribution function} describes what is the probability that an incoming light from a given incoming direction will reflect to a given outcoming direction from the given surface. As stated before we can define the BRDF function as:
@@ -125,6 +126,7 @@ The equation \ref{eq:rend} can deal with light reflection, refraction and absorp
 }
 
 \section{Volume interaction}
+\ref{sec::VOLINTER}
 By now we have assumed that radiance is conserved along its ray path between surfaces. It's time to consider participating media interaction in our computation. To do this we should define some properties, which can be used to model and describe different types of volumetric phonomenons.
 
 \begin{description}
@@ -193,12 +195,27 @@ The incoming radiance is always greater or equal to the sum of the distributed e
 I=I_0\frac{8\pi^{4}N\alpha^{2}}{\lambda ^{4}R^{2}}(1+cos^{2}(\theta))
 \end{equation}
 
+\subsubsection{Heney-Greenstein}
+\begin{minipage}{\linewidth}
+      \begin{minipage}{0.45\linewidth}
+          \begin{figure}[H]
+              \includegraphics[width=\linewidth]{02_Chap2/Figures/heneygreenstein2dgraph}
+              \captionsetup{width=\linewidth}
+              \caption[2D plot of Plot of Heney-Greenstein phase function.]{Plot of Heney-Greenstein phase function with different g coefficients. For g\textless0 the function represents backscattering media, for g=0 isometric scattering and for g\textgreater0 growing forward scattering tendencies.}\label{fig:HG2}
+          \end{figure}
+      \end{minipage}
+      \hspace{0.05\linewidth}
+      \begin{minipage}{0.45\linewidth}
+          \begin{figure}[H]
+              \includegraphics[width=\linewidth]{images/hg3d}
+              \captionsetup{width=\linewidth}
+              \caption[3D plot Heney-Greenstein]{3D plot of Heney-Greenstein phase function with scattering coefficient set to 0.55, which results in moderate forward scattering. }\label{fig:HG3}
+          \end{figure}
+      \end{minipage}
+  \end{minipage}
 
 
-
-
-\myFigure{12}{02_Chap2/Figures/heneygreenstein2dgraph}{2D plot of Plot of Heney-Greenstein phase function.}{Plot of Heney-Greenstein phase function with different g \\ coefficients. For g\textless0 the function represents backscattering media, for g=0 isometric scattering and for g\textgreater0 growing \\forward scattering tendencies.}
-\myFigure{12}{images/reyleigh2dgraph}{2D polar plot of  function Reyleigh scattering function.}{2D polar plot of  function Reyleigh scattering function.}
+\myFigure{0.5}{images/reyleigh2dgraph}{2D polar plot of  function Reyleigh scattering function.}{2D polar plot of  function Reyleigh scattering function.}{fig:REYLIGH}
 
 
 -isotropic
@@ -220,7 +237,47 @@ Different light transport paths surface surface, surface media, media surface, m
 Put together all the integrals
 pokracovat v odvozeni z -advanced illum techniques
 
+\section{Volume representation}
+We have got many options for volume representation in computer graphics. Rather than representing individual particles\footnote{Even if we want to render large amounts of "particles" we usually might choose to render them as a point cloud where every particle has got one pixel size, this representation is not based on any physical prerequisites, though might serve well in many scenarios.} we usually use larger volumes of space using quantization or some kind of bounding volume representation.
 
+\begin{itemize}
+\item \bd{Particle representation}
+This representation is widely used in games and movies, for phenomenons like sand, dust. The main advantage is that this representation fits nicely into rasterization pipeline, where each point can be rendered out as a semitransparent point or patch. 
+\\
+\\
+Though it is not very suitable representation for raytracing, because it is really hard to ray-trace something infinitely small without aliasing artifacts. For raytracing one can estimate a volume density based on the neighboring particles. To perform efficiently neighborhood queries an acceleration structure would have to be build upon these points.
+
+\item \bd{Bounding volume representation}
+We can use any type of boundary representations and turn them into volumetrically active objects. The easiest way is to use parametric primitives such as boxes, spheres or cylinders. But efficient algorithms for mesh geometry exist too. This way we can represent just the boundary of the volume quite efficiently and fill it with any type of 3D texture\footnote{Be it parametric or classical image stack texture.} or value to alter it's optical characteristics\footnote{Characteristics like absorption, density etc. Discussed in section \cite{sec::VOLINTER}} to get desired results. See fig \cite{fig:BOUND} for examples.
+
+\myFigure{0.5}{images/juiceVolume.jpg}{Boundary volume representation.}{Left image is glass with juice\footnote{Juice can be viewed as an optically active homogenous volume.}, the volume is bounded by triangle mesh, source \cite{novak12vrls}. On the right we can se a simple procedural box filled with heterogenous fog\footnote{We can apply any procedural function to the density of the media, in this case we have used three octaves of perlin noise.}}{fig:BOUND}
+
+\item \bd{Grid representation}
+To have an absolute control over each voxel\footnote{Also known as \ita{volumetric pixel} is a volumetric analogy of pixel in 2D. We can imagine it as an element of regular 3D grid.} values we can use some kind of grid representation. For example fluid simulations or MRI\footnote{MRI stands for \ita{magnetic resonance imagery} very often used in radiology for noninvasive interior medial examination. }
+
+\begin{minipage}{\linewidth}
+      \begin{minipage}{0.45\linewidth}
+          \begin{figure}[H]
+              \includegraphics[width=\linewidth]{images/volumerat}
+              \captionsetup{width=\linewidth}
+              \caption[Volumetric image data example, source \cite{RDR10}.]{Example of a volumetric MRI data set consisting of an image stack. Rendered using Voreen  \cite{RDR10}.}\label{fig:RAT}
+          \end{figure}
+      \end{minipage}
+      \hspace{0.05\linewidth}
+      \begin{minipage}{0.45\linewidth}
+          \begin{figure}[H]
+              \includegraphics[width=\linewidth]{images/temp}
+              \captionsetup{width=\linewidth}
+              \caption[Smoke simulation on regular 3D grid.]{Smoke simulation with a simulation grid overlay, each grid cell represents one voxel with different density\footnotemark[1]. }\label{fig:SIMGRID}
+          \end{figure}
+      \end{minipage}
+  \end{minipage}
+
+
+
+\end{itemize}
+
+\footnotetext[1]{For the smooth looking results linear interpolation of neighboring values is used.}
 %\section{Images and tables}
 
 %\subsection{Images}

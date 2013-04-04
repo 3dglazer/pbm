@@ -1,13 +1,25 @@
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.3}{\ignorespaces Laser optics.}}{2}{figure.caption.12}
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Aurora borealis.}}{2}{figure.caption.10}
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Crepuscular rays.}}{2}{figure.caption.11}
+\contentsline {figure}{\numberline {1.4}{\ignorespaces Progressive rendering.}}{3}{figure.caption.13}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces 2D plot of Plot of Heney-Greenstein phase function.}}{10}{figure.caption.11}
-\contentsline {figure}{\numberline {2.2}{\ignorespaces 2D polar plot of function Reyleigh scattering function.}}{11}{figure.caption.12}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Brushed, unbrushed, diffuse BRDF metal surface.}}{8}{figure.caption.15}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces 2D plot of Plot of Heney-Greenstein phase function.}}{12}{figure.caption.16}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces 3D plot Heney-Greenstein}}{12}{figure.caption.17}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces 2D polar plot of function Reyleigh scattering function.}}{13}{figure.caption.18}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Boundary volume representation.}}{15}{figure.caption.19}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Volumetric image data example, source \cite {RDR10}.}}{15}{figure.caption.20}
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Smoke simulation on regular 3D grid.}}{15}{figure.caption.21}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Nvidia smoke particle demo.}}{14}{figure.caption.13}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Krakatoa particle and volume rendering.}}{17}{figure.caption.22}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Half axis angle particle sorting and rendering.}}{18}{figure.caption.23}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Nvidia smoke particle demo.}}{18}{figure.caption.24}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Comparison vpl, vsl, vrl, vbl.}}{22}{figure.caption.25}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Energy contribution of phase functions, inverse squared distance and both samples on ray lights.}}{20}{figure.caption.14}
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Energy contribution of phase functions, inverse squared distance and both samples on ray lights.}}{26}{figure.caption.26}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

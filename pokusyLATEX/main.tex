@@ -4,18 +4,18 @@
 \usepackage{Styles/Skripta}
 \usepackage{Styles/Diplomka}
 \usepackage{Styles/Colors}
-\usepackage{dcolumn}
-
+\usepackage{url}
 \usepackage{graphicx}
 
 %------<<<<<<<<<< CUSTOM COMMANDS DEFINITIONS >>>>>>>>>>------------
-\newcommand{\myFigure}[4]{
+\newcommand{\myFigure}[5]{
   \begin{figure}
     \centering
-    \includegraphics[width=#1cm]{#2}
-    \caption[#3]{#4}\label{fig:#2}
+    \includegraphics[width=#1\linewidth]{#2}
+    \caption[#3]{#4}\label{#5}
   \end{figure}
 }
+
 
 \newcommand{\ita}[1]{
 \textit{#1}
@@ -54,9 +54,6 @@
 \def \cestaAP {06_Appendix/}
 \def \cestaImg{images/}
 %-----<<< --------------------------------- >>>-----
-
-
-
 
 \begin{document}
 
@@ -142,7 +139,7 @@ Vložit zadani prace
 
 %-----<<< REFERENCES >>>-----
 %\input{05_Refer/Refer.tex}
-\bibliographystyle{plainnat}
+\bibliographystyle{alphaurl}
 \bibliography{mybibliography}
 
 %\bibliographystyle{Styles/Skripta}

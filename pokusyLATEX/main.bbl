@@ -1,66 +1,81 @@
-\begin{thebibliography}{8}
-\providecommand{\natexlab}[1]{#1}
-\providecommand{\url}[1]{\texttt{#1}}
-\expandafter\ifx\csname urlstyle\endcsname\relax
-  \providecommand{\doi}[1]{doi: #1}\else
-  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+\newcommand{\etalchar}[1]{$^{#1}$}
+\begin{thebibliography}{NNDJ12b}
 
-\bibitem[Dutre et~al.(2001)Dutre, Heckbert, Ma, Pellacini, Porschka,
-  Ramasubramanian, Soler, and Ward]{Dutre01globalillumination}
-Philip Dutre, Paul Heckbert, Vincent Ma, Fabio Pellacini, Robert Porschka,
-  Mahesh Ramasubramanian, Cyril Soler, and Greg Ward.
-\newblock Global illumination compendium, 2001.
-
-\bibitem[Ha\v{s}an et~al.(2009)Ha\v{s}an, K\v{r}iv\'{a}nek, Walter, and
-  Bala]{HasanVSL}
+\bibitem[HKWB09]{HasanVSL}
 Milo\v{s} Ha\v{s}an, Jaroslav K\v{r}iv\'{a}nek, Bruce Walter, and Kavita Bala.
 \newblock Virtual spherical lights for many-light rendering of glossy scenes.
-\newblock \emph{ACM Trans. Graph.}, 28\penalty0 (5):\penalty0 143:1--143:6,
-  December 2009.
-\newblock ISSN 0730-0301.
-\newblock \doi{10.1145/1618452.1618489}.
-\newblock URL \url{http://doi.acm.org/10.1145/1618452.1618489}.
+\newblock {\em ACM Trans. Graph.}, 28(5):143:1--143:6, December 2009.
+\newblock Available from: \url{http://doi.acm.org/10.1145/1618452.1618489},
+  \href {http://dx.doi.org/10.1145/1618452.1618489}
+  {\path{doi:10.1145/1618452.1618489}}.
 
-\bibitem[Jarosz(2008)]{jarosz08thesis}
+\bibitem[Jar08]{jarosz08thesis}
 Wojciech Jarosz.
-\newblock \emph{Efficient Monte Carlo Methods for Light Transport in Scattering
+\newblock {\em Efficient Monte Carlo Methods for Light Transport in Scattering
   Media}.
 \newblock PhD thesis, UC San Diego, September 2008.
 
-\bibitem[Jarosz et~al.(2011)Jarosz, Nowrouzezahrai, Thomas, Sloan, and
-  Zwicker]{jarosz11progressive}
+\bibitem[JNT{\etalchar{+}}11]{jarosz11progressive}
 Wojciech Jarosz, Derek Nowrouzezahrai, Robert Thomas, Peter-Pike Sloan, and
   Matthias Zwicker.
 \newblock Progressive photon beams.
-\newblock \emph{ACM Transactions on Graphics (Proceedings of ACM SIGGRAPH Asia
-  2011)}, 30\penalty0 (6), December 2011.
+\newblock {\em ACM Transactions on Graphics (Proceedings of ACM SIGGRAPH Asia
+  2011)}, 30(6), December 2011.
 
-\bibitem[Keller(1997)]{Keller97instantradiosity}
+\bibitem[Kel97]{Keller97instantradiosity}
 Alexander Keller.
 \newblock Instant radiosity, 1997.
 
-\bibitem[Lokovic and Veach(2000)]{LokDSM}
+\bibitem[LV00]{LokDSM}
 Tom Lokovic and Eric Veach.
 \newblock Deep shadow maps.
-\newblock In \emph{Proceedings of the 27th annual conference on Computer
+\newblock In {\em Proceedings of the 27th annual conference on Computer
   graphics and interactive techniques}, SIGGRAPH '00, pages 385--392, New York,
   NY, USA, 2000. ACM Press/Addison-Wesley Publishing Co.
-\newblock ISBN 1-58113-208-5.
-\newblock \doi{10.1145/344779.344958}.
-\newblock URL \url{http://dx.doi.org/10.1145/344779.344958}.
+\newblock Available from: \url{http://dx.doi.org/10.1145/344779.344958}, \href
+  {http://dx.doi.org/10.1145/344779.344958} {\path{doi:10.1145/344779.344958}}.
 
-\bibitem[Nov{\'a}k et~al.(2012{\natexlab{a}})Nov{\'a}k, Nowrouzezahrai,
-  Dachsbacher, and Jarosz]{novak12vbls}
+\bibitem[NAS]{LOPT}
+NASA.
+\newblock Laser optics.
+\newblock Available from: \url{http://gimp-savvy.com/}.
+
+\bibitem[NNDJ12a]{novak12vbls}
 Jan Nov{\'a}k, Derek Nowrouzezahrai, Carsten Dachsbacher, and Wojciech Jarosz.
 \newblock Progressive virtual beam lights.
-\newblock \emph{Computer Graphics Forum (Proceedings of EGSR 2012)},
-  31\penalty0 (4), June 2012{\natexlab{a}}.
+\newblock {\em Computer Graphics Forum (Proceedings of EGSR 2012)}, 31(4), June
+  2012.
 
-\bibitem[Nov{\'a}k et~al.(2012{\natexlab{b}})Nov{\'a}k, Nowrouzezahrai,
-  Dachsbacher, and Jarosz]{novak12vrls}
+\bibitem[NNDJ12b]{novak12vrls}
 Jan Nov{\'a}k, Derek Nowrouzezahrai, Carsten Dachsbacher, and Wojciech Jarosz.
 \newblock Virtual ray lights for rendering scenes with participating media.
-\newblock \emph{ACM Transactions on Graphics (Proceedings of ACM SIGGRAPH
-  2012)}, 31\penalty0 (4), July 2012{\natexlab{b}}.
+\newblock {\em ACM Transactions on Graphics (Proceedings of ACM SIGGRAPH
+  2012)}, 31(4), July 2012.
+
+\bibitem[NVI]{NVIDIA}
+Simon~Green NVIDIA.
+\newblock Nvidia cuda sdk example, smoke particle demo.
+\newblock Available from: \url{http://docs.nvidia.com/cuda/cuda-samples/}.
+
+\bibitem[PN]{PETR}
+Petra~Glazerova Petr~Nejtek.
+\newblock Crepuscular rays.
+
+\bibitem[RDRS10]{RDR10}
+Timo Ropinski, Christian D{\"o}ring, and Christof Rezk~Salama.
+\newblock {Advanced Volume Illumination with Unconstrained Light Source
+  Positioning}.
+\newblock {\em IEEE Computer Graphics and Applications}, 2010.
+
+\bibitem[SAL]{AURO}
+Image Science and NASA Johnson Space~Center Analysis~Laboratory.
+\newblock Aurora borealis from iss.
+\newblock Available from: \url{eol.jsc.nasa.gov}.
+
+\bibitem[Thi]{KRAK}
+Thinkbox.
+\newblock Thinkbox software's production-proven volumetric particle
+  rendering{@ONLINE}.
+\newblock Available from: \url{http://www.thinkboxsoftware.com/krakatoa/}.
 
 \end{thebibliography}

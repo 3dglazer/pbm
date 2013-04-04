@@ -1,46 +1,54 @@
 This is BibTeX, Version 0.99d (TeX Live 2011)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: main.aux
-The style file: plainnat.bst
+The style file: alphaurl.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
+Reallocated global_strs (elt_size=5001) to 20 items from 10.
+Reallocated glb_str_end (elt_size=4) to 20 items from 10.
 Database file #1: mybibliography.bib
-You've used 8 entries,
-            2773 wiz_defined-function locations,
-            649 strings with 6374 characters,
-and the built_in function-call counts, 3984 in all, are:
-= -- 347
-> -- 281
-< -- 4
-+ -- 96
-- -- 87
-* -- 351
-:= -- 634
-add.period$ -- 29
-call.type$ -- 8
-change.case$ -- 52
-chr.to.int$ -- 7
-cite$ -- 16
-duplicate$ -- 160
-empty$ -- 280
-format.name$ -- 97
-if$ -- 815
+Warning--I didn't find a database entry for "sec::VOLINTER"
+Warning--I didn't find a database entry for "fig:BOUND"
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+You've used 13 entries,
+            3262 wiz_defined-function locations,
+            757 strings with 7431 characters,
+and the built_in function-call counts, 6073 in all, are:
+= -- 611
+> -- 257
+< -- 7
++ -- 83
+- -- 82
+* -- 338
+:= -- 905
+add.period$ -- 40
+call.type$ -- 13
+change.case$ -- 81
+chr.to.int$ -- 12
+cite$ -- 13
+duplicate$ -- 182
+empty$ -- 528
+format.name$ -- 99
+if$ -- 1495
 int.to.chr$ -- 2
-int.to.str$ -- 1
-missing$ -- 5
-newline$ -- 52
-num.names$ -- 32
-pop$ -- 99
+int.to.str$ -- 0
+missing$ -- 6
+newline$ -- 69
+num.names$ -- 39
+pop$ -- 152
 preamble$ -- 1
-purify$ -- 45
+purify$ -- 95
 quote$ -- 0
-skip$ -- 136
+skip$ -- 441
 stack$ -- 0
-substring$ -- 85
-swap$ -- 24
-text.length$ -- 1
-text.prefix$ -- 0
+substring$ -- 160
+swap$ -- 26
+text.length$ -- 7
+text.prefix$ -- 5
 top$ -- 0
-type$ -- 88
+type$ -- 104
 warning$ -- 0
-while$ -- 29
-width$ -- 0
-write$ -- 120
+while$ -- 38
+width$ -- 17
+write$ -- 165
+(There were 2 warnings)
