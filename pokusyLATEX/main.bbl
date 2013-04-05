@@ -1,6 +1,12 @@
 \newcommand{\etalchar}[1]{$^{#1}$}
 \begin{thebibliography}{NNDJ12b}
 
+\bibitem[Ani]{OPENVDB}
+DreamWorks Animation.
+\newblock Opensource format for efficient storage of sparse volumetric
+  data.{@ONLINE}.
+\newblock Available from: \url{http://www.openvdb.org/}.
+
 \bibitem[HKWB09]{HasanVSL}
 Milo\v{s} Ha\v{s}an, Jaroslav K\v{r}iv\'{a}nek, Bruce Walter, and Kavita Bala.
 \newblock Virtual spherical lights for many-light rendering of glossy scenes.

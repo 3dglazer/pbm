@@ -253,7 +253,7 @@ We can use any type of boundary representations and turn them into volumetricall
 \myFigure{0.5}{images/juiceVolume.jpg}{Boundary volume representation.}{Left image is glass with juice\footnote{Juice can be viewed as an optically active homogenous volume.}, the volume is bounded by triangle mesh, source \cite{novak12vrls}. On the right we can se a simple procedural box filled with heterogenous fog\footnote{We can apply any procedural function to the density of the media, in this case we have used three octaves of perlin noise.}}{fig:BOUND}
 
 \item \bd{Grid representation}
-To have an absolute control over each voxel\footnote{Also known as \ita{volumetric pixel} is a volumetric analogy of pixel in 2D. We can imagine it as an element of regular 3D grid.} values we can use some kind of grid representation. For example fluid simulations or MRI\footnote{MRI stands for \ita{magnetic resonance imagery} very often used in radiology for noninvasive interior medial examination. }
+To have an absolute control over each voxel\footnote{Also known as \ita{volumetric pixel} is a volumetric analogy of pixel in 2D. We can imagine it as an element of regular 3D grid.} values we can use some kind of grid representation. For example fluid simulations or MRI\footnote{MRI stands for \ita{magnetic resonance imagery} very often used in radiology for noninvasive interior medial examination. } data come in a form of regularly spaced 3D grids. To over come a cubic space complexity of this representation more evolved structures, such as octree can be used\footnote{Lately a new industry standard format \cite{OPENVDB} for efficient storage and access of sparse volumetric datasets has been established}.
 
 \begin{minipage}{\linewidth}
       \begin{minipage}{0.45\linewidth}
