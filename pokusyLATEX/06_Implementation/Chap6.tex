@@ -1,11 +1,41 @@
 \chapter{Implementation}
+All the selected algorithms are based on Monte Carlo ray tracing methods, thus we would have to implement, all the ray casting methods, scene loaders and acceleration structures from the ground up. An efficient and easily extensible implementation of the ray tracing core would take us probably much longer than the implementation of the algorithms we want to investigate.
+\\
+\\
+Thus we have deiced to implement the algorithms into PBRT\footnote{Physically Based Rendering toolkit source \cite{PBRT}}, which we use as a core framework for the raytracing. It's a full featured ray tracer, containing all we need to implement and test selected algorithms.
+\\
+\\
+\section{Rendering system architecture}
+Lets see how well we will be able to implement proposed architecture from chapter \ref{chap:PROPOSAL} into the PBRT framework. On the fig \ref{fig:PBRTSTRUCT} we can see an architecture of the ray tracer which uses photon rendering. As you can se we have to make few changes to effectively implement progressive renderer suggested on fig \ref{fig:PRSTRUCT}.
+\\
+\\
+The main difference is the lack of progressive rendering stage which reuses scene acceleration structures for photon shutting and rendering passes. And also a shared frame buffer for final image rendering. So we have implemented new renderer into PBRT with the following structure fig \ref{fig:NRSTRUCT}.
+
+\myFigure{0.5}{images/temp.jpg}{PBRT architecture.}{A diagram of PBRT photon casting renderer.}{fig:PBRTSTRUCT}
+
+\myFigure{0.5}{images/temp.jpg}{New renderer.}{A diagram of new progressive render implementation using PBRT.}{fig:NRSTRUCT}
+
 \section{Volume representation}
-both unified grid and procedural volume (multiple octaves of perlin noise)
+To test selected algorithms we have to decide which volume representations we will use to model different kinds of volumetric phenomenons.
 
-I have decided to implement it using pbrt. what is pbrt what structures I will use, which I have to create.
+\begin{itemize}
+\item \bd{Bounding volumes}
+We have chosen to implement a bounding volume representation, using a volume box. To model the heterogenous density inside the volume box, we use multiple octaves of 3D Perlin noise function and custom step function. This this way we have a memory friendly, easily expandable and adjustable volume representation we can use to test out selected algorithms. To see some examples of the functions used, have a look at fig \ref{fig:3DDENSITYFUNC}. As you can see 3D Perlin noise is very useful for modeling heterogenous fog environments. While the step function will help us in the debugging stage, where we will test the correctness of photon volume multiple scattering behavior.
 
-\section{Ground truth}
-light tracer - dual algorithm to path tracer. It is able to capture caustic effects. Maybe path tracer too??
+\item \bd{Unified grid}
+To test out real world production scenarios, we have decided to use PBRT internal unified grid representation, where we can directly load any 3D fluid simulation. Have a look at \ref{fig:SIMDATA}, as you can see this way we can nicely represent smoke plumes.
+
+\myFigure{0.5}{images/temp.jpg}{Custom density 3D functions.}{Two distinct 3D functions were implemented to represent various heterogenous media. Multiple octaves of 3D Perlin noise on left and custom step function on right.}{fig:3DDENSITYFUNC}
+
+\myFigure{0.5}{images/temp.jpg}{Fluid simulation data container, uniform grid.}{PBRT 3D uniform grid structure used to hold fluid simulation data.}{fig:SIMDATA}
+
+\end{itemize}
+
+\section{Brdf}
+What brdf will be used, importance sampling implementaion
+
+\section{Phase funcitons}
+What phase func will be used and imp sampl implem 
 
 \myFigure{0.9}{images/rr_sampling.png}{Energy contribution of phase functions, inverse squared distance and both samples on ray lights.}{Different functions have been evaluated in discreet point pairs (from 0 to 1 parametric range) on two randomly placed rays.\\ On the left image only contribution using ray moderately forward scattering (g=0.75) Heney-Greenstein phase functions has been evaluated. In the middle inverse squared contribution and on the right contribution using both phase function and inverse sqared distance.}{fig:PHASEDIST}
 

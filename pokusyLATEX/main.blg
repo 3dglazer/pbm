@@ -7,48 +7,45 @@ Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
 Reallocated global_strs (elt_size=5001) to 20 items from 10.
 Reallocated glb_str_end (elt_size=4) to 20 items from 10.
 Database file #1: mybibliography.bib
-Warning--I didn't find a database entry for "sec::VOLINTER"
-Warning--I didn't find a database entry for "fig:BOUND"
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
-You've used 14 entries,
+You've used 16 entries,
             3262 wiz_defined-function locations,
-            762 strings with 7563 characters,
-and the built_in function-call counts, 6439 in all, are:
-= -- 646
-> -- 266
-< -- 8
-+ -- 85
-- -- 84
-* -- 351
-:= -- 952
-add.period$ -- 43
-call.type$ -- 14
-change.case$ -- 86
-chr.to.int$ -- 13
-cite$ -- 14
-duplicate$ -- 195
-empty$ -- 569
-format.name$ -- 103
-if$ -- 1592
+            770 strings with 7772 characters,
+and the built_in function-call counts, 7236 in all, are:
+= -- 723
+> -- 295
+< -- 9
++ -- 93
+- -- 92
+* -- 384
+:= -- 1065
+add.period$ -- 49
+call.type$ -- 16
+change.case$ -- 96
+chr.to.int$ -- 15
+cite$ -- 16
+duplicate$ -- 223
+empty$ -- 649
+format.name$ -- 114
+if$ -- 1797
 int.to.chr$ -- 2
 int.to.str$ -- 0
-missing$ -- 6
-newline$ -- 74
-num.names$ -- 42
-pop$ -- 167
+missing$ -- 8
+newline$ -- 84
+num.names$ -- 48
+pop$ -- 194
 preamble$ -- 1
-purify$ -- 101
+purify$ -- 114
 quote$ -- 0
-skip$ -- 471
+skip$ -- 534
 stack$ -- 0
-substring$ -- 167
-swap$ -- 27
-text.length$ -- 8
-text.prefix$ -- 6
+substring$ -- 181
+swap$ -- 29
+text.length$ -- 9
+text.prefix$ -- 7
 top$ -- 0
-type$ -- 112
+type$ -- 124
 warning$ -- 0
-while$ -- 40
-width$ -- 18
-write$ -- 176
-(There were 2 warnings)
+while$ -- 45
+width$ -- 20
+write$ -- 200

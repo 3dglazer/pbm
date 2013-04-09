@@ -4,22 +4,31 @@
 \contentsline {figure}{\numberline {1.2}{\ignorespaces Crepuscular rays.}}{2}{figure.caption.11}
 \contentsline {figure}{\numberline {1.4}{\ignorespaces Progressive rendering.}}{3}{figure.caption.13}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Brushed, unbrushed, diffuse BRDF metal surface.}}{8}{figure.caption.15}
-\contentsline {figure}{\numberline {2.2}{\ignorespaces 2D plot of Plot of Heney-Greenstein phase function.}}{12}{figure.caption.16}
-\contentsline {figure}{\numberline {2.3}{\ignorespaces 3D plot Heney-Greenstein}}{12}{figure.caption.17}
-\contentsline {figure}{\numberline {2.4}{\ignorespaces 2D polar plot of function Reyleigh scattering function.}}{13}{figure.caption.18}
-\contentsline {figure}{\numberline {2.5}{\ignorespaces Boundary volume representation.}}{15}{figure.caption.19}
-\contentsline {figure}{\numberline {2.6}{\ignorespaces Volumetric image data example, source \cite {RDR10}.}}{15}{figure.caption.20}
-\contentsline {figure}{\numberline {2.7}{\ignorespaces Smoke simulation on regular 3D grid.}}{15}{figure.caption.21}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Brushed, unbrushed, diffuse BRDF metal surface.}}{9}{figure.caption.15}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Volume absorption, emission, in and out-scattering.}}{13}{figure.caption.16}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Phase function dependency with fixed light wavelength on growing particle sizes.}}{14}{figure.caption.17}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces 2D plot of Plot of Heney-Greenstein phase function.}}{15}{figure.caption.18}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces 3D plot Heney-Greenstein}}{15}{figure.caption.19}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Sunset atmospherical behavior.}}{16}{figure.caption.20}
+\contentsline {figure}{\numberline {2.7}{\ignorespaces 2D polar plot of Rayleigh scattering function.}}{16}{figure.caption.21}
+\contentsline {figure}{\numberline {2.8}{\ignorespaces MIE scattering polar plot of red light with water droplet interaction. Source \cite {MIEPLOT}}}{17}{figure.caption.22}
+\contentsline {figure}{\numberline {2.9}{\ignorespaces Boundary volume representation.}}{20}{figure.caption.23}
+\contentsline {figure}{\numberline {2.10}{\ignorespaces Volumetric image data example, source \cite {RDR10}.}}{20}{figure.caption.24}
+\contentsline {figure}{\numberline {2.11}{\ignorespaces Smoke simulation on regular 3D grid.}}{20}{figure.caption.25}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Krakatoa particle and volume rendering.}}{17}{figure.caption.22}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Half axis angle particle sorting and rendering.}}{18}{figure.caption.23}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Nvidia smoke particle demo.}}{18}{figure.caption.24}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Krakatoa particle and volume rendering.}}{21}{figure.caption.26}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Half axis angle particle sorting and rendering.}}{22}{figure.caption.27}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Nvidia smoke particle demo.}}{22}{figure.caption.28}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Comparison vpl, vsl, vrl, vbl.}}{22}{figure.caption.25}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Comparison vpl, vsl, vrl, vbl.}}{26}{figure.caption.29}
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Proposed progressive rendering system architecture}}{27}{figure.caption.30}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Energy contribution of phase functions, inverse squared distance and both samples on ray lights.}}{26}{figure.caption.26}
+\contentsline {figure}{\numberline {6.1}{\ignorespaces PBRT architecture.}}{30}{figure.caption.31}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces New renderer.}}{30}{figure.caption.32}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Custom density 3D functions.}}{31}{figure.caption.33}
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Fluid simulation data container, uniform grid.}}{31}{figure.caption.34}
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Energy contribution of phase functions, inverse squared distance and both samples on ray lights.}}{32}{figure.caption.35}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

@@ -32,6 +32,11 @@ Wojciech Jarosz, Derek Nowrouzezahrai, Robert Thomas, Peter-Pike Sloan, and
 Alexander Keller.
 \newblock Instant radiosity, 1997.
 
+\bibitem[Lav]{MIEPLOT}
+Philip Laven.
+\newblock Mie plot software illustration image.
+\newblock Available from: \url{http://www.philiplaven.com/mieplot.htm}.
+
 \bibitem[LV00]{LokDSM}
 Tom Lokovic and Eric Veach.
 \newblock Deep shadow maps.
@@ -62,6 +67,11 @@ Jan Nov{\'a}k, Derek Nowrouzezahrai, Carsten Dachsbacher, and Wojciech Jarosz.
 Simon~Green NVIDIA.
 \newblock Nvidia cuda sdk example, smoke particle demo.
 \newblock Available from: \url{http://docs.nvidia.com/cuda/cuda-samples/}.
+
+\bibitem[PH04]{PBRT}
+Matt Pharr and Greg Humphreys.
+\newblock {\em Physically Based Rendering: From Theory to Implementation}.
+\newblock Morgan Kaufmann Publishers Inc., San Francisco, CA, USA, 2004.
 
 \bibitem[PN]{PETR}
 Petra~Glazerova Petr~Nejtek.

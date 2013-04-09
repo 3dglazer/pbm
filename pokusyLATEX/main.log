@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2012.4.2)  4 APR 2013 21:37
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2012.4.2)  9 APR 2013 21:31
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -615,7 +615,11 @@ File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
 \Gin@req@height=\dimen128
 \Gin@req@width=\dimen129
 )
-(./main.aux)
+(./main.aux
+
+LaTeX Warning: Label `lab:HEN' multiply defined.
+
+)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 58.
@@ -638,6 +642,7 @@ LaTeX Font Info:    ... okay on input line 58.
 Package hyperref Info: Link coloring OFF on input line 58.
  (/usr/local/texlive/2011/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2010/04/30 v2.40 Cross-referencing by name of section
+
 (/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
@@ -735,34 +740,33 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
- [8] (./main.lof)
-\tf@lof=\write5
-\openout5 = `main.lof'.
-
-
+ [8] (./main.lof
 [9
 
 
-] [10
+])
+\tf@lof=\write5
+\openout5 = `main.lof'.
 
-] (./main.lot)
+ [10] (./main.lot)
 \tf@lot=\write6
 \openout6 = `main.lot'.
 
  [11
 
+
 ] [12
 
 ] (./01_Intro/Intro.tex
 Chapter 1.
-<images/nasaearth.jpg, id=205, 1027.84pt x 687.56876pt>
+<images/nasaearth.jpg, id=237, 1027.84pt x 687.56876pt>
 File: images/nasaearth.jpg Graphic file (type jpg)
 
 <use images/nasaearth.jpg>
 Package pdftex.def Info: images/nasaearth.jpg used on input line 11.
 (pdftex.def)             Requested size: 203.83415pt x 136.34676pt.
 
-<01_Intro/images/sunset.jpg, id=208, 1027.84pt x 687.56876pt>
+<01_Intro/images/sunset.jpg, id=240, 1027.84pt x 687.56876pt>
 File: 01_Intro/images/sunset.jpg Graphic file (type jpg)
 
 <use 01_Intro/images/sunset.jpg>
@@ -789,7 +793,7 @@ l.26 \noindent
               { [1
 
 ]
-<01_Intro/images/laseroptique.jpeg, id=216, 1027.84pt x 687.56876pt>
+<01_Intro/images/laseroptique.jpeg, id=248, 1027.84pt x 687.56876pt>
 File: 01_Intro/images/laseroptique.jpeg Graphic file (type jpg)
 
 <use 01_Intro/images/laseroptique.jpeg>
@@ -813,7 +817,7 @@ been already used, duplicate ignored
 l.34 \newpage
               [2 <./01_Intro/images/laseroptique.jpeg> <./images/nasaearth.jpg>
  <./01_Intro/images/sunset.jpg>]
-<images/temp.jpg, id=228, 1027.84pt x 687.56876pt>
+<images/temp.jpg, id=260, 1027.84pt x 687.56876pt>
 File: images/temp.jpg Graphic file (type jpg)
  <use images/temp.jpg>
 Package pdftex.def Info: images/temp.jpg used on input line 39.
@@ -839,17 +843,22 @@ been already used, duplicate ignored
                    \relax 
 l.58 \newpage
               [3 <./images/temp.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 60--68
+Underfull \hbox (badness 10000) in paragraph at lines 60--69
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 60--68
+Underfull \hbox (badness 10000) in paragraph at lines 60--69
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 60--68
+Underfull \hbox (badness 10000) in paragraph at lines 60--69
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 60--69
 
  []
 
@@ -861,42 +870,32 @@ l.1 \chapter
             {Fundamentals of realistic image synthesis} [4]
 Chapter 2.
 
-Underfull \hbox (badness 10000) in paragraph at lines 3--12
+Underfull \hbox (badness 10000) in paragraph at lines 3--13
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3--12
+Underfull \hbox (badness 10000) in paragraph at lines 3--13
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3--12
+Underfull \hbox (badness 10000) in paragraph at lines 3--13
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3--12
+Underfull \hbox (badness 10000) in paragraph at lines 3--13
 
  []
 
 [5
 
-]
+] [6]
 
 Package amsmath Warning: Foreign command \over;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 19.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 20--26
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 28--33
-
- []
+(amsmath)                 on input line 20.
 
 
 LaTeX Font Warning: Font shape `OT1/mnozina/m/n' in size <7> not available
@@ -906,64 +905,65 @@ LaTeX Font Warning: Font shape `OT1/mnozina/m/n' in size <7> not available
 LaTeX Font Warning: Font shape `OT1/mnozina/m/n' in size <5> not available
 (Font)              size <6> substituted on input line 36.
 
-[6]
-Underfull \hbox (badness 10000) in paragraph at lines 39--41
-
- []
-
 
 Underfull \hbox (badness 10000) in paragraph at lines 39--41
 
  []
 
 
+Underfull \hbox (badness 10000) in paragraph at lines 39--41
+
+ []
+
+[7
+
+] [8]
 Underfull \hbox (badness 10000) in paragraph at lines 73--77
 
  []
 
-[7]
 File: images/temp.jpg Graphic file (type jpg)
- <use images/temp.jpg>
+<use images/temp.jpg>
 Package pdftex.def Info: images/temp.jpg used on input line 78.
 (pdftex.def)             Requested size: 317.07611pt x 212.10545pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [8]
-Underfull \hbox (badness 10000) in paragraph at lines 86--90
+ [9
+
+]
+[10]
+Underfull \hbox (badness 10000) in paragraph at lines 112--118
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 112--116
+Underfull \hbox (badness 10000) in paragraph at lines 112--118
 
  []
-
-[9]
-
-LaTeX Warning: Reference `sec::VOLINTER' on page 10 undefined on input line 129
-.
 
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <8> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 133.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 136.
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <6> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 133.
-[10]
-Underfull \hbox (badness 10000) in paragraph at lines 148--149
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 136.
+[11
+
+] [12]
+File: images/temp.jpg Graphic file (type jpg)
+ <use images/temp.jpg>
+Package pdftex.def Info: images/temp.jpg used on input line 177.
+(pdftex.def)             Requested size: 158.5415pt x 106.04749pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 181--185
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 155--156
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 174--178
-
- []
-
-[11]
+[13]
+File: images/temp.jpg Graphic file (type jpg)
+ <use images/temp.jpg>
+Package pdftex.def Info: images/temp.jpg used on input line 202.
+(pdftex.def)             Requested size: 158.5415pt x 106.04749pt.
+ [14]
 Package epstopdf Info: Source file: <02_Chap2/Figures/heneygreenstein2dgraph.ep
 s>
 (epstopdf)                    date: 2013-03-15 18:07:51
@@ -974,32 +974,47 @@ s-converted-to.pdf>
 (epstopdf)                    size: 20221 bytes
 (epstopdf)             Command: <epstopdf --outfile=02_Chap2/Figures/heneygreen
 stein2dgraph-eps-converted-to.pdf 02_Chap2/Figures/heneygreenstein2dgraph.eps>
-(epstopdf)             \includegraphics on input line 202.
+(epstopdf)             \includegraphics on input line 216.
 Package epstopdf Info: Output file is already uptodate.
 
-<02_Chap2/Figures/heneygreenstein2dgraph-eps-converted-to.pdf, id=326, 495.8525
+<02_Chap2/Figures/heneygreenstein2dgraph-eps-converted-to.pdf, id=393, 495.8525
 pt x 404.51125pt>
 File: 02_Chap2/Figures/heneygreenstein2dgraph-eps-converted-to.pdf Graphic file
  (type pdf)
 
 <use 02_Chap2/Figures/heneygreenstein2dgraph-eps-converted-to.pdf>
 Package pdftex.def Info: 02_Chap2/Figures/heneygreenstein2dgraph-eps-converted-
-to.pdf used on input line 202.
+to.pdf used on input line 216.
 (pdftex.def)             Requested size: 203.83415pt x 166.28275pt.
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 204.
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 218.
 
 
 (/usr/local/texlive/2011/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 204.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 218.
 
-<images/hg3d.png, id=327, 562.1pt x 420.57124pt>
+<images/hg3d.png, id=394, 562.1pt x 420.57124pt>
 File: images/hg3d.png Graphic file (type png)
  <use images/hg3d.png>
-Package pdftex.def Info: images/hg3d.png used on input line 210.
+Package pdftex.def Info: images/hg3d.png used on input line 224.
 (pdftex.def)             Requested size: 203.83415pt x 152.50932pt.
+
+Overfull \hbox (17.62482pt too wide) in paragraph at lines 213--230
+[]$[]$ 
+ []
+
+[15
+
+ <./02_Chap2/Figures/heneygreenstein2dgraph-eps-converted-to.pdf> <./images/hg3
+d.png (PNG copy)>]
+<images/sunsetbeach.jpg, id=411, 1027.84pt x 687.56876pt>
+File: images/sunsetbeach.jpg Graphic file (type jpg)
+
+<use images/sunsetbeach.jpg>
+Package pdftex.def Info: images/sunsetbeach.jpg used on input line 256.
+(pdftex.def)             Requested size: 203.83415pt x 136.34676pt.
 Package epstopdf Info: Source file: <images/reyleigh2dgraph.eps>
 (epstopdf)                    date: 2013-03-30 15:34:06
 (epstopdf)                    size: 12862 bytes
@@ -1009,91 +1024,97 @@ f>
 (epstopdf)                    size: 10218 bytes
 (epstopdf)             Command: <epstopdf --outfile=images/reyleigh2dgraph-eps-
 converted-to.pdf images/reyleigh2dgraph.eps>
-(epstopdf)             \includegraphics on input line 218.
+(epstopdf)             \includegraphics on input line 264.
 Package epstopdf Info: Output file is already uptodate.
 
-<images/reyleigh2dgraph-eps-converted-to.pdf, id=328, 492.84125pt x 404.51125pt
+<images/reyleigh2dgraph-eps-converted-to.pdf, id=412, 492.84125pt x 404.51125pt
 >
 File: images/reyleigh2dgraph-eps-converted-to.pdf Graphic file (type pdf)
  <use images/reyleigh2dgraph-eps-converted-to.pdf>
 Package pdftex.def Info: images/reyleigh2dgraph-eps-converted-to.pdf used on in
-put line 218.
-(pdftex.def)             Requested size: 226.48393pt x 185.89226pt.
- [12 <./02_Chap2/Figures/heneygreenstein2dgraph-eps-converted-to.pdf> <./images
-/hg3d.png (PNG copy)>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+put line 264.
+(pdftex.def)             Requested size: 203.83415pt x 167.30118pt.
 
- [13 <./images/reyleigh2dgraph-eps-converted-to.pdf>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 244.
+Overfull \hbox (17.62482pt too wide) in paragraph at lines 253--270
+[]$[]$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 274--278
+
+ []
+
+[16
+
+ <./images/sunsetbeach.jpg> <./images/reyleigh2dgraph-eps-converted-to.pdf>] <i
+mages/r10PerpPolarLogA.png, id=427, 449.68pt x 445.665pt>
+File: images/r10PerpPolarLogA.png Graphic file (type png)
+
+<use images/r10PerpPolarLogA.png>
+Package pdftex.def Info: images/r10PerpPolarLogA.png used on input line 279.
+(pdftex.def)             Requested size: 226.48393pt x 224.46402pt.
+
+
+LaTeX Font Warning: Font shape `OT1/mnozina/m/n' in size <10.95> not available
+(Font)              size <10> substituted on input line 279.
+
+[17 <./images/r10PerpPolarLogA.png (PNG copy)>] [18
+
+]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 317.
 
 
 (/usr/local/texlive/2011/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 244.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 317.
 
-Underfull \hbox (badness 10000) in paragraph at lines 244--249
+Underfull \hbox (badness 10000) in paragraph at lines 317--322
 
  []
 
-
-LaTeX Warning: Citation `sec::VOLINTER' on page 14 undefined on input line 251.
-
-
-
-LaTeX Warning: Citation `fig:BOUND' on page 14 undefined on input line 251.
-
-<images/juiceVolume.jpg, id=357, 646.415pt x 649.42625pt>
+<images/juiceVolume.jpg, id=449, 646.415pt x 649.42625pt>
 File: images/juiceVolume.jpg Graphic file (type jpg)
 
 <use images/juiceVolume.jpg>
-Package pdftex.def Info: images/juiceVolume.jpg used on input line 253.
+Package pdftex.def Info: images/juiceVolume.jpg used on input line 326.
 (pdftex.def)             Requested size: 226.48393pt x 227.54042pt.
 
-
-LaTeX Font Warning: Font shape `OT1/mnozina/m/n' in size <10.95> not available
-(Font)              size <10> substituted on input line 253.
-
-<images/volumerat.png, id=368, 659.46375pt x 324.21124pt>
+<images/volumerat.png, id=460, 659.46375pt x 324.21124pt>
 File: images/volumerat.png Graphic file (type png)
 
 <use images/volumerat.png>
-Package pdftex.def Info: images/volumerat.png used on input line 261.
+Package pdftex.def Info: images/volumerat.png used on input line 334.
 (pdftex.def)             Requested size: 190.61563pt x 93.71213pt.
 
-Underfull \hbox (badness 1205) in paragraph at lines 263--263
-[]\OT1/cmr/m/n/10.95 Figure 2.6: |Ex-am-ple of a vol-u-met-
- []
-
-
-Underfull \hbox (badness 1755) in paragraph at lines 263--263
+Underfull \hbox (badness 1755) in paragraph at lines 336--336
 \OT1/cmr/m/n/10.95 age stack. Ren-dered us-ing Voreen
  []
 
 File: images/temp.jpg Graphic file (type jpg)
 <use images/temp.jpg>
-Package pdftex.def Info: images/temp.jpg used on input line 269.
+Package pdftex.def Info: images/temp.jpg used on input line 342.
 (pdftex.def)             Requested size: 190.61563pt x 127.50247pt.
- [14]) (./03_Chap3/Chap3.tex [15 <./images/juiceVolume.jpg> <./images/volumerat
-.png>] [16
+ [19
 
-]
+]) (./03_Chap3/Chap3.tex [20 <./images/juiceVolume.jpg> <./images/volumerat.png
+>]
 Chapter 3.
-<images/krakatoa.jpg, id=396, 1606.0pt x 301.125pt>
+<images/krakatoa.jpg, id=482, 1606.0pt x 301.125pt>
 File: images/krakatoa.jpg Graphic file (type jpg)
  <use images/krakatoa.jpg>
 Package pdftex.def Info: images/krakatoa.jpg used on input line 8.
 (pdftex.def)             Requested size: 430.31808pt x 80.68452pt.
 
-<images/halfanglenvidia.png, id=399, 562.1pt x 262.9825pt>
+<images/halfanglenvidia.png, id=485, 562.1pt x 262.9825pt>
 File: images/halfanglenvidia.png Graphic file (type png)
 
 <use images/halfanglenvidia.png>
 Package pdftex.def Info: images/halfanglenvidia.png used on input line 10.
 (pdftex.def)             Requested size: 430.31808pt x 201.3254pt.
 
-<images/nvidiasmokeparticles.jpg, id=402, 1027.84pt x 687.56876pt>
+<images/nvidiasmokeparticles.jpg, id=488, 1027.84pt x 687.56876pt>
 File: images/nvidiasmokeparticles.jpg Graphic file (type jpg)
 
 <use images/nvidiasmokeparticles.jpg>
@@ -1103,42 +1124,110 @@ Package pdftex.def Info: images/nvidiasmokeparticles.jpg used on input line 12.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [17 <./images/krakatoa.jpg>] [18 <./images/halfanglenvidia.png> <./images/nvid
-iasmokeparticles.jpg>]) (./04_SelectedAlgos/Chap4.tex [19] [20
+ [21
+
+ <./images/krakatoa.jpg>] [22 <./images/halfanglenvidia.png> <./images/nvidiasm
+okeparticles.jpg>]) (./04_SelectedAlgos/Chap4.tex [23] [24
 
 ]
 Chapter 4.
-<images/vpl2vbl.png, id=428, 615.29875pt x 419.5675pt>
+<images/vpl2vbl.png, id=514, 615.29875pt x 419.5675pt>
 File: images/vpl2vbl.png Graphic file (type png)
 
 <use images/vpl2vbl.png>
 Package pdftex.def Info: images/vpl2vbl.png used on input line 6.
 (pdftex.def)             Requested size: 226.48393pt x 154.43727pt.
-) (./05_Proposedsolution/Chap5.tex [21] [22 <./images/vpl2vbl.png>]
+) (./05_Proposedsolution/Chap5.tex [25] [26 <./images/vpl2vbl.png>]
 Chapter 5.
-) (./06_Implementation/Chap6.tex [23
 
-] [24
+Underfull \hbox (badness 10000) in paragraph at lines 3--9
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--9
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--9
+
+ []
+
+File: images/temp.jpg Graphic file (type jpg)
+<use images/temp.jpg>
+Package pdftex.def Info: images/temp.jpg used on input line 11.
+(pdftex.def)             Requested size: 226.48393pt x 151.4964pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [27
+
+])
+(./06_Implementation/Chap6.tex [28]
+Chapter 6.
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--8
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--8
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2--8
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 9--13
+
+ []
+
+[29
 
 ]
-Chapter 6.
-<images/rr_sampling.png, id=458, 1027.84pt x 335.2525pt>
+File: images/temp.jpg Graphic file (type jpg)
+ <use images/temp.jpg>
+Package pdftex.def Info: images/temp.jpg used on input line 14.
+(pdftex.def)             Requested size: 226.48393pt x 151.4964pt.
+File: images/temp.jpg Graphic file (type jpg)
+ <use images/temp.jpg>
+Package pdftex.def Info: images/temp.jpg used on input line 16.
+(pdftex.def)             Requested size: 226.48393pt x 151.4964pt.
+ [30]
+File: images/temp.jpg Graphic file (type jpg)
+ <use images/temp.jpg>
+Package pdftex.def Info: images/temp.jpg used on input line 28.
+(pdftex.def)             Requested size: 226.48393pt x 151.4964pt.
+File: images/temp.jpg Graphic file (type jpg)
+
+<use images/temp.jpg>
+Package pdftex.def Info: images/temp.jpg used on input line 30.
+(pdftex.def)             Requested size: 226.48393pt x 151.4964pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [31]
+<images/rr_sampling.png, id=567, 1027.84pt x 335.2525pt>
 File: images/rr_sampling.png Graphic file (type png)
 
 <use images/rr_sampling.png>
-Package pdftex.def Info: images/rr_sampling.png used on input line 10.
+Package pdftex.def Info: images/rr_sampling.png used on input line 40.
 (pdftex.def)             Requested size: 407.6683pt x 132.96808pt.
-) (./07_Results/Chap7.tex [25] [26 <./images/rr_sampling.png>]
+) (./07_Results/Chap7.tex [32 <./images/rr_sampling.png>]
 Chapter 7.
-) (./04_Concl/Concl.tex [27
+) (./04_Concl/Concl.tex [33
 
-] [28
+] [34
 
 ]
 Chapter 8.
-) (./main.bbl [29] [30
+) (./main.bbl [35] [36
 
-] [31]) [32] (./06_Appendix/Appen1.tex
+] [37]) [38] (./06_Appendix/Appen1.tex
 Appendinx A.
 ) (./06_Appendix/Appen2.tex [1
 
@@ -1163,52 +1252,51 @@ LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
 
-LaTeX Warning: There were undefined references.
+LaTeX Warning: There were multiply-defined labels.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 163.
  ) 
 Here is how much of TeX's memory you used:
- 9904 strings out of 493633
- 139220 string characters out of 3143378
- 218516 words of memory out of 3000000
- 12802 multiletter control sequences out of 15000+200000
- 19606 words of font info for 78 fonts, out of 3000000 for 9000
+ 9966 strings out of 493633
+ 140159 string characters out of 3143378
+ 220042 words of memory out of 3000000
+ 12830 multiletter control sequences out of 15000+200000
+ 19298 words of font info for 77 fonts, out of 3000000 for 9000
  832 hyphenation exceptions out of 8191
- 43i,16n,45p,887b,571s stack positions out of 5000i,500n,10000p,200000b,50000s
-pdfTeX warning (dest): name{Hfootnote.12} has been referenced but does not ex
+ 43i,16n,45p,887b,568s stack positions out of 5000i,500n,10000p,200000b,50000s
+pdfTeX warning (dest): name{Hfootnote.16} has been referenced but does not ex
 ist, replaced by a fixed one
 
-pdfTeX warning (dest): name{Hfootnote.11} has been referenced but does not exis
+pdfTeX warning (dest): name{Hfootnote.15} has been referenced but does not exis
 t, replaced by a fixed one
 
 </usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmbsy8.
-pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.p
-fb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pf
-b></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pf
-b></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
-></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.
-pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.p
-fb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pf
-b></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb>
-</usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></
-usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></us
-r/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></us
-r/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb>
-</usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></
-usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></us
-r/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/l
-ocal/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/loca
-l/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/t
-exlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/local/te
-xlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/tex
-live/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texli
-ve/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texliv
-e/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive
-/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on main.pdf (51 pages, 2879821 bytes).
+pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.p
+fb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.p
+fb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pf
+b></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8
+.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.
+pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.p
+fb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb
+></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><
+/usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></u
+sr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></u
+sr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb
+></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><
+/usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></u
+sr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/
+local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/loc
+al/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/
+texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/local/t
+exlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/te
+xlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texl
+ive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texli
+ve/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texliv
+e/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on main.pdf (57 pages, 3015625 bytes).
 PDF statistics:
- 634 PDF objects out of 1000 (max. 8388607)
- 522 compressed objects within 6 object streams
- 168 named destinations out of 1000 (max. 500000)
- 76 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 745 PDF objects out of 1000 (max. 8388607)
+ 621 compressed objects within 7 object streams
+ 201 named destinations out of 1000 (max. 500000)
+ 86 words of extra memory for PDF output out of 10000 (max. 10000000)
 
