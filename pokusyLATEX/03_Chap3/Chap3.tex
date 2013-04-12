@@ -2,6 +2,16 @@
 In this chapter we will try to summarize the most common technics for solving the rendering equation in the presence of participating media.
 
 \section{ Rasterization}
+Rather than talking about game solutions, where is the main goal to render everything real time and physical accuracy of lighting is less important than plausible smooth graphics, we will have a look on rasterization used in offline rendering.
+\\
+\\
+Rasterization comes as a nature choice, when it comes to particle randering. It's key benefit is that the whole scene geometry doesn't have to fit into the RAM \footnote{Computer main random access memory.}, in the cost of linear rendering complexity.
+\\
+\\
+Almost all the algorithms widely used, use same kind of preprocessing stage. The particles should be ideally sorted from the furtherest to the closest, so that the alpha blending works correctly.
+\\
+\\
+
 Films - 
 
 krakatoa rendering engine

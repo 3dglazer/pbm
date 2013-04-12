@@ -129,7 +129,7 @@ The equation \ref{eq:rend} can deal with light reflection, refraction and absorp
 
 %\clearpage{}
 \section{Volume interaction}
-\label{sec::VOLINTER}
+\label{sec:VOLINTER}
 By now we have assumed that radiance is conserved along its ray path between surfaces. It's time to consider participating media interaction in our computation. To do this we should define some properties, which can be used to model and describe different types of volumetric phonomenons.
 
 \begin{description}
@@ -147,7 +147,7 @@ We distinguish four different types of interaction events, which have got a lot 
  \item \bd{Absorption:}\\
 $\boldsymbol{\kappa_{a}}$ gives us the probability of absorption. To evaluate an effect to the incident radiance we simply subtract proportional part of it as follows:
 \begin{equation}
- 	dL(x,\omega_{0})=-\kappa_a(x)*L(x,\omega_{0})dx
+ 	dL_{a}(x,\omega_{0})=-\kappa_a(x)*L(x,\omega_{0})dx
  \end{equation}
 
 \item \bd{Volume emission:}\\
@@ -166,7 +166,10 @@ The radiance going through the media can get scatter, thus the original energy f
 To sum the total radiance in a given point in the media we have to cope with the consequences of out-scattering from the surrounding media. To do it we have to integrate incoming radiance to a point in the space from all possible directions and weight it with the probability that the scattering from these directions will happen $\boldsymbol{\kappa_{s}}$. This leads us to eq. \ref{eq:INSCATT}. The $p(x,\omega_{0},\omega_{i})$ is phase function, which will be described further in the next section \ref{subsec:PHASE}.
 \begin{equation}
 \label{eq:INSCATT}
- 	dL(x,\omega_{0})=\frac{\kappa_t(x)}{4\pi}*\int_{\Omega}L(x,\omega_{i})p(x,\omega_{0},\omega_{i})d\omega_{i}
+%podle Sloupovych prednasek
+ 	%dL_{i}(x,\omega_{0})=\frac{\kappa_t(x)}{4\pi}*\int_{\Omega}L(x,\omega_{i})p(x,\omega_{0},\omega_{i})d\omega_{i}
+	%podle Jarosze
+	dL_{i}(x,\omega_{0})=\int_{\Omega}L(x,\omega_{i})p(x,\omega_{0},\omega_{i})d\omega_{i}
  \end{equation}
  
 \end{enumerate}
@@ -279,35 +282,55 @@ Unfortunately it's quite computation costly. It's usually evaluated once for the
 \myFigure{0.5}{images/r10PerpPolarLogA.png}{MIE scattering polar plot of red light with water droplet interaction. Source \cite{MIEPLOT}}{Polar diagram of scattering of red light (wavelength 0.65 $\mu$m, perpendicular polarisation) from a water droplet of r = 10 $\mu$. Source \cite{MIEPLOT}. }{fig:MIEPLOT} 
 
 \clearpage{}
-\subsection{Rendering equation including participating media}
+\section{Volume and surface interaction}
 \label{sec:EXTREND}
-This equation describes the energy loss caused by a differential volume, to integrate overall loss over a longer segments of the media we have to compute its \bd{optical thickness} as fallows:
+In order to properly simulate light transport in the scenes containing both surfaces and volumetrically active media, few adjustments to the rendering equation have to be made.
+\\
+\\
+First of all, the participating media can add radiance to the pixel, because of both emission and in-scattering. On the other hand the surface radiance contribution can be attenuated, because of the media absorption and out-scattering. To accommodate these effects into rendering equation, we have to extend the volume interaction theory  from differential volume slice (sec. \ref{sec:VOLINTER}) to brother volume section.
+
+\subsection{Radiance losses}
+To integrate overall loss over a longer segments of the media we have to compute its \bd{optical thickness} as fallows:
 \begin{equation}
  	\int_{x_{0}}^{x}\kappa_t(u)du
  \end{equation}
- And subtract it
- 
-Transmitance
+We get Transmitance
 $dL(x,\omega)=-\kappa_a(x)*L(x,\omega)dx-\kappa_s(x)*L(x,\omega)dx =-\kappa_t(x)*L(x,\omega)dx$
 Integration over ray path:
 $L(x,\omega)=L(x_0,\omega)*e^{-\int_{x_{0}}^{x}\kappa_t(u)du}=L(x_0,\omega)\tau(x_0,x)$
 
 
+\subsection{Radiance gains}
 
-
-hezke odvozeni je v -advanced illum techniques
-
-What steps have to be taken to get rendering equation to the next level.
-
-\section{Volume and surface interaction}
-In order to properly simulate light transport in the scenes containing both surfaces and volumetrically active media.
-
-Different light transport paths surface surface, surface media, media surface, media media.
 
 \subsection{Extended rendering equation}
-Put together all the integrals
+Put together all the integrals eq. \ref{eq:VOLRENDEQ}.
 pokracovat v odvozeni z -advanced illum techniques
+\begin{equation}
+\label{eq:VOLRENDEQ}
+dL(x,\omega)=\overbrace{\underbrace{{-\kappa_{a}L(x,\omega)} }_{absorption}\underbrace{-\kappa_{s}L(x,\omega)} _{out-scattering} }^\text{dissipation loss}\overbrace{\underbrace{{+\kappa_{a}L_{e}(x,\omega)} }_{emission}\underbrace{+\kappa_{s}L_{i}(x,\omega)} _{in-scattering} }^\text{gain}dx
+ \end{equation}
+ 
+ \begin{equation}
+ \label{eq:EXTINTFORM}
+ L(x,\omega)=\overbrace{\underbrace{L(x_{0},\omega)}_{\text{surface radiance}}*\underbrace{\tau(x_{0},x) }_{\text{transmittance}}}^{\text{attenuated surface radiance}}+
+\overbrace{
+  \int_{x_{0}}^{x}
+    \underbrace{
+      \tau(x_{0},x_{v})\kappa_{a}(v)L_{e}(x,\omega)
+     }_{\text{attenuated emitted radiance}}
+    +
+    \underbrace{
+       \tau(x_{0},x_{v})\kappa_{s}(v)L_{i}(x_{v},\omega)
+    }_{\text{attenuated inscattered radiance}}
+    dv
+}^{\text{accumulation of radiance gain}}
+ \end{equation} 
+ 
+\subsection{Light transport paths}
+Different light transport paths surface surface, surface media, media surface, media media fig. \ref{fig:FOURTRANSP}.
 
+\myFigure{0.5}{images/fourlighttransports.jpg}{Different light transport types. Source \cite{novak12vbls}}{For better understanding of the ways how participating media interact with the light and surfaces, we can divide the complex interaction into four simpler subroutines. Source \cite{novak12vbls}. }{fig:FOURTRANSP} 
 
 \clearpage{}
 \section{Volume representation}
