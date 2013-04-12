@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2012.4.2)  12 APR 2013 21:14
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2012.4.2)  12 APR 2013 21:27
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -1063,59 +1063,58 @@ Underfull \hbox (badness 10000) in paragraph at lines 287--291
 
  []
 
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 301.
 
-Overfull \hbox (10.34111pt too wide) detected at line 328
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 301.
+
+Overfull \hbox (10.34111pt too wide) detected at line 332
 \OML/cmm/m/it/12 L\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x; !\OT1/cmr/m/n/12 ) = [] 
 + []
  []
 
-<images/fourlighttransports.jpg, id=447, 778.91pt x 796.9775pt>
+<images/fourlighttransports.jpg, id=449, 778.91pt x 796.9775pt>
 File: images/fourlighttransports.jpg Graphic file (type jpg)
 
 <use images/fourlighttransports.jpg>
-Package pdftex.def Info: images/fourlighttransports.jpg used on input line 333.
+Package pdftex.def Info: images/fourlighttransports.jpg used on input line 337.
 
 (pdftex.def)             Requested size: 226.48393pt x 231.73775pt.
  [18
 
 ] [19 <./images/fourlighttransports.jpg>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 340.
-
- (/usr/local/texlive/2011/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 340.
-
-Underfull \hbox (badness 10000) in paragraph at lines 340--345
+Underfull \hbox (badness 10000) in paragraph at lines 344--349
 
  []
 
 
-LaTeX Warning: Reference `sec::VOLINTER' on page 20 undefined on input line 347
+LaTeX Warning: Reference `sec::VOLINTER' on page 20 undefined on input line 351
 .
 
-<images/juiceVolume.jpg, id=468, 646.415pt x 649.42625pt>
+<images/juiceVolume.jpg, id=472, 646.415pt x 649.42625pt>
 File: images/juiceVolume.jpg Graphic file (type jpg)
 
 <use images/juiceVolume.jpg>
-Package pdftex.def Info: images/juiceVolume.jpg used on input line 349.
+Package pdftex.def Info: images/juiceVolume.jpg used on input line 353.
 (pdftex.def)             Requested size: 226.48393pt x 227.54042pt.
 
-<images/volumerat.png, id=479, 659.46375pt x 324.21124pt>
+<images/volumerat.png, id=483, 659.46375pt x 324.21124pt>
 File: images/volumerat.png Graphic file (type png)
 
 <use images/volumerat.png>
-Package pdftex.def Info: images/volumerat.png used on input line 357.
+Package pdftex.def Info: images/volumerat.png used on input line 361.
 (pdftex.def)             Requested size: 190.61563pt x 93.71213pt.
 
-Underfull \hbox (badness 1755) in paragraph at lines 359--359
+Underfull \hbox (badness 1755) in paragraph at lines 363--363
 \OT1/cmr/m/n/10.95 age stack. Ren-dered us-ing Voreen
  []
 
 File: images/temp.jpg Graphic file (type jpg)
 <use images/temp.jpg>
-Package pdftex.def Info: images/temp.jpg used on input line 365.
+Package pdftex.def Info: images/temp.jpg used on input line 369.
 (pdftex.def)             Requested size: 190.61563pt x 127.50247pt.
  [20
 
@@ -1144,20 +1143,20 @@ Underfull \hbox (badness 10000) in paragraph at lines 5--14
 
  []
 
-<images/krakatoa.jpg, id=508, 1606.0pt x 301.125pt>
+<images/krakatoa.jpg, id=512, 1606.0pt x 301.125pt>
 File: images/krakatoa.jpg Graphic file (type jpg)
  <use images/krakatoa.jpg>
 Package pdftex.def Info: images/krakatoa.jpg used on input line 18.
 (pdftex.def)             Requested size: 430.31808pt x 80.68452pt.
 
-<images/halfanglenvidia.png, id=511, 562.1pt x 262.9825pt>
+<images/halfanglenvidia.png, id=515, 562.1pt x 262.9825pt>
 File: images/halfanglenvidia.png Graphic file (type png)
 
 <use images/halfanglenvidia.png>
 Package pdftex.def Info: images/halfanglenvidia.png used on input line 20.
 (pdftex.def)             Requested size: 430.31808pt x 201.3254pt.
 
-<images/nvidiasmokeparticles.jpg, id=514, 1027.84pt x 687.56876pt>
+<images/nvidiasmokeparticles.jpg, id=518, 1027.84pt x 687.56876pt>
 File: images/nvidiasmokeparticles.jpg Graphic file (type jpg)
 
 <use images/nvidiasmokeparticles.jpg>
@@ -1170,7 +1169,7 @@ iasmokeparticles.jpg>])
 
 ]
 Chapter 4.
-<images/vpl2vbl.png, id=540, 615.29875pt x 419.5675pt>
+<images/vpl2vbl.png, id=544, 615.29875pt x 419.5675pt>
 File: images/vpl2vbl.png Graphic file (type png)
 
 <use images/vpl2vbl.png>
@@ -1250,7 +1249,7 @@ Package pdftex.def Info: images/temp.jpg used on input line 30.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [33]
-<images/rr_sampling.png, id=593, 1027.84pt x 335.2525pt>
+<images/rr_sampling.png, id=597, 1027.84pt x 335.2525pt>
 File: images/rr_sampling.png Graphic file (type png)
 
 <use images/rr_sampling.png>
@@ -1299,13 +1298,13 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 163.
  ) 
 Here is how much of TeX's memory you used:
- 9985 strings out of 493633
- 140506 string characters out of 3143378
- 220229 words of memory out of 3000000
- 12839 multiletter control sequences out of 15000+200000
+ 9989 strings out of 493633
+ 140592 string characters out of 3143378
+ 220330 words of memory out of 3000000
+ 12841 multiletter control sequences out of 15000+200000
  19606 words of font info for 78 fonts, out of 3000000 for 9000
  832 hyphenation exceptions out of 8191
- 43i,16n,45p,887b,568s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 43i,16n,45p,887b,570s stack positions out of 5000i,500n,10000p,200000b,50000s
 pdfTeX warning (dest): name{Hfootnote.16} has been referenced but does not ex
 ist, replaced by a fixed one
 
@@ -1336,10 +1335,10 @@ live/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texli
 ve/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texliv
 e/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive
 /2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on main.pdf (59 pages, 3140477 bytes).
+Output written on main.pdf (59 pages, 3142202 bytes).
 PDF statistics:
- 774 PDF objects out of 1000 (max. 8388607)
- 645 compressed objects within 7 object streams
- 209 named destinations out of 1000 (max. 500000)
+ 781 PDF objects out of 1000 (max. 8388607)
+ 652 compressed objects within 7 object streams
+ 211 named destinations out of 1000 (max. 500000)
  91 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -292,10 +292,14 @@ First of all, the participating media can add radiance to the pixel, because of 
 \subsection{Radiance losses}
 To integrate overall loss over a longer segments of the media we have to compute its \bd{optical thickness} as fallows:
 \begin{equation}
- 	\int_{x_{0}}^{x}\kappa_t(u)du
+ 	\int_{x_{0}}^{x}\kappa_t(x_{v})dv
  \end{equation}
 We get Transmitance
-$dL(x,\omega)=-\kappa_a(x)*L(x,\omega)dx-\kappa_s(x)*L(x,\omega)dx =-\kappa_t(x)*L(x,\omega)dx$
+\begin{equation}
+\label{eq:EXTRANS}
+dL(x,\omega)=-\kappa_a(x)*L(x,\omega)dx-\kappa_s(x)*L(x,\omega)dx =-\kappa_t(x)*L(x,\omega)dx
+\end{equation}•
+
 Integration over ray path:
 $L(x,\omega)=L(x_0,\omega)*e^{-\int_{x_{0}}^{x}\kappa_t(u)du}=L(x_0,\omega)\tau(x_0,x)$
 
@@ -304,8 +308,8 @@ $L(x,\omega)=L(x_0,\omega)*e^{-\int_{x_{0}}^{x}\kappa_t(u)du}=L(x_0,\omega)\tau(
 
 
 \subsection{Extended rendering equation}
-Put together all the integrals eq. \ref{eq:VOLRENDEQ}.
-pokracovat v odvozeni z -advanced illum techniques
+ Eq. \ref{eq:VOLRENDEQ} is known as radiative transfer equation \cite{chandrasekhar1960radiative}. By extending this equation from differential volume to the fully integral form we get eq. \ref{eq:EXTINTFORM}.
+
 \begin{equation}
 \label{eq:VOLRENDEQ}
 dL(x,\omega)=\overbrace{\underbrace{{-\kappa_{a}L(x,\omega)} }_{absorption}\underbrace{-\kappa_{s}L(x,\omega)} _{out-scattering} }^\text{dissipation loss}\overbrace{\underbrace{{+\kappa_{a}L_{e}(x,\omega)} }_{emission}\underbrace{+\kappa_{s}L_{i}(x,\omega)} _{in-scattering} }^\text{gain}dx
