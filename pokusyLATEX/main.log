@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2012.4.2)  14 APR 2013 20:43
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2012.4.2)  14 APR 2013 21:55
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -1072,7 +1072,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 288--292
 [17
 
 ]
-Overfull \hbox (10.34111pt too wide) detected at line 351
+Overfull \hbox (10.34111pt too wide) detected at line 353
 \OML/cmm/m/it/12 L\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x; !\OT1/cmr/m/n/12 ) = [] 
 + []
  []
@@ -1080,43 +1080,43 @@ Overfull \hbox (10.34111pt too wide) detected at line 351
 [18
 
 ]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 358.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 360.
 
  (/usr/local/texlive/2011/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 358.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 360.
 
-Underfull \hbox (badness 10000) in paragraph at lines 358--363
+Underfull \hbox (badness 10000) in paragraph at lines 360--365
 
  []
 
 
-LaTeX Warning: Reference `sec::VOLINTER' on page 19 undefined on input line 365
+LaTeX Warning: Reference `sec::VOLINTER' on page 19 undefined on input line 367
 .
 
 <images/juiceVolume.jpg, id=478, 646.415pt x 649.42625pt>
 File: images/juiceVolume.jpg Graphic file (type jpg)
 
 <use images/juiceVolume.jpg>
-Package pdftex.def Info: images/juiceVolume.jpg used on input line 367.
+Package pdftex.def Info: images/juiceVolume.jpg used on input line 369.
 (pdftex.def)             Requested size: 226.48393pt x 227.54042pt.
 
 <images/volumerat.png, id=489, 659.46375pt x 324.21124pt>
 File: images/volumerat.png Graphic file (type png)
 
 <use images/volumerat.png>
-Package pdftex.def Info: images/volumerat.png used on input line 375.
+Package pdftex.def Info: images/volumerat.png used on input line 377.
 (pdftex.def)             Requested size: 190.61563pt x 93.71213pt.
 
-Underfull \hbox (badness 1755) in paragraph at lines 377--377
+Underfull \hbox (badness 1755) in paragraph at lines 379--379
 \OT1/cmr/m/n/10.95 age stack. Ren-dered us-ing Voreen
  []
 
 File: images/temp.jpg Graphic file (type jpg)
 <use images/temp.jpg>
-Package pdftex.def Info: images/temp.jpg used on input line 383.
+Package pdftex.def Info: images/temp.jpg used on input line 385.
 (pdftex.def)             Requested size: 190.61563pt x 127.50247pt.
  [19
 
@@ -1179,27 +1179,50 @@ File: images/krakatoa.jpg Graphic file (type jpg)
  <use images/krakatoa.jpg>
 Package pdftex.def Info: images/krakatoa.jpg used on input line 43.
 (pdftex.def)             Requested size: 430.31808pt x 80.68452pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 46--53
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 46--53
+
+ []
+
+
+Overfull \hbox (7.8843pt too wide) in paragraph at lines 46--53
+\OT1/cmr/m/n/12 In the fol-low-ing sub-sec-tions the key ray-trac-ing con-cepts
+ and meth-ods are briefly overviewed. 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 62--66
+
+ []
+
+[23
+
+ <./images/krakatoa.jpg>]
 File: images/temp.jpg Graphic file (type jpg)
-
-<use images/temp.jpg>
-Package pdftex.def Info: images/temp.jpg used on input line 65.
+ <use images/temp.jpg>
+Package pdftex.def Info: images/temp.jpg used on input line 74.
 (pdftex.def)             Requested size: 249.1337pt x 166.65654pt.
+)
+(./04_SelectedAlgos/Chap4.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-Underfull \vbox (badness 1902) has occurred while \output is active []
+ [24]
+[25] [26
 
- [23
-
- <./images/krakatoa.jpg>]) (./04_SelectedAlgos/Chap4.tex [24]
+]
 Chapter 4.
-<images/vpl2vbl.png, id=554, 615.29875pt x 419.5675pt>
+<images/vpl2vbl.png, id=565, 615.29875pt x 419.5675pt>
 File: images/vpl2vbl.png Graphic file (type png)
 
 <use images/vpl2vbl.png>
 Package pdftex.def Info: images/vpl2vbl.png used on input line 6.
 (pdftex.def)             Requested size: 226.48393pt x 154.43727pt.
-) (./05_Proposedsolution/Chap5.tex [25
-
-] [26 <./images/vpl2vbl.png>]
+) (./05_Proposedsolution/Chap5.tex [27] [28 <./images/vpl2vbl.png>]
 Chapter 5.
 
 Underfull \hbox (badness 10000) in paragraph at lines 3--9
@@ -1221,7 +1244,7 @@ File: images/temp.jpg Graphic file (type jpg)
 Package pdftex.def Info: images/temp.jpg used on input line 11.
 (pdftex.def)             Requested size: 226.48393pt x 151.4964pt.
 
-<images/fourlighttransports.jpg, id=575, 778.91pt x 796.9775pt>
+<images/fourlighttransports.jpg, id=587, 778.91pt x 796.9775pt>
 File: images/fourlighttransports.jpg Graphic file (type jpg)
 
 <use images/fourlighttransports.jpg>
@@ -1230,10 +1253,10 @@ Package pdftex.def Info: images/fourlighttransports.jpg used on input line 16.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [27
+ [29
 
 ])
-(./06_Implementation/Chap6.tex [28 <./images/fourlighttransports.jpg>]
+(./06_Implementation/Chap6.tex [30 <./images/fourlighttransports.jpg>]
 Chapter 6.
 
 Underfull \hbox (badness 10000) in paragraph at lines 3--9
@@ -1255,7 +1278,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 10--14
 
  []
 
-[29
+[31
 
 ]
 File: images/temp.jpg Graphic file (type jpg)
@@ -1266,7 +1289,7 @@ File: images/temp.jpg Graphic file (type jpg)
  <use images/temp.jpg>
 Package pdftex.def Info: images/temp.jpg used on input line 17.
 (pdftex.def)             Requested size: 226.48393pt x 151.4964pt.
- [30]
+ [32]
 File: images/temp.jpg Graphic file (type jpg)
  <use images/temp.jpg>
 Package pdftex.def Info: images/temp.jpg used on input line 29.
@@ -1279,24 +1302,24 @@ Package pdftex.def Info: images/temp.jpg used on input line 31.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [31]
-<images/rr_sampling.png, id=609, 1027.84pt x 335.2525pt>
+ [33]
+<images/rr_sampling.png, id=621, 1027.84pt x 335.2525pt>
 File: images/rr_sampling.png Graphic file (type png)
 
 <use images/rr_sampling.png>
 Package pdftex.def Info: images/rr_sampling.png used on input line 41.
 (pdftex.def)             Requested size: 407.6683pt x 132.96808pt.
-) (./07_Results/Chap7.tex [32 <./images/rr_sampling.png>]
+) (./07_Results/Chap7.tex [34 <./images/rr_sampling.png>]
 Chapter 7.
-) (./04_Concl/Concl.tex [33
+) (./04_Concl/Concl.tex [35
 
-] [34
+] [36
 
 ]
 Chapter 8.
-) (./main.bbl [35] [36
+) (./main.bbl [37] [38
 
-] [37]) [38] (./06_Appendix/Appen1.tex
+] [39]) [40] (./06_Appendix/Appen1.tex
 Appendinx A.
 ) (./06_Appendix/Appen2.tex [1
 
@@ -1333,9 +1356,9 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 163.
 ### simple group (level 1) entered at line 305 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 10001 strings out of 493633
- 140777 string characters out of 3143378
- 220488 words of memory out of 3000000
+ 10004 strings out of 493633
+ 140800 string characters out of 3143378
+ 220537 words of memory out of 3000000
  12846 multiletter control sequences out of 15000+200000
  19952 words of font info for 79 fonts, out of 3000000 for 9000
  832 hyphenation exceptions out of 8191
@@ -1370,10 +1393,10 @@ live/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texli
 ve/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texliv
 e/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive
 /2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on main.pdf (57 pages, 3149888 bytes).
+Output written on main.pdf (59 pages, 3150953 bytes).
 PDF statistics:
- 799 PDF objects out of 1000 (max. 8388607)
- 672 compressed objects within 7 object streams
- 218 named destinations out of 1000 (max. 500000)
+ 810 PDF objects out of 1000 (max. 8388607)
+ 681 compressed objects within 7 object streams
+ 221 named destinations out of 1000 (max. 500000)
  91 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -22,27 +22,27 @@
 \contentsline {chapter}{\numberline {3}Common solutions}{21}{chapter.3}
 \contentsline {section}{\numberline {3.1} Rasterization}{21}{section.3.1}
 \contentsline {section}{\numberline {3.2}Raytracing}{23}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Raymarching volumes}{23}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.1}Visibility evaluation}{23}{subsection.3.2.1}
 \contentsline {subsection}{\numberline {3.2.2}Unbiased methods}{24}{subsection.3.2.2}
-\contentsline {subsection}{\numberline {3.2.3}Biased methods}{24}{subsection.3.2.3}
-\contentsline {chapter}{\numberline {4}Consistant progressive methods}{25}{chapter.4}
-\contentsline {section}{\numberline {4.1}Stochastic progressive photon mapping}{25}{section.4.1}
-\contentsline {section}{\numberline {4.2}Beam mapping}{25}{section.4.2}
-\contentsline {section}{\numberline {4.3}Virtual point lights}{25}{section.4.3}
-\contentsline {section}{\numberline {4.4}Virtual ray lights}{25}{section.4.4}
-\contentsline {section}{\numberline {4.5}Virtual beam lights}{26}{section.4.5}
-\contentsline {chapter}{\numberline {5}Proposed solution}{27}{chapter.5}
-\contentsline {section}{\numberline {5.1}Progressive rendering system architecture}{28}{section.5.1}
-\contentsline {subsection}{\numberline {5.1.1}Light transport paths}{28}{subsection.5.1.1}
-\contentsline {section}{\numberline {5.2}Ground truth}{28}{section.5.2}
-\contentsline {chapter}{\numberline {6}Implementation}{29}{chapter.6}
-\contentsline {section}{\numberline {6.1}Rendering system architecture}{29}{section.6.1}
-\contentsline {section}{\numberline {6.2}Volume representation}{30}{section.6.2}
-\contentsline {section}{\numberline {6.3}Brdf}{32}{section.6.3}
-\contentsline {section}{\numberline {6.4}Phase funcitons}{32}{section.6.4}
-\contentsline {chapter}{\numberline {7}Results}{33}{chapter.7}
-\contentsline {chapter}{\numberline {8}Conclusion}{35}{chapter.8}
-\contentsline {subsection}{\numberline {8.0.1}Future work}{35}{subsection.8.0.1}
-\contentsline {chapter}{Literatura}{38}{chapter*.38}
+\contentsline {subsection}{\numberline {3.2.3}Biased methods}{25}{subsection.3.2.3}
+\contentsline {chapter}{\numberline {4}Consistant progressive methods}{27}{chapter.4}
+\contentsline {section}{\numberline {4.1}Stochastic progressive photon mapping}{27}{section.4.1}
+\contentsline {section}{\numberline {4.2}Beam mapping}{27}{section.4.2}
+\contentsline {section}{\numberline {4.3}Virtual point lights}{27}{section.4.3}
+\contentsline {section}{\numberline {4.4}Virtual ray lights}{27}{section.4.4}
+\contentsline {section}{\numberline {4.5}Virtual beam lights}{28}{section.4.5}
+\contentsline {chapter}{\numberline {5}Proposed solution}{29}{chapter.5}
+\contentsline {section}{\numberline {5.1}Progressive rendering system architecture}{30}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Light transport paths}{30}{subsection.5.1.1}
+\contentsline {section}{\numberline {5.2}Ground truth}{30}{section.5.2}
+\contentsline {chapter}{\numberline {6}Implementation}{31}{chapter.6}
+\contentsline {section}{\numberline {6.1}Rendering system architecture}{31}{section.6.1}
+\contentsline {section}{\numberline {6.2}Volume representation}{32}{section.6.2}
+\contentsline {section}{\numberline {6.3}Brdf}{34}{section.6.3}
+\contentsline {section}{\numberline {6.4}Phase funcitons}{34}{section.6.4}
+\contentsline {chapter}{\numberline {7}Results}{35}{chapter.7}
+\contentsline {chapter}{\numberline {8}Conclusion}{37}{chapter.8}
+\contentsline {subsection}{\numberline {8.0.1}Future work}{37}{subsection.8.0.1}
+\contentsline {chapter}{Literatura}{40}{chapter*.38}
 \contentsline {chapter}{\numberline {A}Appendix}{I}{appendix.A}
 \contentsline {chapter}{\numberline {B} DVD Content }{III}{appendix.B}

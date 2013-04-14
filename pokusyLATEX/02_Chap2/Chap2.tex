@@ -305,12 +305,14 @@ To integrate overall loss over a longer segments of the media we have to compute
  \noindent{
  where the $x_{0}\text{ and }x$ are the end points of the media section we are interested in. According to the \ita{Beer–Lambert law} \cite{bouguer1729essai} we can now evaluate the total transmittance between two points in the media as follows:
  \begin{equation}
+ \label{eq:TAU}
    \tau(x_0,x)=e^{-\int_{x_{0}}^{x}\kappa_t(v)dv};
  \end{equation}
 Now we can express the overall radiance loss as:
 \begin{equation}
 L(x,\omega)=L(x_0,\omega)\tau(x_0,x)
 \end{equation}
+
 \clearpage{}
 \subsection{Radiance gains}
 In the terms of radiance gains the equations are quite straight forward. The only thing we have to do is to weight the gain with appropriate probability and attenuate it with corresponding transmittance. This way we get following equation, which express the radiance gain over a given volumetric path segment:

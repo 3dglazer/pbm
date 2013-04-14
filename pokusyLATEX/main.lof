@@ -21,16 +21,16 @@
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Krakatoa particle and volume rendering.}}{23}{figure.caption.28}
 \contentsline {figure}{\numberline {3.4}{\ignorespaces Unbiased raytracing methods.}}{24}{figure.caption.29}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Comparison vpl, vsl, vrl, vbl.}}{26}{figure.caption.30}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Comparison vpl, vsl, vrl, vbl.}}{28}{figure.caption.30}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Proposed progressive rendering system architecture}}{27}{figure.caption.31}
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Different light transport types. Source \cite {novak12vbls}}}{28}{figure.caption.32}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Proposed progressive rendering system architecture}}{29}{figure.caption.31}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Different light transport types. Source \cite {novak12vbls}}}{30}{figure.caption.32}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces PBRT architecture.}}{30}{figure.caption.33}
-\contentsline {figure}{\numberline {6.2}{\ignorespaces New renderer.}}{30}{figure.caption.34}
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Custom density 3D functions.}}{31}{figure.caption.35}
-\contentsline {figure}{\numberline {6.4}{\ignorespaces Fluid simulation data container, uniform grid.}}{31}{figure.caption.36}
-\contentsline {figure}{\numberline {6.5}{\ignorespaces Energy contribution of phase functions, inverse squared distance and both samples on ray lights.}}{32}{figure.caption.37}
+\contentsline {figure}{\numberline {6.1}{\ignorespaces PBRT architecture.}}{32}{figure.caption.33}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces New renderer.}}{32}{figure.caption.34}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Custom density 3D functions.}}{33}{figure.caption.35}
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Fluid simulation data container, uniform grid.}}{33}{figure.caption.36}
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Energy contribution of phase functions, inverse squared distance and both samples on ray lights.}}{34}{figure.caption.37}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
