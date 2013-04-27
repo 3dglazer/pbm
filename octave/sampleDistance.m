@@ -1,16 +1,18 @@
-function [dist] = sampleDistance (x,omega,sigmaTMax)
+function [dist] = sampleDistance (x,omega,sigmaTMax,funname)
  s=0;
- maxIt=10;
+ maxIt=1000;
  it=0;
  while(it<maxIt)
 	s+=-(log(1.-rand())/sigmaTMax);
-	rn=rand();
 	%misto zavorky by melo byt sigmaT(x) pro nehomog prostredi
-	probab=(x+s*omega)*sigmaTMax;
-	if rn<probab
+	movedX=x+s*omega;
+	sigmaTX=feval (funname, movedX);
+	probab=sigmaTX/sigmaTMax;
+	if rand()<probab
 		dist=s;
-		break;
+		return;
 	end
 	it+=1;
  end
+ printf("\nMax iterations reached in woodcock!!!\n\n")
 end
