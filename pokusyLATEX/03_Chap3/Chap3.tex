@@ -1,7 +1,7 @@
 \chapter{Common solutions}
-In this chapter we will try to summarize the most common technics for solving the rendering equation in the presence of participating media. Many methods are used today and it's way beyond the scope of this thesis to do a proper summary of them, so only widely used methods related to the context of this thesis were picked.
+In this chapter we will try to summarize the most common techniques for solving the rendering equation in the presence of participating media. Many methods are used today and it's way beyond the scope of this thesis to do a proper summary of them, so only widely used methods related to the context of this thesis were picked.
 \section{ Rasterization}
-Rather than talking about game solutions, where is the main goal to render everything real time and physical accuracy of lighting is less important than plausible smooth graphics, we will have a look on rasterization used in offline rendering.
+Rather than talking about game solutions, where is the main goal to render everything real time and physical accuracy of lighting is less important than plausible smooth graphics, we will have a look on rasterzation used in off-line rendering.
 \\
 \\
 Rasterization comes as a nature choice, when it comes to particle rendering. It's key benefit is that the whole scene geometry doesn't have to fit into the RAM \footnote{Computer main random access memory.}, in the cost of linear rendering complexity. Because list of primitives, be it points, lines or triangles, is rasterized one by one in the frame-buffer.
@@ -43,13 +43,13 @@ Even tough only single scattering volume interaction can be modeled this way, it
 \myFigure{0.95}{\cestaImg krakatoa.jpg}{Krakatoa particle and volume rendering.}{Examples of rasterization Krakatoa particle render used in feature film productions \cite{KRAK} .}{fig:KRAK}
 
 \section{Raytracing}
-Another very popular set of methods for solving rendering equation is based on raytracing. Instead of rasterizing (drawing) directly visible elements, concept of ray scene interaction is used, where set of rays originating either in camera or in light are shoot into the scene space to gather light information. Which is way more flexible than rasterization, in the terms of complex light scene interaction and logarithmic cost of visibility computation\footnote{Not all the elements of the scene have to be usually intersected. And the complexity of ray element intersection in the present of volume acceleration structure such as KD or BVH tree is logarithmic.}. 
+Another very popular set of methods for solving rendering equation is based on ray-tracing. Instead of rasterizing (drawing) directly visible elements, concept of ray scene interaction is used, where set of rays originating either in camera or in light are shoot into the scene space to gather light information. Which is way more flexible than rasterization, in the terms of complex light scene interaction and logarithmic cost of visibility computation\footnote{Not all the elements of the scene have to be usually intersected. And the complexity of ray element intersection in the present of volume partitioning acceleration structure such as KD or BVH tree is logarithmic.}.
 \\
 \\
 The flexibility unfortunately goes in hand with an additional cost of acceleration structure build and usage for a ray primitive intersection. That's why these algorithms are so memory demanding. Because majority of the scene has to be loaded in the RAM for efficient visibility calculation.
 \\
 \\
-In the following subsections the key raytracing concepts and methods are briefly overviewed.  
+In the following subsections the key ray-tracing concepts and methods are briefly overviewed.  
 
 % great page for latex equation typing http://www.codecogs.com/latex/eqneditor.php
 %Quasi Monte Carlo equation
@@ -59,23 +59,23 @@ In the following subsections the key raytracing concepts and methods are briefly
 %\int _{I^{S}}f(x)dx\approx\frac{1}{N}\sum_{i=1}^{N}f(x_{i})),
 
 \subsection{Visibility evaluation}
-The key aspect of raytracing volumes is the radiance integration between two points in space. Lets consider only transmittance change along one ray. In homogenous media a simple analytic solution exists. Since $\kappa_t$ is constant we just evaluate the $  \tau(x_{0},x)=e^{-\kappa_t*\left | x_{0}\rightarrow x \right |}$.
+The key aspect of ray-tracing volumes is the radiance integration between two points in space. Lets consider only transmittance change along one ray. In homogeneous media a simple analytic solution exists. Since $\kappa_t$ is constant we just evaluate the $  \tau(x_{0},x)=e^{-\kappa_t*\left | x_{0}\rightarrow x \right |}$.
 \\
 \\
-In order to compute transmittance in non-homogenous media according the eq. \ref{eq:TAU}, we can use ray-marching technique. Which evaluates the transmittance coefficient of the media $\kappa_t(x_{v})\text{, in a point }x_{v}=\vec{r}*v$, where $\vec{r}$ is a ray direction and $v$ is some chosen step size. Ideally we should choose very small $v$, which would inevitably lead to render time increase. 
+In order to compute transmittance in non-homogeneous media according the eq. \ref{eq:TAU}, we can use ray-marching technique. Which evaluates the transmittance coefficient of the media $\kappa_t(x_{v})\text{, in a point }x_{v}=\vec{r}*v$, where $\vec{r}$ is a ray direction and $v$ is some chosen step size. Ideally we should choose very small $v$, which would inevitably lead to render time increase. 
 \\
 \\
-More recently, another technique has become popular for sampling distances along a ray in an inhomogeneous medium. The idea comes from the neutron transport community in the 60s and has various names (delta tracking, pseudo-scattering); we’ll call it Woodcock tracking in effort to promote original paper.
+More recently, another technique has become popular for sampling distances along a ray in an inhomogeneous medium. The idea comes from the neutron transport community in the 60s and has various names (delta tracking, pseudo-scattering); we'll call it Woodcock tracking in effort to promote original paper.
 
 pbrt single scattering
 can support procedural volumes and any type of lighting
 
 \subsection{Unbiased methods}
 
-\myFigure{0.55}{\cestaImg temp.jpg}{Unbiased raytracing methods.}{Examples of unbiased raytracing methods, from left \ita{path tracing, light tracing, bidirectional path tracing}. The principle is pictured on the top raw and example renderings are in the bottom one.}{fig:UNBRT}
+\myFigure{0.55}{\cestaImg temp.jpg}{Unbiased ray-tracing methods.}{Examples of unbiased ray-tracing methods, from left \ita{path tracing, light tracing, bidirectional path tracing}. The principle is pictured on the top raw and example renderings are in the bottom one.}{fig:UNBRT}
 
 Path tracing, light tracing fig. \ref{fig:UNBRT}
-Plus and cons - very slow no caching recomputation of visibility factor
+Plus and cons - very slow no caching re-computation of visibility factor
 
 \subsection{Biased methods}
 
