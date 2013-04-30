@@ -1,4 +1,0 @@
-/myPrograms/PBRT-hratky/pbm/src/volumes/perlinvolume.cpp: In function 'PerlinDensity* CreatePerlinVolumeRegion(const Transform&, const ParamSet&)':
-/myPrograms/PBRT-hratky/pbm/src/volumes/perlinvolume.cpp:31: error: no matching function for call to 'PerlinDensity::PerlinDensity(Spectrum&, Spectrum&, float&, Spectrum&, BBox, const Transform&, int&, float&, float&, bool&)'
-./volumes/perlinvolume.h:26: note: candidates are: PerlinDensity::PerlinDensity(const Spectrum&, const Spectrum&, float, const Spectrum&, const BBox&, const Transform&, int, float, float)
-./volumes/perlinvolume.h:21: note:                 PerlinDensity::PerlinDensity(const PerlinDensity&)
