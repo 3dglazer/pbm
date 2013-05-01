@@ -62,11 +62,16 @@ In the following subsections the key ray-tracing concepts and methods are briefl
 The key aspect of ray-tracing volumes is the radiance integration between two points in space. Without the participating media the visibility is only a matter of ray surface intersection, the first object intersected by the ray is simply considered visible. In the presence of participating media we have to also consider transmittance change along the ray and in-scattered radiance along the path. For now we will stay with the transmittance evaluation only. In homogeneous media a simple analytic solution exists. Since $\kappa_t$ is constant we just evaluate the $  \tau(x_{0},x)=e^{-\kappa_t*\left | x_{0}\rightarrow x \right |}$.
 \\
 \\
-In order to compute transmittance in non-homogeneous media according the eq. \ref{eq:TAU}, we can use ray-marching technique. Which evaluates the extinction coefficient of the media $\kappa_t(x_{v})\text{, in a point }x_{v}=\vec{r}*v$, where $\vec{r}$ is a ray direction and $v$ is some chosen step size. Ideally we should choose very small $v$, which would inevitably lead to render time increase. This technique also introduces bias to our estimate, which we would like to ideally avoid.
+In order to compute transmittance in non-homogeneous media according the eq. \ref{eq:TAU}, we can use ray-marching technique. Which evaluates the extinction coefficient of the media $\kappa_t(x_{v})\text{, in a point }x_{v}=\vec{r}*v$, where $\vec{r}$ is a ray direction and $v$ is some chosen step size. Ideally we should choose very small $v$, which would inevitably lead to render time increase. This technique also introduces bias to our estimate, which is not desired.
 \\
 \\
 %tohle patri spis do pravdepodobnosti scateringu freeflyght distance ale tvrdi ze tak pocitaji transmitanci, je tam adaptive stepp size
-Another technique known as Woodcock tracking \footnote{ The idea was used in neutron transport theory under different names mainly as delta tracking. Nevertheless Woodcock tracking is used in CG community to promote the original author.}. The idea is quite simple, if we know the maximum extinction coefficient of our media (which we very often know) we could sample the media according this coefficient more densely then needed and then randomly choose if to take another sample or return. This approach is based on the probability theory behind the light particle interaction.
+Another technique used is known as Woodcock tracking \footnote{ The idea was used in neutron transport theory under different names mainly as delta tracking. Nevertheless Woodcock tracking is used in CG community to promote the original author.}. The idea is quite simple, if we know the maximum extinction coefficient of our media (which we very often know) we could sample the media randomly according to this coefficient more densely then needed. This approach is based on the probability theory behind the light particle interaction. To take steps according the transmittance probability density function, which is exponential function (eq. \ref{eq:TAU} ) we can sample according to it's inverse:
+\begin{equation}
+cdf(r)=-ln(1-r)/\kappa_\text{max}
+\end{equation}
+, where r is a uniformly distributed random variable and $\kappa_\text{max}$ is maximal extinction coefficient.
+
 
 pbrt single scattering
 can support procedural volumes and any type of lighting
