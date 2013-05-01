@@ -97,6 +97,8 @@ void WriteImage(const string &name, float *pixels, float *alpha, int xRes,
             return;
         }
     }
+    //write default as an exr
+    WriteImageEXR("defaultName.exr", pixels, alpha, xRes, yRes, totalXRes,totalYRes, xOffset, yOffset);
     Error("Can't determine image file type from suffix of filename \"%s\"",
           name.c_str());
 }
