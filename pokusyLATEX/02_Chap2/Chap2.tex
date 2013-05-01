@@ -10,7 +10,7 @@ When the suitable light model is chosen, we should define some numerical quantit
 \\
 \\
 %have to add here page
-%\clearpage{}
+\clearpage{}
 \section{Radiometry}
 
 Radiometry is set of techniques for measuring different kinds of electromagnetic radiation such as light. We could have used a photometry, which on the other hand measures the response of a human eye to visible light. This basically corresponds to measurements retrieved using radiometry and weighted with an eye response function. For the purposes of this thesis we will use radiometric quantities, because corresponding photometric quantities can be easily derived.
@@ -22,7 +22,10 @@ Radiometry is set of techniques for measuring different kinds of electromagnetic
 \bd{Radiant flux}, also known as radiant power, denoted as $\phi$. This quantity corresponds to the light power mentioned on the light bulbs in Watts.
 %prehodit vety a pridat 
 Where Q [J] denotes radiant energy, which describes how much energy (amount of photons times their energy) is presented in a given area at a point in time. This leads us to flux definition as  amount of radiant energy going through a location over time , alternatively speaking how fast is the change of the amount of the photons in a specified location. 
+\\
+\noindent{
 \line(1,0){450}
+}
 \begin{equation}
 E(x)=\frac{d\phi(x)}{dA}\;\;[W.m^{-2}]
 \end{equation}
@@ -42,11 +45,13 @@ In order to render our image we have to compute radiance coming from the scene t
 \begin {table}[H]
 \centering
 \begin{tabular}{lll}
+
 \hline
 Radiant energy&$Q$&[J]\\
 Radiant flux&$\phi$&[W]\\ 
 Irradiance&$E$&[$W.m^{-2}$]\\ 
 Radiance&$L$& [$W.m^{-2}.sr^{-1}$]\\
+
 \hline
 \end{tabular}
 \caption {Table summary of the radiometric quantities.} \label{tab:title} 
@@ -68,7 +73,7 @@ To get flux from radiance, we will have to perform two integration steps. We wil
 \label{eq:fluxInt} 
 \end{equation}
 
-\clearpage{}
+
 \section{Surface interaction}
 Using ray optics model, light can interact with object in only four ways. It can be created by the object, which is referred as an emission. On the other way it can be partially or fully absorbed, reflected or refracted in the same time.
 \\
@@ -107,7 +112,7 @@ L_{o}(\vec\omega_{o})=\int_{\Omega}L_{i}(\vec\omega_{i})*f_{r}(\vec\omega_{i},\v
 Total reflected energy to all directions is smaller or equal to the total irradiance in any given point. This ensures that an object can't reflect more light than it receives. 
 
 \end{enumerate}
-\clearpage{}
+
 \subsection{Rendering equation}
 We have successfully defined the quantities we want to compute and models we want to use for the light surface interaction. What we want to achieve is to distribute the light energy in the scene and compute the energy fraction which reaches our image pixels.
 \\
@@ -128,6 +133,7 @@ The equation \ref{eq:rend} can deal with light reflection, refraction and absorp
 }
 
 \clearpage{}
+
 \section{Volume interaction}
 \label{sec:VOLINTER}
 By now we have assumed that radiance is conserved along its ray path between surfaces. It's time to consider participating media interaction in our computation. To do this we should define some properties, which can be used to model and describe different types of volumetric phonomenons.
@@ -179,7 +185,7 @@ For better understanding take a look on the picture fig\ref{fig:EAIO}. Since all
 }
 \myFigure{0.35}{images/temp}{Volume absorption, emission, in and out-scattering.}{This fig can be helpful to understand how each of the absorption, emission, in and out-scattering events affects the radiance.}{fig:EAIO}
 
-\clearpage{}
+
 \subsection{Phase functions}
 \label{subsec:PHASE}
 To model a light interaction on a molecular level, we use phase functions\footnote{Analogically to the BRDF functions, which model light surface interaction on microscopical level and simulate different surface materials.}, which can be used to model different volumetric media types. It describes the probability of scattering light from incoming direction $\omega_{i}$ to the outgoing direction $\omega_{o}$.
@@ -204,7 +210,7 @@ The incoming radiance is always greater or equal to the sum of the distributed e
 The phase function depends heavily on the ratio between the light wavelength and particle size of the volumetric media. Since we are interested mainly in the visible light spectra, we can narrow the dependency on the particle size. Fig \ref{fig:PARTSIZE} shows different phase function approximations, depending on the growing particle size. As you can see it is extremely difficult to describe this complex behavior globally in one analytical model function. Thus multiple models are used in practice, each one is suitable only for some media types. 
 }
 \myFigure{0.35}{images/temp.jpg}{Phase function dependency with fixed light wavelength on growing particle sizes.}{Phase function dependency with fixed light wavelength on growing particle sizes. More details about the functions are in the sections \ref{lab:REY},\ref{lab:HEN} ,\ref{lab:MIE} . }{fig:PARTSIZE} 
-%\clearpage{}
+
 \subsubsection{Heney-Greenstein phase function}
 This phase function can nicely approximate both forward and backward light scattering behaviors, modifying only one variable \ita{g.} The function is defined as:
 \begin{equation}
@@ -231,7 +237,7 @@ Thanks to it's flexibility and low computational complexity it's widely used to 
           \end{figure}
       \end{minipage}
   \end{minipage}
-\clearpage{}
+
 
 \subsubsection{Rayleigh Scattering}
 \label{lab:REY}
@@ -282,7 +288,7 @@ Unfortunately it's quite computation costly \footnote{Approximation method's do 
 
 \myFigure{0.5}{images/r10PerpPolarLogA.png}{MIE scattering polar plot of red light with water droplet interaction. Source \cite{MIEPLOT}}{Polar diagram of scattering of red light (wavelength 0.65 $\mu$m, perpendicular polarization) from a water droplet of r = 10 $\mu$. Source \cite{MIEPLOT}. }{fig:MIEPLOT} 
 
-\clearpage{}
+
 \section{Volume and surface interaction}
 \label{sec:EXTREND}
 In order to properly simulate light transport in the scenes containing both surfaces and volumetrically active media, few adjustments to the rendering equation have to be made.
@@ -313,7 +319,7 @@ Now we can express the overall radiance loss as:
 L(x,\omega)=L(x_0,\omega)\tau(x_0,x)
 \end{equation}
 
-\clearpage{}
+
 \subsection{Radiance gains}
 In the terms of radiance gains the equations are quite straight forward. The only thing we have to do is to weight the gain with appropriate probability and attenuate it with corresponding transmittance. This way we get following equation, which express the radiance gain over a given volumetric path segment:
 \begin{equation}

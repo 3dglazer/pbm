@@ -34,6 +34,13 @@ Wojciech Jarosz.
   Media}.
 \newblock PhD thesis, UC San Diego, September 2008.
 
+\bibitem[Jen96]{Jensen:1996}
+Henrik~Wann Jensen.
+\newblock Global illumination using photon maps.
+\newblock In {\em Proceedings of the eurographics workshop on Rendering
+  techniques '96}, pages 21--30, London, UK, UK, 1996. Springer-Verlag.
+\newblock URL: \url{http://dl.acm.org/citation.cfm?id=275458.275461}.
+
 \bibitem[JNT{\etalchar{+}}11]{jarosz11progressive}
 Wojciech Jarosz, Derek Nowrouzezahrai, Robert Thomas, Peter-Pike Sloan, and
   Matthias Zwicker.
