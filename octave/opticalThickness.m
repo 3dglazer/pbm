@@ -1,7 +1,7 @@
 function [vals] = opticalThickness(evalPoints,funname)
 sz=size(evalPoints);
 sz=max(sz(1),sz(2));
-vals=zeros(sz);
+vals=zeros(1,sz);
 vsum=0;
 %first optical thickness is always zero
 vals(1)=0;
