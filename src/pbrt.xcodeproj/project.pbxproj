@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		53028DA3173436C100AC0B34 /* multi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 53028DA1173436C100AC0B34 /* multi.cpp */; };
 		53773EE117303E6E00E6AE08 /* libHalf.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 53773ED717303E6E00E6AE08 /* libHalf.6.dylib */; };
 		53773EE317303E6E00E6AE08 /* libIex.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 53773ED917303E6E00E6AE08 /* libIex.6.dylib */; };
 		53773EE517303E6E00E6AE08 /* libIlmImf.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 53773EDB17303E6E00E6AE08 /* libIlmImf.6.dylib */; };
@@ -178,6 +179,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		53028DA1173436C100AC0B34 /* multi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = multi.cpp; sourceTree = "<group>"; };
+		53028DA2173436C100AC0B34 /* multi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = multi.h; sourceTree = "<group>"; };
 		53773ED717303E6E00E6AE08 /* libHalf.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libHalf.6.dylib; path = externresources/lib/libHalf.6.dylib; sourceTree = "<group>"; };
 		53773ED817303E6E00E6AE08 /* libHalf.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libHalf.6.dylib; path = externresources/lib/libHalf.6.dylib; sourceTree = "<group>"; };
 		53773ED917303E6E00E6AE08 /* libIex.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIex.6.dylib; path = externresources/lib/libIex.6.dylib; sourceTree = "<group>"; };
@@ -680,6 +683,8 @@
 				B1D8EBFF1170310E00A8A49E /* useprobes.h */,
 				B1D8EC001170310E00A8A49E /* whitted.cpp */,
 				B1D8EC011170310E00A8A49E /* whitted.h */,
+				53028DA1173436C100AC0B34 /* multi.cpp */,
+				53028DA2173436C100AC0B34 /* multi.h */,
 			);
 			path = integrators;
 			sourceTree = SOURCE_ROOT;
@@ -1063,6 +1068,7 @@
 				D99207391680CE290091B470 /* particleshooter.cpp in Sources */,
 				D92F04BA16862E3F00892A43 /* photonDisc.cpp in Sources */,
 				D92C4C3F168DC93A001AA401 /* lighttracer.cpp in Sources */,
+				53028DA3173436C100AC0B34 /* multi.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1099,7 +1105,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CONFIGURATION_BUILD_DIR = "$PROJECT_DIR/$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_MODEL_TUNING = G5;
 				GCC_PREPROCESSOR_DEFINITIONS = PBRT_PROBES_NONE;
 				GCC_VERSION = "";
@@ -1179,7 +1185,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CONFIGURATION_BUILD_DIR = "$PROJECT_DIR/$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_MODEL_TUNING = G5;
 				GCC_PREPROCESSOR_DEFINITIONS = PBRT_PROBES_NONE;
 				GCC_VERSION = "";

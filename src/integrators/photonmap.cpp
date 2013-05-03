@@ -263,7 +263,12 @@ Spectrum EPhoton(KdTree<Photon> *map, int count, int nLookup,
     PhotonProcess proc(nLookup, lookupBuf);
     float md2 = maxDist2;
     map->Lookup(p, proc, md2);
-    Assert(md2 > 0.f);
+    //MC commented 
+    //Assert(md2 > 0.f);
+    if (md2 < 0.f) {
+        return 0;
+    }
+    //end MC
 
     // Accumulate irradiance value from nearby photons
     if (proc.nFound == 0) return Spectrum(0.f);
@@ -796,7 +801,7 @@ PhotonIntegrator *CreatePhotonMapSurfaceIntegrator(const ParamSet &params) {
     float maxDist = params.FindOneFloat("maxdist", .1f);
     float gatherAngle = params.FindOneFloat("gatherangle", 10.f);
 	float seed= params.FindOneInt("seed",1);
-	printf("Fucking seed is %f \n",seed);
+	printf("Parsed seed is %f \n",seed);
     return new PhotonIntegrator(nCaustic, nIndirect,
         nUsed, maxSpecularDepth, maxPhotonDepth, maxDist, finalGather, gatherSamples,
         gatherAngle,seed);
