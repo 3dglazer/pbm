@@ -31,6 +31,7 @@ public:
         Ray ray = WorldToVolume(r);
         return extent.IntersectP(ray, t0, t1);
     }
+    
     float Density(const Point &Pobj) const {
         if (!extent.Inside(Pobj)) return 0;
 //		if (inverted) {

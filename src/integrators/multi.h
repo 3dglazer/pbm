@@ -35,6 +35,9 @@ public:
     Spectrum Lsm(const Scene *, const Renderer *, const RayDifferential &ray,
                  const Sample *sample, RNG &rng, Spectrum *T, MemoryArena &arena) const;
 private:
+    // ------  TODO -----
+    // Should add light cache structures
+    
     // MultiScatteringIntegrator Private Data
     float stepSize;
     int tauSampleOffset, scatterSampleOffset;

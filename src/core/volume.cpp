@@ -284,6 +284,22 @@ void SubsurfaceFromDiffuse(const Spectrum &Kd, float meanPathLength,
     *sigma_prime_s = Spectrum::FromRGB(sigma_prime_s_rgb);
 }
 
+//This method uses woodcock trecking to compute freeflight distance of the photon, sigmaTMax is a maximal extinction coeficient in the media, tau is computed transmittance. The media should be sampled from r.mint to r.maxt and the ray should be unit vector. Returns -1 if there was no interaction;
+float VolumeRegion::freeFlight(const Ray &r,float sigmaTMax,Spectrum& tau,const RNG &rng){
+    Ray rn(r.o, r.d, r.mint, r.maxt, r.time);
+    float t0 =r.mint;
+    Spectrum sigmaTX;
+    while (t0 < r.maxt) {
+        t0 += log(1.-rng.RandomFloat())/sigmaTMax;
+        //rn.d is there because of the phase functions rn(t0) is offset start point of ray
+        sigmaTX=sigma_t(rn(t0), rn.d, r.time);
+        tau += sigmaTX;
+        if (rng.RandomFloat() < sigmaTMax/sigmaTMax) {
+            return t0;
+        }
+    }
+    return -1;
+}
 
 Spectrum DensityRegion::tau(const Ray &r, float stepSize,
                             float u) const {

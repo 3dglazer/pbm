@@ -59,6 +59,8 @@ public:
     virtual Spectrum sigma_t(const Point &p, const Vector &wo, float time) const;
     virtual Spectrum tau(const Ray &ray, float step = 1.f,
                          float offset = 0.5) const = 0;
+    //MC woodcock tracking aka delta tracking
+    float freeFlight(const Ray &r,float sigmaTMax,Spectrum& tau,const RNG &rng);
 };
 
 
@@ -70,6 +72,7 @@ public:
         : sig_a(sa), sig_s(ss), le(emit), g(gg),
           WorldToVolume(Inverse(VolumeToWorld)) { }
     virtual float Density(const Point &Pobj) const = 0;
+
     Spectrum sigma_a(const Point &p, const Vector &, float) const {
         return Density(WorldToVolume(p)) * sig_a;
     }
