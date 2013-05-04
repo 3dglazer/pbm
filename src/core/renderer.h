@@ -43,6 +43,8 @@ public:
     virtual Spectrum Transmittance(const Scene *scene,
         const RayDifferential &ray, const Sample *sample,
         RNG &rng, MemoryArena &arena) const = 0;
+    //MC
+    virtual float freeFlight(const Scene *scene, const Ray &r,Spectrum& tau,const RNG &rng) const =0;
 };
 
 

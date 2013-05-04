@@ -32,6 +32,7 @@ LightShootingTask::LightShootingTask(const Scene* sscene,Camera* cm,Distribution
 	printf("%s",world2Camera->toString().c_str());
 	delete tr;
 }
+
 void LightShootingTask::filmAddSample(Point &p, Spectrum &sp){
 	//projektnu bod 
 	// asi by slo udelat i motion blur:
@@ -123,11 +124,12 @@ void LightShootingTask::Run(){
 	}
 }
 
-LightTracerRenderer::LightTracerRenderer(Camera *c,int nIterations,int pathsPerIter,int rndseed){
+LightTracerRenderer::LightTracerRenderer(Camera *c,int nIterations,int pathsPerIter,int rndseed, SurfaceIntegrator *si, VolumeIntegrator *vi){
 	camera=c;
 	seed=rndseed;
 	niter=nIterations;
 	maxPathCount=pathsPerIter;
+    
 }
 LightTracerRenderer::~LightTracerRenderer() {
 	delete camera;
@@ -161,6 +163,10 @@ Spectrum LightTracerRenderer::Li(const Scene *scene,
 	return NULL;
 }
 
+//MC
+float LightTracerRenderer::freeFlight(const Scene *scene, const Ray &r,Spectrum& tau,const RNG &rng) const{
+    return volumeIntegrator->freeFlight(scene, r, tau, rng);
+}
 
 Spectrum LightTracerRenderer::Transmittance(const Scene *scene,
 										const RayDifferential &ray, const Sample *sample, RNG &rng,

@@ -72,7 +72,28 @@ struct VolumeVSL {
 	
 };
 
-struct VolumePath{};
+struct VolumePath{
+    VolumePath(RayDifferential r){
+        ray=r;
+    }
+    RayDifferential ray;
+    //points with corresponding attenuated contribs
+    std::vector<float> dists;
+    //contribution of light
+    Spectrum contrib;
+    float getTransmittance(float distFromRayO){
+        if (distFromRayO<0) {
+            return 0;
+        }
+        //compute how many samples go beyond our sample point
+        for (int i=0; i<dists.size(); ++i) {
+            if (dists[i]>distFromRayO) {
+                return (float)(dists.size()-(i+1))/(float)dists.size();
+            }
+        }
+        return 0.;
+    }
+};
 struct SurfaceLight{};
 
 

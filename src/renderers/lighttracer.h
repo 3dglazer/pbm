@@ -19,7 +19,7 @@
 // will have to create lt task to go multithreaded
 class LightTracerRenderer : public Renderer {
 public:
-	LightTracerRenderer(Camera *c,int nIterations,int pathsPerIter,int rndseed);
+	LightTracerRenderer(Camera *c,int nIterations,int pathsPerIter,int rndseed, SurfaceIntegrator *si, VolumeIntegrator *vi);
 	~LightTracerRenderer();
 	void Render(const Scene *scene);
     Spectrum Li(const Scene *scene, const RayDifferential &ray,
@@ -27,11 +27,14 @@ public:
 				Intersection *isect = NULL, Spectrum *T = NULL) const;
     Spectrum Transmittance(const Scene *scene, const RayDifferential &ray,
 						   const Sample *sample, RNG &rng, MemoryArena &arena) const;
+    float freeFlight(const Scene *scene, const Ray &r,Spectrum& tau,const RNG &rng) const;
 	Camera* camera;
 	int seed;
 	int niter;
 	float time;
 	uint32_t maxPathCount;
+    SurfaceIntegrator *surfaceIntegrator;
+    VolumeIntegrator *volumeIntegrator;
 };
 
 class LightShootingTask : public Task {

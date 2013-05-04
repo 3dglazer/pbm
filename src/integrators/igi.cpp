@@ -84,22 +84,23 @@ void IGIIntegrator::RequestSamples(Sampler *sampler, Sample *sample,
     gatherSampleOffset = BSDFSampleOffsets(nGatherSamples, sample);
 }
 
-void IGIIntegrator::setSurfaceLights(vector<VirtualSphericalLight> &vsl){
-	
-	vsls=vsl;
-	
-	int npd=vsls.size();
-	vector<Reference<Primitive> > photonDiscs;
-	photonDiscs.reserve(npd);
-	for (int i=0; i<npd; i++) {
-//		Shape* shape=new PhotonDisc(new Point(),0.7);
-		//Reference<Primitive> prim=new GeometricPrimitive(shape, NULL, NULL);
-		//photonDiscs.push_back(prim) ;
-	}
-	
+//void IGIIntegrator::setSurfaceLights(vector<VirtualSphericalLight> &vsl){
+//	
+//	vsls=vsl;
+//	
+//	int npd=vsls.size();
+//	vector<Reference<Primitive> > photonDiscs;
+//	photonDiscs.reserve(npd);
+//	for (int i=0; i<npd; i++) {
+////		Shape* shape=new PhotonDisc(new Point(),0.7);
+//		//Reference<Primitive> prim=new GeometricPrimitive(shape, NULL, NULL);
+//		//photonDiscs.push_back(prim) ;
+//	}
+//	
+//
+//	//printf("\n in igi vsl size is %d \n",vsls.size());
+//}
 
-	//printf("\n in igi vsl size is %d \n",vsls.size());
-}
 void IGIIntegrator::Preprocess(const Scene *scene, const Camera *camera,
                                const Renderer *renderer) {
 	
@@ -199,6 +200,22 @@ void IGIIntegrator::Preprocess(const Scene *scene, const Camera *camera,
     }
     delete lightDistribution;
 	 */
+}
+
+Spectrum IGIIntegrator::Lms(const Scene *scene, const Renderer *renderer,
+                           const RayDifferential &ray, const Intersection &isect,
+                           const Sample *sample, RNG &rng, MemoryArena &localArena) const {
+    Spectrum ms;
+    return ms;
+    
+}
+
+Spectrum IGIIntegrator::Lss(const Scene *scene, const Renderer *renderer,
+                               const RayDifferential &ray, const Intersection &isect,
+                               const Sample *sample, RNG &rng, MemoryArena &localArena) const {
+    
+    Spectrum ss;
+    return ss;
 }
 
 

@@ -33,8 +33,12 @@
 Integrator::~Integrator() {
 }
 
-
-
+void Integrator::setSurfaceLights(std::vector<VirtualSphericalLight *> &vsl){
+    this->vsls=vsl;
+}
+void Integrator::setVolumeLights(std::vector<VolumePath *> &vpth){
+    this->vpths=vpth;
+}
 // Integrator Utility Functions
 Spectrum UniformSampleAllLights(const Scene *scene,
         const Renderer *renderer, MemoryArena &arena, const Point &p,

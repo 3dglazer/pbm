@@ -25,6 +25,7 @@
 // core/volume.cpp*
 #include "stdafx.h"
 #include "volume.h"
+#include "scene.h"
 
 // Volume Scattering Local Definitions
 struct MeasuredSS {
@@ -284,21 +285,36 @@ void SubsurfaceFromDiffuse(const Spectrum &Kd, float meanPathLength,
     *sigma_prime_s = Spectrum::FromRGB(sigma_prime_s_rgb);
 }
 
-//This method uses woodcock trecking to compute freeflight distance of the photon, sigmaTMax is a maximal extinction coeficient in the media, tau is computed transmittance. The media should be sampled from r.mint to r.maxt and the ray should be unit vector. Returns -1 if there was no interaction;
-float VolumeRegion::freeFlight(const Ray &r,float sigmaTMax,Spectrum& tau,const RNG &rng){
+float VolumeRegion::maxFromSpectrum(const Spectrum &s){
+    float* rgb=new float[3];
+    s.ToRGB(rgb);
+    delete[] rgb;
+    return max(max(rgb[0],rgb[1]),rgb[2]);;
+}
+//This method uses woodcock tracking to compute freeflight distance of the photon, sigmaTMax is a maximal extinction coeficient in the media, tau is computed opticalThickeness. The media should be sampled from r.mint to r.maxt and the ray should be unit vector. Returns -1 if there was no interaction;
+float VolumeRegion::freeFlight(const Ray &r,Spectrum& tau,const RNG &rng){
     Ray rn(r.o, r.d, r.mint, r.maxt, r.time);
     float t0 =r.mint;
     Spectrum sigmaTX;
+    float dist;
     while (t0 < r.maxt) {
-        t0 += log(1.-rng.RandomFloat())/sigmaTMax;
+        dist=-log(1.-rng.RandomFloat())*invSigmaTMax;
+        t0 += dist;
         //rn.d is there because of the phase functions rn(t0) is offset start point of ray
         sigmaTX=sigma_t(rn(t0), rn.d, r.time);
-        tau += sigmaTX;
-        if (rng.RandomFloat() < sigmaTMax/sigmaTMax) {
+        tau += sigmaTX*dist; //we consider extinction coeficient constant over the step size so optical thicknes is equal to distance*sigmaTX
+        if (rng.RandomFloat() < sigmaTX.returnOne()*invSigmaTMax) { //Return one is an optimization step might cause problems
             return t0;
         }
     }
     return -1;
+}
+
+//MC added volume tracking
+float VolumeIntegrator::freeFlight(const Scene *scene, const Ray &r,Spectrum& tau,const RNG &rng){
+    if (!scene->volumeRegion) return -1.0;
+    return scene->volumeRegion->freeFlight(r, tau, rng);
+    
 }
 
 Spectrum DensityRegion::tau(const Ray &r, float stepSize,

@@ -37,6 +37,8 @@ public:
     // HomogeneousVolumeDensity Public Methods
     HomogeneousVolumeDensity(const Spectrum &sa, const Spectrum &ss, float gg,
             const Spectrum &emit, const BBox &e, const Transform &v2w) {
+        sigmaTMax=sa+ss;
+        invSigmaTMax=1./maxFromSpectrum(sigmaTMax);
         WorldToVolume = Inverse(v2w);
         sig_a = sa;
         sig_s = ss;

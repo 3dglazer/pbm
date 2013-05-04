@@ -12,8 +12,10 @@
 #include "sampler.h"
 #include "intersection.h"
 
+
 // this method shoots light carrying paths from lights and stores these paths and when hit or scattering happens vsl is storred;
 void ParticleShooter::shootParticles(const Scene * scene, Camera * camera, const Renderer *renderer, int nPaths,float radius){
+    printf("\n Photon caches are being destributed over volume and surfices.\n");
 	if (scene->lights.size() == 0) return;
 	
 	RNG rng;
@@ -47,18 +49,53 @@ void ParticleShooter::shootParticles(const Scene * scene, Camera * camera, const
 		alpha /= pdf * lightPdf;
 		Intersection isect;	
 		
-		while (scene->Intersect(ray, &isect) && !alpha.IsBlack()) {
-			// Create virtual light and sample new ray for path attenuate energy because of the volume transmitance
-			alpha *= renderer->Transmittance(scene, RayDifferential(ray), NULL, rng, psArena);
+        //check whether intersect any scene primitive, including volumeRegions
+		while (scene->Intersect(ray, &isect)&&!alpha.IsBlack()) {
+            
+            //perform Woodcock tracking
+            float t0,t1;
+            Spectrum tau;
+            float d;
+            //perform intersection of volume agregate, gives us the t0 from, t1 to distance parametres 
+            if (scene->volumeRegion->IntersectP(ray, &t0, &t1)) {
+                //stop criteria in freeFlight are ray.mint and ray. maxt
+                ray.mint=t0;
+                ray.maxt=t1;
+                //create a VRL
+                VolumePath* currPath=new VolumePath(ray);
+                currPath->contrib=alpha; //sets the energy to the path
+                volumePaths.push_back(currPath);
+                //maybe add some constraining criteria like maximum scattering events in the original VRL paper is 16
+                for (int evnts=0; evnts < maxScattering; ++evnts) {
+                    d=renderer->freeFlight(scene, ray, tau, rng); //the tau could be used for multiple scattering
+                    if (d==-1.){
+                        break; //scattering did not happened tau should be valid
+                    }else{
+                        ray.mint=d; //save event distance for next tracking
+                        //add the transmittance and distance to the VRL
+                        currPath->dists.push_back(d);
+                        //phase function doesn't have to be saved can be querried directly from scene->volumeRegion->p(....) returns probability float.
+                    }
+                    //possibly terminate tracking if the transmittance is really small
+                    if (tau.returnOne() < 1e-3) {
+                        const float continueProb = .5f;
+                        if (rng.RandomFloat() > continueProb) break;
+                    }
+                }// end of SCATTERING EVENTS
+            }
+            //VRL has been created only if volume interaction occured not it is time to create VPL
+            //MC commented
+			//alpha *= renderer->Transmittance(scene, RayDifferential(ray), NULL, rng, psArena);
+            alpha*=Exp(-tau); //transmittance from optical thickness
 			Vector wo = -ray.d;
 			BSDF *bsdf = isect.GetBSDF(ray, psArena);
 			
 			// Create virtual light at ray intersection point
 			Spectrum contrib = alpha * bsdf->rho(wo, rng) / M_PI;
-			contrib=contrib/nPaths; //added MC
+			contrib=contrib/nPaths; //added MC not very clever all paths might not be created in all cases
 			
 			//MC saving the bsdf in the virtual light -- for now only global radius is used 
-			VirtualSphericalLight vslTemp= VirtualSphericalLight(isect.dg.p, isect.dg.nn, contrib, isect.rayEpsilon,radius,bsdf);
+			VirtualSphericalLight *vslTemp= new VirtualSphericalLight(isect.dg.p, isect.dg.nn, contrib, isect.rayEpsilon,radius,bsdf);
 			//s*i je index virtualni cesty
 			//virtualPaths[s*i].push_back(vlTemp);
 			//differentialRays.push_back(new RayDifferential(ray));

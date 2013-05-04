@@ -40,6 +40,8 @@ public:
             int x, int y, int z, const float *d)
         : DensityRegion(sa, ss, gg, emit, v2w), nx(x), ny(y), nz(z), extent(e) {
         density = new float[nx*ny*nz];
+        sigmaTMax=sa+ss; //if the density is between 0-1 it is valid assumtion
+        invSigmaTMax=1./maxFromSpectrum(sigmaTMax);
         memcpy(density, d, nx*ny*nz*sizeof(float));
     }
     ~VolumeGridDensity() { delete[] density; }

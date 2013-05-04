@@ -54,14 +54,16 @@ public:
     virtual void RequestSamples(Sampler *sampler, Sample *sample,
                                 const Scene *scene) {
     }
+    void setSurfaceLights(std::vector<VirtualSphericalLight *> &vsl);
+    void setVolumeLights(std::vector<VolumePath *> &vpth);
+    std::vector<VirtualSphericalLight *> vsls;
+    std::vector<VolumePath *> vpths;
 };
 
 
 class SurfaceIntegrator : public Integrator {
 public:
     // SurfaceIntegrator Interface
-	virtual void setSurfaceLights(vector<VirtualSphericalLight> &vsl){
-	}
     virtual Spectrum Li(const Scene *scene, const Renderer *renderer,
         const RayDifferential &ray, const Intersection &isect,
         const Sample *sample, RNG &rng, MemoryArena &arena) const = 0;

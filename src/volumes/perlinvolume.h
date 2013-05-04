@@ -25,6 +25,8 @@ public:
                        float gg, const Spectrum &emit, const BBox &e,
                        const Transform &v2w,int nOctaves,float omega,float frequency,bool inv)
 	: DensityRegion(sa, ss, gg, emit, v2w), extent(e) ,omg(omega),octaves(nOctaves),freq(frequency),inverted(inv){
+        sigmaTMax=sa+ss;
+        invSigmaTMax=1./maxFromSpectrum(sigmaTMax);
     }
     BBox WorldBound() const { return Inverse(WorldToVolume)(extent); }
     bool IntersectP(const Ray &r, float *t0, float *t1) const {

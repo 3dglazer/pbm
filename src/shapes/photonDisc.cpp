@@ -32,9 +32,8 @@ bool PhotonDisc::Intersect(const Ray &r, float *tHit, float *rayEpsilon,
 	float a=Dot(rop,r.d);
 	float bSQ= a*a-rop.LengthSquared();
 	if (bSQ>radiusSQ) {
-		false;
+		return false;
 	}
-	
 	*tHit=a;
 	// Compute _rayEpsilon_ for quadric intersection
     *rayEpsilon = 5e-4f * *tHit;
@@ -47,8 +46,8 @@ bool PhotonDisc::IntersectP(const Ray &r) const {
 	float a=Dot(rop,r.d);
 	float bSQ= a*a-rop.LengthSquared();
 	if (bSQ<radiusSQ) {
-		true;
+		return true;
 	}else {
-		false;
+		return false;
 	}
 }

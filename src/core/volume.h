@@ -35,6 +35,7 @@
 #include "transform.h"
 #include "integrator.h"
 
+
 // Volume Scattering Declarations
 float PhaseIsotropic(const Vector &w, const Vector &wp);
 float PhaseRayleigh(const Vector &w, const Vector &wp);
@@ -60,7 +61,11 @@ public:
     virtual Spectrum tau(const Ray &ray, float step = 1.f,
                          float offset = 0.5) const = 0;
     //MC woodcock tracking aka delta tracking
-    float freeFlight(const Ray &r,float sigmaTMax,Spectrum& tau,const RNG &rng);
+    float freeFlight(const Ray &r,Spectrum& tau,const RNG &rng);
+protected:
+    float maxFromSpectrum(const Spectrum &s);
+    Spectrum sigmaTMax;
+    float invSigmaTMax;
 };
 
 
@@ -128,6 +133,8 @@ public:
     virtual Spectrum Transmittance(const Scene *scene,
         const Renderer *renderer, const RayDifferential &ray,
         const Sample *sample, RNG &rng, MemoryArena &arena) const = 0;
+    //MC freeFlight, woodcock tracking
+    float freeFlight(const Scene *scene, const Ray &r,Spectrum& tau,const RNG &rng);
 };
 
 

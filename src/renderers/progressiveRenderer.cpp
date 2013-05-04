@@ -160,7 +160,6 @@ void ProgressiveRendererTask::Run() {
 }
 
 
-
 // SamplerRenderer Method Definitions
 ProgressiveRenderer::ProgressiveRenderer(Sampler *s, Camera *c,Camera *prc,Film* surface2surface,Film* surface2media,Film* media2surface, Film* media2media, SurfaceIntegrator *si,
 										 VolumeIntegrator *vi, bool visIds,int nIterations,int nps,float rad,int rndSeed) {
@@ -191,6 +190,12 @@ ProgressiveRenderer::~ProgressiveRenderer() {
     delete volumeIntegrator;
 }
 
+//MC
+float ProgressiveRenderer::freeFlight(const Scene *scene, const Ray &r,Spectrum& tau,const RNG &rng) const{
+    return volumeIntegrator->freeFlight(scene, r, tau, rng);
+}
+
+
 //MC this method does every iteration rendering
 void ProgressiveRenderer::renderIter(int currentIter,const Scene *scene, Sample *sample){
 	// Allow integrators to do preprocessing for the scene
@@ -199,8 +204,14 @@ void ProgressiveRenderer::renderIter(int currentIter,const Scene *scene, Sample 
 	ParticleShooter * particleShooter=new ParticleShooter(seed*(currentIter+1));
 	printf("Preprocessing stage shooting particles nPaths %d, %f",nParticles,radius);
 	particleShooter->shootParticles(scene, camera, this,nParticles,radius);
+    printf("after particle shooting");
 	surfaceIntegrator->setSurfaceLights(particleShooter->vsls);
+    surfaceIntegrator->setVolumeLights(particleShooter->volumePaths);
     surfaceIntegrator->Preprocess(scene, camera, this);
+    //-------- TODO ----------
+    //set vrls made in particle shooting preprocess
+    volumeIntegrator->setSurfaceLights(particleShooter->vsls);
+    volumeIntegrator->setVolumeLights(particleShooter->volumePaths);
     volumeIntegrator->Preprocess(scene, camera, this);
     PBRT_FINISHED_PREPROCESSING();
     PBRT_STARTED_RENDERING();
@@ -230,10 +241,9 @@ void ProgressiveRenderer::renderIter(int currentIter,const Scene *scene, Sample 
         delete renderTasks[i];
     reporter.Done();
     
-   
 	//MC adding frame number after name 
     camera->film->WriteIterImage(currentIter);
-	delete particleShooter;
+	delete particleShooter;//have to be deleted last, because of the memory arena which holds brdf information from the virtual light shooting
 	// have to 
 }
 
@@ -257,6 +267,14 @@ void ProgressiveRenderer::Render(const Scene *scene) {
 	PBRT_FINISHED_RENDERING();
 	
 }
+
+
+// ve volume integratoru
+//Spectrum ::Lmm
+//Spectrum ::Lsm
+// ve vrl integratoru
+//Spectrum ::Lms
+//Spectrum ::Lss
 
 
 Spectrum ProgressiveRenderer::Li(const Scene *scene,
@@ -287,6 +305,7 @@ Spectrum ProgressiveRenderer::Li(const Scene *scene,
 Spectrum ProgressiveRenderer::Transmittance(const Scene *scene,
 										const RayDifferential &ray, const Sample *sample, RNG &rng,
 										MemoryArena &arena) const {
+
     return volumeIntegrator->Transmittance(scene, this, ray, sample,
                                            rng, arena);
 }

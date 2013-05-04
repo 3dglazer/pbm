@@ -252,6 +252,11 @@ void SurfacePointTask::Run() {
     }
 }
 
+//MC
+float SurfacePointsRenderer::freeFlight(const Scene *scene, const Ray &r,Spectrum& tau,const RNG &rng) const{
+    //return volumeIntegrator->freeFlight(scene, r, tau, rng);
+    return -1;
+}
 
 void FindPoissonPointDistribution(const Point &pCamera, float time,
         float minDist, const Scene *scene, vector<SurfacePoint> *points) {

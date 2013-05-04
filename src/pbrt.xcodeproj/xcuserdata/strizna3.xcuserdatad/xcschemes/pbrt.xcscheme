@@ -57,6 +57,12 @@
             ReferencedContainer = "container:pbrt.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "&apos;/Volumes/DISK2/developer/pbrt-scenes/spotfog_hetero_igi.pbrt&apos;"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

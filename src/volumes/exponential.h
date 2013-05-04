@@ -40,6 +40,8 @@ public:
                        const Transform &v2w, float aa, float bb,
                        const Vector &up)
         : DensityRegion(sa, ss, gg, emit, v2w), extent(e), a(aa), b(bb) {
+        sigmaTMax=sa+ss;
+        invSigmaTMax=1./maxFromSpectrum(sigmaTMax);
         upDir = Normalize(up);
     }
     BBox WorldBound() const { return Inverse(WorldToVolume)(extent); }

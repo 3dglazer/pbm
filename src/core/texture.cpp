@@ -239,7 +239,7 @@ float SimpleTurbulence(const Point &P, float omega, int maxOctaves,float frequen
         lambda *= 1.99f;
         o *= omega;
     }
-    return sum;
+    return sum/maxOctaves;
 }
 //end MC
 

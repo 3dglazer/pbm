@@ -1269,7 +1269,14 @@ Renderer *RenderOptions::MakeRenderer() const {
 		int seed=RendererParams.FindOneInt("seed", 1);
 		int nIters=RendererParams.FindOneInt("iterations", 1);
 		int nPaths=RendererParams.FindOneInt("nPaths", 1024*1024);
-		renderer =new LightTracerRenderer(camera,nIters,nPaths,seed);
+        // Create surface and volume integrators
+        SurfaceIntegrator *surfaceIntegrator = MakeSurfaceIntegrator(SurfIntegratorName,
+                                                                     SurfIntegratorParams);
+        if (!surfaceIntegrator) Severe("Unable to create surface integrator.");
+        VolumeIntegrator *volumeIntegrator = MakeVolumeIntegrator(VolIntegratorName,
+                                                                  VolIntegratorParams);
+        if (!volumeIntegrator) Severe("Unable to create volume integrator.");
+		renderer =new LightTracerRenderer(camera,nIters,nPaths,seed,surfaceIntegrator,volumeIntegrator);
 		// Warn if no light sources are defined
         if (lights.size() == 0)
             Warning("No light sources defined in scene; "

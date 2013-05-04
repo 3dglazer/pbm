@@ -57,6 +57,7 @@ public:
         Intersection *isect, Spectrum *T) const;
     Spectrum Transmittance(const Scene *scene, const RayDifferential &ray,
         const Sample *sample, RNG &rng, MemoryArena &arena) const;
+    float freeFlight(const Scene *scene, const Ray &r,Spectrum& tau,const RNG &rng) const;
 private:
     // SurfacePointsRenderer Private Data
     float minDist, time;

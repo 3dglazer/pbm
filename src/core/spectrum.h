@@ -113,6 +113,10 @@ public:
         }
         fprintf(f, "]");
     }
+    //MC this function returns first of the Spectrum coefficients
+    float returnOne(){
+        return c[1];
+    }
     CoefficientSpectrum &operator+=(const CoefficientSpectrum &s2) {
         Assert(!s2.HasNaNs());
         for (int i = 0; i < nSamples; ++i)
