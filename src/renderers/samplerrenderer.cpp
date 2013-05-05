@@ -71,6 +71,7 @@ void SamplerRendererTask::Run() {
     Spectrum *Ls = new Spectrum[maxSamples];
     Spectrum *Ts = new Spectrum[maxSamples];
     Intersection *isects = new Intersection[maxSamples];
+    Intersection *isects2 = new Intersection[maxSamples];
 
     // Get samples from _Sampler_ and update image
     int sampleCount;
@@ -98,10 +99,9 @@ void SamplerRendererTask::Run() {
                     Ls[i] = 0.f;
             }
             else {
-            if (rayWeight > 0.f)
-                Ls[i] = rayWeight * renderer->Li(scene, rays[i], &samples[i], rng,
-                                                 arena, &isects[i], &Ts[i]);
-            else {
+                if (rayWeight > 0.f){
+                Ls[i] = rayWeight * renderer->Li(scene, rays[i], &samples[i], rng, arena, &isects[i], &Ts[i]);
+                }else {
                 Ls[i] = 0.f;
                 Ts[i] = 1.f;
             }
@@ -219,15 +219,15 @@ Spectrum SamplerRenderer::Li(const Scene *scene,
     Assert(ray.time == sample->time);
     Assert(!ray.HasNaNs());
     // Allocate local variables for _isect_ and _T_ if needed
-    Spectrum localT;
-    if (!T) T = &localT;
-    Intersection localIsect;
-    if (!isect) isect = &localIsect;
+//    Spectrum localT;
+//    if (!T) T = &localT;
+//    Intersection localIsect;
+//    if (!isect) isect = &localIsect;
     Spectrum Li = 0.f;
-    if (scene->Intersect(ray, isect))
+    if (scene->Intersect(ray, isect)){
         Li = surfaceIntegrator->Li(scene, this, ray, *isect, sample,
                                    rng, arena);
-    else {
+    }else {
         // Handle ray that doesn't intersect any geometry
         for (uint32_t i = 0; i < scene->lights.size(); ++i)
            Li += scene->lights[i]->Le(ray);

@@ -46,10 +46,29 @@ static uint32_t hash(char *key, uint32_t len)
     hash ^= (hash >> 11);
     hash += (hash << 15);
     return hash;
-} 
+}
 
+void PGRendererTask::repairSample(Spectrum &s){
+    // Issue warning if unexpected radiance value returned
+    if (s.HasNaNs()) {
+        Error("Not-a-number radiance value returned "
+              "for image sample.  Setting to black.");
+        s = Spectrum(0.f);
+    }
+    else if (s.y() < -1e-5) {
+        Error("Negative luminance value, %f, returned"
+              "for image sample.  Setting to black.", s.y());
+        s = Spectrum(0.f);
+    }
+    else if (isinf(s.y())) {
+        Error("Infinite luminance value returned"
+              "for image sample.  Setting to black.");
+        s = Spectrum(0.f);
+    }
+}
 // PGRendererTask Definitions
 void PGRendererTask::Run() {
+
     PBRT_STARTED_RENDERTASK(taskNum);
     // Get sub-_Sampler_ for _SamplerRendererTask_
     Sampler *sampler = mainSampler->GetSubSampler(taskNum, taskCount);
@@ -106,13 +125,28 @@ void PGRendererTask::Run() {
             }
             else {
 				if (rayWeight > 0.f){
-					Ls[i] = rayWeight * renderer->Li(scene, rays[i], &samples[i], rng, arena, &isects[i], &Ts[i]);
-                    //MC
-                    Lmm[i]= rayWeight * renderer->Lmm(scene, rays[i], &samples[i], rng, arena, &isects[i], &Ts[i]);
-                    Lsm[i]= rayWeight * renderer->Lsm(scene, rays[i], &samples[i], rng, arena, &isects[i], &Ts[i]);
-                    Lss[i]= rayWeight * renderer->Lss(scene, rays[i], &samples[i], rng, arena, &isects[i], &Ts[i]);
-                    Lms[i]= rayWeight * renderer->Lms(scene, rays[i], &samples[i], rng, arena, &isects[i], &Ts[i]);
-                    
+                    Intersection *isect=&isects[i];
+                    RayDifferential currRay=rays[i];
+                    Sample *currSample=&samples[i];
+                    Spectrum tempT=1.;
+                    Spectrum Li;
+                    //Ls[i] = rayWeight * renderer->Li(scene, rays[i], &samples[i], rng, arena, &isects[i], &Ts[i]);
+                    if (scene->Intersect(currRay, isect)) {
+                        //Lss[i] = rayWeight * surfaceIntegrator->Lss(scene, renderer, currRay, *isect, currSample,rng, arena);
+                        Lss[i] = rayWeight * surfaceIntegrator->Li(scene, renderer, currRay, *isect, currSample,rng, arena);
+                        Lms[i] = rayWeight * surfaceIntegrator->Lms(scene, renderer, currRay, *isect, currSample,rng, arena);
+                    }else{
+                        // Handle ray that doesn't intersect any geometry
+                        for (uint32_t i = 0; i < scene->lights.size(); ++i){
+                            Li += scene->lights[i]->Le(currRay);
+                        }
+                        Lss[i]=Li;
+                    }
+                    Lmm[i]= rayWeight * volumeIntegrator->Lmm(scene, renderer, currRay, currSample, rng, &Ts[i], arena);
+                    Spectrum tr=Ts[i];
+                    //Lmm[i]= rayWeight * volumeIntegrator->Li(scene, renderer, currRay, currSample, rng, &Ts[i], arena);
+                    Lsm[i]= rayWeight * volumeIntegrator->Lsm(scene, renderer, currRay, currSample, rng, &tempT, arena);
+                    Ls[i]= (Lss[i]+Lms[i])*(Ts[i])+ Lmm[i] + Lsm[i];
                 }else {
 					Ls[i] = 0.f;
                     //MC
@@ -123,23 +157,12 @@ void PGRendererTask::Run() {
                     //end fo MC
 					Ts[i] = 1.f;
 				}
-				
-				// Issue warning if unexpected radiance value returned
-				if (Ls[i].HasNaNs()) {
-					Error("Not-a-number radiance value returned "
-						  "for image sample.  Setting to black.");
-					Ls[i] = Spectrum(0.f);
-				}
-				else if (Ls[i].y() < -1e-5) {
-					Error("Negative luminance value, %f, returned"
-						  "for image sample.  Setting to black.", Ls[i].y());
-					Ls[i] = Spectrum(0.f);
-				}
-				else if (isinf(Ls[i].y())) {
-					Error("Infinite luminance value returned"
-						  "for image sample.  Setting to black.");
-					Ls[i] = Spectrum(0.f);
-				}
+                //should repair samples here
+                repairSample(Ls[i]);
+                repairSample(Lmm[i]);
+                repairSample(Lms[i]);
+                repairSample(Lsm[i]);
+                repairSample(Lss[i]);
             }
             PBRT_FINISHED_CAMERA_RAY_INTEGRATION(&rays[i], &samples[i], &Ls[i]);
         }
@@ -153,8 +176,10 @@ void PGRendererTask::Run() {
                 camera->film->AddSample(samples[i], Ls[i]);
 				//MC added progCamera
 				progCamera->film->AddSample(samples[i], Ls[i]);
-				
-				
+				mm->AddSample(samples[i], Lmm[i]);
+                ms->AddSample(samples[i], Lms[i]);
+                sm->AddSample(samples[i], Lsm[i]);
+                ss->AddSample(samples[i], Lss[i]);
                 PBRT_FINISHED_ADDING_IMAGE_SAMPLE();
             }
         }
@@ -170,6 +195,10 @@ void PGRendererTask::Run() {
     delete[] samples;
     delete[] rays;
     delete[] Ls;
+    delete[] Lmm;
+    delete[] Lsm;
+    delete[] Lss;
+    delete[] Lms;
     delete[] Ts;
     delete[] isects;
     reporter.Update();
@@ -218,7 +247,7 @@ void PGRenderer::renderIter(int currentIter,const Scene *scene, Sample *sample){
 	// Allow integrators to do preprocessing for the scene
     PBRT_STARTED_PREPROCESSING();
 	//MC added particle shooter, which is preprocessing stage for photon or vpls,vsl,vrl shooting
-	ParticleShooter * particleShooter=new ParticleShooter(seed*(currentIter+1));
+	ParticleShooter * particleShooter=new ParticleShooter(seed*((currentIter+1)*1372568),8);
 	printf("Preprocessing stage shooting particles nPaths %d, %f",nParticles,radius);
 	particleShooter->shootParticles(scene, camera, this,nParticles,radius);
     printf("after particle shooting");
@@ -248,7 +277,7 @@ void PGRenderer::renderIter(int currentIter,const Scene *scene, Sample *sample){
     vector<Task *> renderTasks;
     for (int i = 0; i < nTasks; ++i)
 		//MC added progressive camera
-        renderTasks.push_back(new PGRendererTask(scene, this, camera,progCamera,ss,sm,ms,mm,
+        renderTasks.push_back(new PGRendererTask(scene, this,this->volumeIntegrator,this->surfaceIntegrator, camera,progCamera,ss,sm,ms,mm,
 														  reporter, sampler, sample, 
 														  visualizeObjectIds, 
 														  nTasks-1-i, nTasks,seed*(currentIter+1)));
@@ -260,6 +289,10 @@ void PGRenderer::renderIter(int currentIter,const Scene *scene, Sample *sample){
     
 	//MC adding frame number after name 
     camera->film->WriteIterImage(currentIter);
+//    mm->WriteIterImage(currentIter);
+//    ms->WriteIterImage(currentIter);
+//    ss->WriteIterImage(currentIter);
+//    sm->WriteIterImage(currentIter);
 	delete particleShooter;//have to be deleted last, because of the memory arena which holds brdf information from the virtual light shooting
 	// have to 
 }
@@ -276,9 +309,14 @@ void PGRenderer::Render(const Scene *scene) {
 		//delete all the information by now
 		camera->film->resetPixels();
 	}
-	//write averaged image
+
+    //MC write all the different transport averaged images to separate files
+	mm->WriteImage();
+    ms->WriteImage();
+    ss->WriteImage();
+    sm->WriteImage();
+    //write averaged image
 	progCamera->film->WriteImage();
-	
 	// Clean up after rendering and store final image
     delete sample;
 	PBRT_FINISHED_RENDERING();
@@ -305,10 +343,10 @@ Spectrum PGRenderer::Li(const Scene *scene,
     Intersection localIsect;
     if (!isect) isect = &localIsect;
     Spectrum Li = 0.f;
-    if (scene->Intersect(ray, isect))
-        Li = surfaceIntegrator->Li(scene, this, ray, *isect, sample,
+    if (scene->Intersect(ray, isect)){
+    Li = surfaceIntegrator->Li(scene, this, ray, *isect, sample,
                                    rng, arena);
-    else {
+    }else {
         // Handle ray that doesn't intersect any geometry
         for (uint32_t i = 0; i < scene->lights.size(); ++i)
 			Li += scene->lights[i]->Le(ray);
@@ -316,6 +354,7 @@ Spectrum PGRenderer::Li(const Scene *scene,
     Spectrum Lvi = volumeIntegrator->Li(scene, this, ray, sample, rng,
                                         T, arena);
     return *T * Li + Lvi;
+    
 }
 
 
@@ -327,7 +366,7 @@ Spectrum PGRenderer::Transmittance(const Scene *scene,
     return volumeIntegrator->Transmittance(scene, this, ray, sample,
                                            rng, arena);
 }
-
+//These methods are for external use only
 Spectrum PGRenderer::Lms(const Scene *scene,
                          const RayDifferential &ray, const Sample *sample, RNG &rng,
                          MemoryArena &arena, Intersection *isect, Spectrum *T) const {
@@ -342,10 +381,6 @@ Spectrum PGRenderer::Lms(const Scene *scene,
     if (scene->Intersect(ray, isect)){
         Li = surfaceIntegrator->Lms(scene, this, ray, *isect, sample,
                                     rng, arena);
-    }else {
-        // Handle ray that doesn't intersect any geometry
-        for (uint32_t i = 0; i < scene->lights.size(); ++i)
-			Li += scene->lights[i]->Le(ray);
     }
     return *T * Li ;
 }
@@ -362,14 +397,15 @@ Spectrum PGRenderer::Lss(const Scene *scene,
     if (!isect) isect = &localIsect;
     Spectrum Li = 0.f;
     if (scene->Intersect(ray, isect)){
-        Li = surfaceIntegrator->Lss(scene, this, ray, *isect, sample,
+        Li = surfaceIntegrator->Li(scene, this, ray, *isect, sample,
                                     rng, arena);
     }else {
         // Handle ray that doesn't intersect any geometry
         for (uint32_t i = 0; i < scene->lights.size(); ++i)
 			Li += scene->lights[i]->Le(ray);
     }
-    return *T * Li ;
+    //return *T * Li ;
+    return Li;
     
 }
 
@@ -384,13 +420,9 @@ Spectrum PGRenderer::Lsm(const Scene *scene,
     Intersection localIsect;
     if (!isect) isect = &localIsect;
     Spectrum Li = 0.f;
-    if (scene->Intersect(ray, isect))
+    if (scene->Intersect(ray, isect)){
         Li = volumeIntegrator->Lsm(scene, this, ray, sample, rng,
                                       T, arena);
-    else {
-        // Handle ray that doesn't intersect any geometry
-        for (uint32_t i = 0; i < scene->lights.size(); ++i)
-			Li += scene->lights[i]->Le(ray);
     }
     return  Li ;
     
@@ -407,13 +439,9 @@ Spectrum PGRenderer::Lmm(const Scene *scene,
     Intersection localIsect;
     if (!isect) isect = &localIsect;
     Spectrum Li = 0.f;
-    if (scene->Intersect(ray, isect))
+    if (scene->Intersect(ray, isect)){
         Li = volumeIntegrator->Lmm(scene, this, ray, sample, rng,
                                       T, arena);
-    else {
-        // Handle ray that doesn't intersect any geometry
-        for (uint32_t i = 0; i < scene->lights.size(); ++i)
-			Li += scene->lights[i]->Le(ray);
     }
     return  Li ;
     

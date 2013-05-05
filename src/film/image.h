@@ -34,7 +34,7 @@
 #include "sampler.h"
 #include "filter.h"
 #include "paramset.h"
-
+#include <string.h>
 // ImageFilm Declarations
 class ImageFilm : public Film {
 public:
@@ -46,6 +46,10 @@ public:
         delete filter;
         delete[] filterTable;
     }
+    void setName(std::string newName) {
+        this->filename = newName;
+    };
+    string getName() const{return filename;};
     void AddSample(const CameraSample &sample, const Spectrum &L);
     void Splat(const CameraSample &sample, const Spectrum &L);
     void GetSampleExtent(int *xstart, int *xend, int *ystart, int *yend) const;
@@ -59,7 +63,7 @@ private:
     // ImageFilm Private Data
     Filter *filter;
     float cropWindow[4];
-    string filename;
+    std::string filename;
     int xPixelStart, yPixelStart, xPixelCount, yPixelCount;
     struct Pixel {
         Pixel() {

@@ -214,6 +214,10 @@ Spectrum IGIIntegrator::Lss(const Scene *scene, const ProgressiveRenderer *rende
                             const RayDifferential &ray, const Intersection &isect,
                             const Sample *sample, RNG &rng, MemoryArena &localArena) const {
     //this code should be same as in the IGI integrator
+    Spectrum L(0.);
+    Vector wo = -ray.d;
+    // Compute emitted light if ray hit an area light source
+    L += isect.Le(wo);
     
     Spectrum ss;
     return ss;
@@ -223,6 +227,8 @@ Spectrum IGIIntegrator::Lss(const Scene *scene, const ProgressiveRenderer *rende
 Spectrum IGIIntegrator::Li(const Scene *scene, const Renderer *renderer,
         const RayDifferential &ray, const Intersection &isect,
         const Sample *sample, RNG &rng, MemoryArena &localArena) const {
+    rng=RNG();
+    rng.Seed(12487);
     Spectrum L(0.);
     Vector wo = -ray.d;
     // Compute emitted light if ray hit an area light source
@@ -239,28 +245,28 @@ Spectrum IGIIntegrator::Li(const Scene *scene, const Renderer *renderer,
    // uint32_t lSet = min(uint32_t(sample->oneD[vlSetOffset][0] * nLightSets),
                     //    nLightSets-1);
 	//MC deleted virtualLights sets
-    for (uint32_t i = 0; i < vsls.size(); ++i) {
+    for (uint32_t i = 0; i < this->vsls.size(); ++i) {
 		//printf("\n======iterating over vsls========");
-        const VirtualSphericalLight &vl = vsls[i];
+        VirtualSphericalLight *vl = vsls[i];
         // Compute virtual light's tentative contribution _Llight_
-        float d2 = DistanceSquared(p, vl.p);
-        Vector wi = Normalize(vl.p - p);
-        float G = AbsDot(wi, n) * AbsDot(wi, vl.n) / d2;
-        G = min(G, gLimit);
+        float d2 = DistanceSquared(p, vl->p);
+        Vector wi = Normalize(vl->p - p);
+        float G = AbsDot(wi, n) * AbsDot(wi, vl->n) / d2;
+        //G = min(G, gLimit);
         Spectrum f = bsdf->f(wo, wi);
         if (G == 0.f || f.IsBlack()) continue;
-        Spectrum Llight = f * G * vl.pathContrib;
+        Spectrum Llight = f * G * vl->pathContrib;
         RayDifferential connectRay(p, wi, ray, isect.rayEpsilon,
-                                   sqrtf(d2) * (1.f - vl.rayEpsilon));
+                                   sqrtf(d2) * (1.f - vl->rayEpsilon));
         Llight *= renderer->Transmittance(scene, connectRay, NULL, rng, localArena);
 
         // Possibly skip virtual light shadow ray with Russian roulette
-        if (Llight.y() < rrThreshold) {
-            float continueProbability = .1f;
-            if (rng.RandomFloat() > continueProbability)
-                continue;
-            Llight /= continueProbability;
-        }
+//        if (Llight.y() < rrThreshold) {
+//            float continueProbability = .1f;
+//            if (rng.RandomFloat() > continueProbability)
+//                continue;
+//            Llight /= continueProbability;
+//        }
 
         // Add contribution from _VirtualLight_ _vl_
         if (!scene->IntersectP(connectRay))

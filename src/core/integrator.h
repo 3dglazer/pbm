@@ -47,7 +47,7 @@ class Integrator {
 public:
     // Integrator Interface
     virtual ~Integrator();
-    Integrator(){};
+    //Integrator(){};
     virtual void Preprocess(const Scene *scene, const Camera *camera,
                             const Renderer *renderer) {
     }

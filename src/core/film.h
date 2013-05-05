@@ -38,6 +38,8 @@ public:
     Film(int xres, int yres)
         : xResolution(xres), yResolution(yres) { }
     virtual ~Film();
+    virtual void setName(std::string newName) = 0;
+    virtual string getName() const = 0;
     virtual void AddSample(const CameraSample &sample,
                            const Spectrum &L) = 0;
     virtual void Splat(const CameraSample &sample, const Spectrum &L) = 0;

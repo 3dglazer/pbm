@@ -35,9 +35,11 @@ Integrator::~Integrator() {
 
 void Integrator::setSurfaceLights(std::vector<VirtualSphericalLight *> &vsl){
     this->vsls=vsl;
+    printf("\n passed vsls size %d \n",this->vsls.size());
 }
 void Integrator::setVolumeLights(std::vector<VolumePath *> &vpth){
     this->vpths=vpth;
+    printf("\n passed vpths size %d \n",this->vpths.size());
 }
 
 // Integrator Utility Functions

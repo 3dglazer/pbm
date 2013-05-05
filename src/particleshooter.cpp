@@ -15,7 +15,13 @@
 
 // this method shoots light carrying paths from lights and stores these paths and when hit or scattering happens vsl is storred;
 void ParticleShooter::shootParticles(const Scene * scene, Camera * camera, const ProgressiveRenderer *renderer, int nPaths,float radius){
-    printf("\n Photon caches are being destributed over volume and surfices.\n");
+    bool hasVolumes=true;
+    if (scene->volumeRegion) {
+        printf("\n Photon caches are being destributed over volume and surfices.\n");
+    }else{
+        hasVolumes=false;
+        printf("\n Photon caches are being destributed only over surfices no volumes found!!\n");   
+    }
 	if (scene->lights.size() == 0) return;
 	
 	RNG rng;
@@ -57,11 +63,12 @@ void ParticleShooter::shootParticles(const Scene * scene, Camera * camera, const
             Spectrum tau;
             float d;
             //perform intersection of volume agregate, gives us the t0 from, t1 to distance parametres 
-            if (scene->volumeRegion->IntersectP(ray, &t0, &t1)) {
+            if (hasVolumes && scene->volumeRegion->IntersectP(ray, &t0, &t1)) {
                 //stop criteria in freeFlight are ray.mint and ray. maxt
                 ray.mint=t0;
                 ray.maxt=t1;
-                //create a VRL
+                //create a VRL the ray vector has to be normalizet otherwise wont work!!!!
+                ray.d=Normalize(ray.d);
                 VolumePath* currPath=new VolumePath(ray);
                 currPath->contrib=alpha; //sets the energy to the path
                 volumePaths.push_back(currPath);
@@ -95,7 +102,7 @@ void ParticleShooter::shootParticles(const Scene * scene, Camera * camera, const
 			contrib=contrib/nPaths; //added MC not very clever all paths might not be created in all cases
 			
 			//MC saving the bsdf in the virtual light -- for now only global radius is used 
-			VirtualSphericalLight *vslTemp= new VirtualSphericalLight(isect.dg.p, isect.dg.nn, contrib, isect.rayEpsilon,radius,bsdf);
+			VirtualSphericalLight *vslTemp= new VirtualSphericalLight(isect.dg.p,wo,isect.dg.nn, contrib, isect.rayEpsilon,radius,bsdf);
 			//s*i je index virtualni cesty
 			//virtualPaths[s*i].push_back(vlTemp);
 			//differentialRays.push_back(new RayDifferential(ray));

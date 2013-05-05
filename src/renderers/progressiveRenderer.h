@@ -98,22 +98,25 @@ private:
 class PGRendererTask : public Task {
 public:
     // PGRendererTask Public Methods added prc Camera which is used to compute averaged image
-    PGRendererTask(const Scene *sc, ProgressiveRenderer *ren, Camera *c, Camera * prc,Film* surface2surface,Film* surface2media,Film* media2surface, Film* media2media,
+    PGRendererTask(const Scene *sc, ProgressiveRenderer *ren,ProgressiveVolumeIntegrator *vlmint, ProgressiveSurfaceIntegrator *surfint, Camera *c, Camera * prc,Film* surface2surface,Film* surface2media,Film* media2surface, Film* media2media,
                         ProgressReporter &pr, Sampler *ms, Sample *sam, 
                         bool visIds, int tn, int tc,int sd)
 	: reporter(pr)
     {
-        scene = sc; renderer = ren; camera = c; progCamera=prc; mainSampler = ms;
-        origSample = sam; visualizeObjectIds = visIds; taskNum = tn; taskCount = tc;
-		ss=surface2surface;
-		m2s=media2surface;
-		mm=media2media;
-		sm=surface2media;
-		seed=sd;
+        this->surfaceIntegrator=surfint;
+        this->volumeIntegrator=vlmint;
+        this->scene = sc; renderer = ren; camera = c; progCamera=prc; mainSampler = ms;
+        this->origSample = sam; visualizeObjectIds = visIds; taskNum = tn; taskCount = tc;
+		this->ss = surface2surface;
+		this->ms = media2surface;
+		this->mm = media2media;
+		this->sm = surface2media;
+		this->seed = sd;
 		
     }
     void Run();
 private:
+    void repairSample(Spectrum &s);
     // PGRendererTask Private Data
     const Scene *scene;
     const ProgressiveRenderer *renderer;
@@ -131,7 +134,7 @@ private:
 	// surface to surface
 	Film* ss;
 	// media to surface
-	Film* m2s;
+	Film* ms;
 	// media to media
 	Film* mm;
 	// surface to media

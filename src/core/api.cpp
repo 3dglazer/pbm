@@ -1257,14 +1257,20 @@ Renderer *RenderOptions::MakeRenderer() const {
 	else if (RendererName =="progressiverenderer"){
 		//MC added progressive camera to make average images
 		Camera * progressiveCamera=MakeCamera();
+        
 		// surface to surface
 		Film* ss=MakeFm();
+        string nameBase=ss->getName().substr(0,ss->getName().length()-4); //chops of the ".imagetype"
+        ss->setName(nameBase+"_ss.exr");
 		// media to surface
 		Film* ms=MakeFm();
+        ms->setName(nameBase+"_ms.exr");
 		// media to media
 		Film* mm=MakeFm();
+        mm->setName(nameBase+"_mm.exr");
 		// surface to media
 		Film* sm=MakeFm();
+        sm->setName(nameBase+"_sm.exr");
 		
         bool visIds = RendererParams.FindOneBool("visualizeobjectids", false);
 		//MC added nIters variable

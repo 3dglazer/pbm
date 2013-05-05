@@ -62,7 +62,7 @@ public:
         rrThreshold = rrt;
         maxSpecularDepth = maxd;
 		//MC
-		virtualPaths.resize(nLightSets*nLightPaths);
+		//virtualPaths.resize(nLightSets*nLightPaths);
 		//end MC
         gLimit = gl;
         nGatherSamples = ng;
@@ -83,10 +83,10 @@ private:
     int maxSpecularDepth;
     int vlSetOffset;
     BSDFSampleOffsets gatherSampleOffset;
-    vector<VirtualSphericalLight> vsls;
+    //vector<VirtualSphericalLight> vsls;
 	//ParticleShooter *ps;
 	//MC vector for virtualPaths containing virtual Lights as its vertices
-	vector<vector<VirtualLight> > virtualPaths;
+	//vector<vector<VirtualLight> > virtualPaths;
 	vector<RayDifferential *> differentialRays;
 	string filename;
 	//MC Local memory arena, which holds all the vsl brdf functions
