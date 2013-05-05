@@ -194,7 +194,9 @@ Spectrum MultiScatteringIntegrator::Lmm(const Scene *scene, const ProgressiveRen
         *T = 1.f;
         return 0.f;
     }
-    Spectrum Lmm= vrlSamplingBruteForce(t0, t1, scene, renderer, ray, sample, rng, T, arena);
+    //Spectrum Lmm= vrlSamplingBruteForce(t0, t1, scene, renderer, ray, sample, rng, T, arena);
+    Spectrum Lmm= vrlSamplingVIZ(t0, t1, scene, renderer, ray, sample, rng, T, arena);
+
     
         
     return Lmm;
@@ -215,7 +217,8 @@ Spectrum MultiScatteringIntegrator::Lsm(const Scene *scene, const ProgressiveRen
         return 0.f;
     }
     
-    Lv=vslSamplingBruteForce(t0, t1, scene, renderer, ray, sample, rng, T, arena);
+    //Lv=vslSamplingBruteForce(t0, t1, scene, renderer, ray, sample, rng, T, arena);
+    Lv=vslSamplingVIZ(t0, t1, scene, renderer, ray, sample, rng, T, arena);
     
     return Lv;
 }
@@ -313,6 +316,52 @@ Spectrum MultiScatteringIntegrator::vrlSamplingBruteForce(float t0,float t1,cons
     }
     *T = Tr;
     return Lv * step;
+}
+
+Spectrum MultiScatteringIntegrator::vrlSamplingVIZ(float t0,float t1,const Scene *scene, const ProgressiveRenderer * renderer, const RayDifferential &ray,const Sample *sample, RNG &rng, Spectrum *T, MemoryArena &arena) const{
+    // Do single scattering volume integration in _vr_
+    Spectrum Lv(0.);
+    VolumeRegion *vr = scene->volumeRegion;
+    // Prepare for volume integration stepping
+    Point vrlSample;
+    
+    float vrlRadius=1.3;
+    if ( !this->vpths.empty()) {
+            VolumePath *curPath;
+            for (int vpthIdx=0; vpthIdx<vpths.size(); ++vpthIdx) {
+                curPath=vpths[vpthIdx];
+                float p0,p1;
+                float dist=ln2lnPP(ray,curPath->ray,p0,p1);
+                if (dist<vrlRadius) {
+                    Lv+=1.3;
+                }
+            }
+
+        }
+    return Lv ;
+}
+
+Spectrum MultiScatteringIntegrator::vslSamplingVIZ(float t0,float t1,const Scene *scene, const ProgressiveRenderer * renderer, const RayDifferential &ray,const Sample *sample, RNG &rng, Spectrum *T, MemoryArena &arena) const{
+    // Do single scattering volume integration in _vr_
+    Spectrum Lv(0.);
+    VolumeRegion *vr = scene->volumeRegion;
+    // Prepare for volume integration stepping
+    Point vrlSample;
+    
+    float vrlRadius=1.3;
+    if ( !this->vsls.empty()) {
+        VirtualSphericalLight *curVsl;
+        for (int vpthIdx=0; vpthIdx<vsls.size(); ++vpthIdx) {
+            curVsl=vsls[vpthIdx];
+            float p0,p1;
+            float dist=(Cross( Vector(ray.o-curVsl->p),ray.d)).Length()/ray.d.Length();
+            if (dist<curVsl->radius) {
+                Lv+=1.3;
+            }
+        }
+        
+    }
+    return Lv ;
 }
 
 Spectrum MultiScatteringIntegrator::vrlSamplingPaper1(float t0,float t1,const Scene *scene, const ProgressiveRenderer * renderer, const RayDifferential &ray,const Sample *sample, RNG &rng, Spectrum *T, MemoryArena &arena) const{
@@ -416,9 +465,7 @@ Spectrum MultiScatteringIntegrator::vslSamplingBruteForce(float t0,float t1,cons
         
         Spectrum ss = vr->sigma_s(p, w, ray.time);
         if (!ss.IsBlack() && !this->vsls.empty()) {
-            //VirtualSphericalLight *curVsl;
-            //float vrlTr;
-            //iterating over Volume paths sigle sample on every Volume path
+            //iterating over Volume paths sigle sample on every vpl
             for (uint32_t i = 0; i < this->vsls.size(); ++i) {
                 //printf("\n======iterating over vsls========");
                 VirtualSphericalLight *vl = vsls[i];
@@ -427,7 +474,7 @@ Spectrum MultiScatteringIntegrator::vslSamplingBruteForce(float t0,float t1,cons
                 Vector wi = Normalize(vl->p - p);
                 float pp=vr->p(p, w, -wi, ray.time); // phase phunction at current point
                 float G = pp * AbsDot(wi, vl->n) / d2;
-                //G = min(G, gLimit);
+                G = (G<10000.)?G:10000.;
                 Spectrum f = vl->bsdf->f(-wi, vl->i); // is -wi correct??
                 //Spectrum f = bsdf->f(wo, wi);
                 if (G == 0.f || f.IsBlack()) continue;
