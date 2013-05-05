@@ -25,7 +25,7 @@ public:
 		vsls.erase(vsls.begin(),vsls.end());
 		psArena.FreeAll();
 	};
-	void shootParticles(const Scene * scene, Camera * camera, const Renderer *renderer, int nPaths,float radius=0.01);
+	void shootParticles(const Scene * scene, Camera * camera, const ProgressiveRenderer *renderer, int nPaths,float radius=0.01);
 	vector<VirtualSphericalLight *> vsls;
     std::vector<VolumePath *> volumePaths;
 private:

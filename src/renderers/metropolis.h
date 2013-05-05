@@ -69,7 +69,9 @@ private:
         MemoryArena &arena, const vector<LightingSample> &samples,
         RNG &rng, float time, const Distribution1D *lightDistribution,
         const RayDifferential &escapedRay, const Spectrum &escapedAlpha) const;
+    #ifdef FREEFLIGHTEXTENSION
     float freeFlight(const Scene *scene, const Ray &r,Spectrum& tau,const RNG &rng) const;
+#endif
 
     // MetropolisRenderer Private Data
     Camera *camera;

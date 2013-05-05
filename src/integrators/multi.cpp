@@ -36,21 +36,6 @@ Spectrum MultiScatteringIntegrator::Transmittance(const Scene *scene,
     return Exp(-tau);
 }
 
-//Media -> Media integration part integration over VRLs
-Spectrum MultiScatteringIntegrator::Lmm(const Scene *scene, const Renderer *renderer,
-                                       const RayDifferential &ray, const Sample *sample, RNG &rng,
-                                       Spectrum *T, MemoryArena &arena) const {
-    Spectrum Tr(1.f);
-    return Tr;
-}
-
-//Surface -> Media transport evaluation part, should integrate over VPLs or VSLs
-Spectrum MultiScatteringIntegrator::Lsm(const Scene *scene, const Renderer *renderer,
-                                           const RayDifferential &ray, const Sample *sample, RNG &rng,
-                                           Spectrum *T, MemoryArena &arena) const {
-    Spectrum Tr(1.f);
-    return Tr;
-}
 
 //Compatibility solution for pbrt should evaluate both Lmm and Lsm + transmittance to the closest visible surface.
 Spectrum MultiScatteringIntegrator::Li(const Scene *scene, const Renderer *renderer,
@@ -125,7 +110,26 @@ Spectrum MultiScatteringIntegrator::Li(const Scene *scene, const Renderer *rende
     return Lv * step;
 }
 
+//MC added volume tracking
+float MultiScatteringIntegrator::freeFlight(const Scene *scene, const Ray &r,Spectrum& tau,const RNG &rng) const {
+    if (!scene->volumeRegion) return -1.0;
+    return scene->volumeRegion->freeFlight(r, tau, rng);
+}
 
+
+//Media -> Media integration part integration over VRLs
+Spectrum MultiScatteringIntegrator::Lmm(const Scene *, const ProgressiveRenderer *, const RayDifferential &ray,
+                                        const Sample *sample, RNG &rng, Spectrum *T, MemoryArena &arena)  const {
+    Spectrum Tr(1.f);
+    return Tr;
+}
+
+//Surface -> Media transport evaluation part, should integrate over VPLs or VSLs
+Spectrum MultiScatteringIntegrator::Lsm(const Scene *, const ProgressiveRenderer *, const RayDifferential &ray,
+                                        const Sample *sample, RNG &rng, Spectrum *T, MemoryArena &arena)  const{
+    Spectrum Tr(1.f);
+    return Tr;
+}
 MultiScatteringIntegrator *CreateMultiScatteringIntegrator(const ParamSet &params) {
     float stepSize  = params.FindOneFloat("stepsize", 1.f);
     return new MultiScatteringIntegrator(stepSize);

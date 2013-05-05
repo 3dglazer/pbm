@@ -48,8 +48,8 @@ static uint32_t hash(char *key, uint32_t len)
     return hash;
 } 
 
-// ProgressiveRendererTask Definitions
-void ProgressiveRendererTask::Run() {
+// PGRendererTask Definitions
+void PGRendererTask::Run() {
     PBRT_STARTED_RENDERTASK(taskNum);
     // Get sub-_Sampler_ for _SamplerRendererTask_
     Sampler *sampler = mainSampler->GetSubSampler(taskNum, taskCount);
@@ -69,8 +69,14 @@ void ProgressiveRendererTask::Run() {
     int maxSamples = sampler->MaximumSampleCount();
     Sample *samples = origSample->Duplicate(maxSamples);
     RayDifferential *rays = new RayDifferential[maxSamples];
-    Spectrum *Ls = new Spectrum[maxSamples];
+    Spectrum *Ls = new Spectrum[maxSamples]; //was contribution from Li so final image now too.
     Spectrum *Ts = new Spectrum[maxSamples];
+    //MC added samples for different film plates
+    Spectrum *Lss = new Spectrum[maxSamples];
+    Spectrum *Lsm = new Spectrum[maxSamples];
+    Spectrum *Lmm = new Spectrum[maxSamples];
+    Spectrum *Lms = new Spectrum[maxSamples];
+    //end of MC
     Intersection *isects = new Intersection[maxSamples];
 	
     // Get samples from _Sampler_ and update image
@@ -99,11 +105,22 @@ void ProgressiveRendererTask::Run() {
                     Ls[i] = 0.f;
             }
             else {
-				if (rayWeight > 0.f)
-					Ls[i] = rayWeight * renderer->Li(scene, rays[i], &samples[i], rng,
-													 arena, &isects[i], &Ts[i]);
-				else {
+				if (rayWeight > 0.f){
+					Ls[i] = rayWeight * renderer->Li(scene, rays[i], &samples[i], rng, arena, &isects[i], &Ts[i]);
+                    //MC
+                    Lmm[i]= rayWeight * renderer->Lmm(scene, rays[i], &samples[i], rng, arena, &isects[i], &Ts[i]);
+                    Lsm[i]= rayWeight * renderer->Lsm(scene, rays[i], &samples[i], rng, arena, &isects[i], &Ts[i]);
+                    Lss[i]= rayWeight * renderer->Lss(scene, rays[i], &samples[i], rng, arena, &isects[i], &Ts[i]);
+                    Lms[i]= rayWeight * renderer->Lms(scene, rays[i], &samples[i], rng, arena, &isects[i], &Ts[i]);
+                    
+                }else {
 					Ls[i] = 0.f;
+                    //MC
+                    Lmm[i]= 0.f;
+                    Lsm[i]= 0.f;
+                    Lss[i]= 0.f;
+                    Lms[i]= 0.f;
+                    //end fo MC
 					Ts[i] = 1.f;
 				}
 				
@@ -161,8 +178,8 @@ void ProgressiveRendererTask::Run() {
 
 
 // SamplerRenderer Method Definitions
-ProgressiveRenderer::ProgressiveRenderer(Sampler *s, Camera *c,Camera *prc,Film* surface2surface,Film* surface2media,Film* media2surface, Film* media2media, SurfaceIntegrator *si,
-										 VolumeIntegrator *vi, bool visIds,int nIterations,int nps,float rad,int rndSeed) {
+PGRenderer::PGRenderer(Sampler *s, Camera *c,Camera *prc,Film* surface2surface,Film* surface2media,Film* media2surface, Film* media2media, ProgressiveSurfaceIntegrator *si,
+										 ProgressiveVolumeIntegrator *vi, bool visIds,int nIterations,int nps,float rad,int rndSeed) {
     sampler = s;
     camera = c;
 	progCamera=prc;
@@ -183,7 +200,7 @@ ProgressiveRenderer::ProgressiveRenderer(Sampler *s, Camera *c,Camera *prc,Film*
 }
 
 
-ProgressiveRenderer::~ProgressiveRenderer() {
+PGRenderer::~PGRenderer() {
     delete sampler;
     delete camera;
     delete surfaceIntegrator;
@@ -191,13 +208,13 @@ ProgressiveRenderer::~ProgressiveRenderer() {
 }
 
 //MC
-float ProgressiveRenderer::freeFlight(const Scene *scene, const Ray &r,Spectrum& tau,const RNG &rng) const{
+float PGRenderer::freeFlight(const Scene *scene, const Ray &r,Spectrum& tau,const RNG &rng) const{
     return volumeIntegrator->freeFlight(scene, r, tau, rng);
 }
 
 
 //MC this method does every iteration rendering
-void ProgressiveRenderer::renderIter(int currentIter,const Scene *scene, Sample *sample){
+void PGRenderer::renderIter(int currentIter,const Scene *scene, Sample *sample){
 	// Allow integrators to do preprocessing for the scene
     PBRT_STARTED_PREPROCESSING();
 	//MC added particle shooter, which is preprocessing stage for photon or vpls,vsl,vrl shooting
@@ -231,7 +248,7 @@ void ProgressiveRenderer::renderIter(int currentIter,const Scene *scene, Sample 
     vector<Task *> renderTasks;
     for (int i = 0; i < nTasks; ++i)
 		//MC added progressive camera
-        renderTasks.push_back(new ProgressiveRendererTask(scene, this, camera,progCamera,ss,sm,ms,mm,
+        renderTasks.push_back(new PGRendererTask(scene, this, camera,progCamera,ss,sm,ms,mm,
 														  reporter, sampler, sample, 
 														  visualizeObjectIds, 
 														  nTasks-1-i, nTasks,seed*(currentIter+1)));
@@ -247,7 +264,7 @@ void ProgressiveRenderer::renderIter(int currentIter,const Scene *scene, Sample 
 	// have to 
 }
 
-void ProgressiveRenderer::Render(const Scene *scene) {
+void PGRenderer::Render(const Scene *scene) {
 
     PBRT_FINISHED_PARSING();
 	// Allocate and initialize _sample_
@@ -277,7 +294,7 @@ void ProgressiveRenderer::Render(const Scene *scene) {
 //Spectrum ::Lss
 
 
-Spectrum ProgressiveRenderer::Li(const Scene *scene,
+Spectrum PGRenderer::Li(const Scene *scene,
 							 const RayDifferential &ray, const Sample *sample, RNG &rng,
 							 MemoryArena &arena, Intersection *isect, Spectrum *T) const {
     Assert(ray.time == sample->time);
@@ -302,7 +319,8 @@ Spectrum ProgressiveRenderer::Li(const Scene *scene,
 }
 
 
-Spectrum ProgressiveRenderer::Transmittance(const Scene *scene,
+
+Spectrum PGRenderer::Transmittance(const Scene *scene,
 										const RayDifferential &ray, const Sample *sample, RNG &rng,
 										MemoryArena &arena) const {
 
@@ -310,4 +328,94 @@ Spectrum ProgressiveRenderer::Transmittance(const Scene *scene,
                                            rng, arena);
 }
 
+Spectrum PGRenderer::Lms(const Scene *scene,
+                         const RayDifferential &ray, const Sample *sample, RNG &rng,
+                         MemoryArena &arena, Intersection *isect, Spectrum *T) const {
+    Assert(ray.time == sample->time);
+    Assert(!ray.HasNaNs());
+    // Allocate local variables for _isect_ and _T_ if needed
+    Spectrum localT;
+    if (!T) T = &localT;
+    Intersection localIsect;
+    if (!isect) isect = &localIsect;
+    Spectrum Li = 0.f;
+    if (scene->Intersect(ray, isect)){
+        Li = surfaceIntegrator->Lms(scene, this, ray, *isect, sample,
+                                    rng, arena);
+    }else {
+        // Handle ray that doesn't intersect any geometry
+        for (uint32_t i = 0; i < scene->lights.size(); ++i)
+			Li += scene->lights[i]->Le(ray);
+    }
+    return *T * Li ;
+}
+
+Spectrum PGRenderer::Lss(const Scene *scene,
+                         const RayDifferential &ray, const Sample *sample, RNG &rng,
+                         MemoryArena &arena, Intersection *isect, Spectrum *T) const {
+    Assert(ray.time == sample->time);
+    Assert(!ray.HasNaNs());
+    // Allocate local variables for _isect_ and _T_ if needed
+    Spectrum localT;
+    if (!T) T = &localT;
+    Intersection localIsect;
+    if (!isect) isect = &localIsect;
+    Spectrum Li = 0.f;
+    if (scene->Intersect(ray, isect)){
+        Li = surfaceIntegrator->Lss(scene, this, ray, *isect, sample,
+                                    rng, arena);
+    }else {
+        // Handle ray that doesn't intersect any geometry
+        for (uint32_t i = 0; i < scene->lights.size(); ++i)
+			Li += scene->lights[i]->Le(ray);
+    }
+    return *T * Li ;
+    
+}
+
+Spectrum PGRenderer::Lsm(const Scene *scene,
+                         const RayDifferential &ray, const Sample *sample, RNG &rng,
+                         MemoryArena &arena, Intersection *isect, Spectrum *T) const {
+    Assert(ray.time == sample->time);
+    Assert(!ray.HasNaNs());
+    // Allocate local variables for _isect_ and _T_ if needed
+    Spectrum localT;
+    if (!T) T = &localT;
+    Intersection localIsect;
+    if (!isect) isect = &localIsect;
+    Spectrum Li = 0.f;
+    if (scene->Intersect(ray, isect))
+        Li = volumeIntegrator->Lsm(scene, this, ray, sample, rng,
+                                      T, arena);
+    else {
+        // Handle ray that doesn't intersect any geometry
+        for (uint32_t i = 0; i < scene->lights.size(); ++i)
+			Li += scene->lights[i]->Le(ray);
+    }
+    return  Li ;
+    
+}
+
+Spectrum PGRenderer::Lmm(const Scene *scene,
+                         const RayDifferential &ray, const Sample *sample, RNG &rng,
+                         MemoryArena &arena, Intersection *isect, Spectrum *T) const {
+    Assert(ray.time == sample->time);
+    Assert(!ray.HasNaNs());
+    // Allocate local variables for _isect_ and _T_ if needed
+    Spectrum localT;
+    if (!T) T = &localT;
+    Intersection localIsect;
+    if (!isect) isect = &localIsect;
+    Spectrum Li = 0.f;
+    if (scene->Intersect(ray, isect))
+        Li = volumeIntegrator->Lmm(scene, this, ray, sample, rng,
+                                      T, arena);
+    else {
+        // Handle ray that doesn't intersect any geometry
+        for (uint32_t i = 0; i < scene->lights.size(); ++i)
+			Li += scene->lights[i]->Le(ray);
+    }
+    return  Li ;
+    
+}
 

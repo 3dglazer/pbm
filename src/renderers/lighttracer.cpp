@@ -162,11 +162,12 @@ Spectrum LightTracerRenderer::Li(const Scene *scene,
 							 MemoryArena &arena, Intersection *isect, Spectrum *T) const {
 	return NULL;
 }
-
+#ifdef FREEFLIGHTEXTENSION
 //MC
 float LightTracerRenderer::freeFlight(const Scene *scene, const Ray &r,Spectrum& tau,const RNG &rng) const{
     return volumeIntegrator->freeFlight(scene, r, tau, rng);
 }
+#endif
 
 Spectrum LightTracerRenderer::Transmittance(const Scene *scene,
 										const RayDifferential &ray, const Sample *sample, RNG &rng,

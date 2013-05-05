@@ -37,28 +37,39 @@
 #include "particleshooter.h"
 
 
-// ProgressiveRenderer Declarations
-class ProgressiveRenderer : public Renderer {
+// PGRenderer Declarations
+class PGRenderer:public ProgressiveRenderer {
 public:
     // SamplerRenderer Public Methods, should add something like nIterations,
 	//MC added nIterations
-    ProgressiveRenderer(Sampler *s, Camera *c,Camera *prc,Film* surface2surface,Film* surface2media,Film* media2surface, Film* media2media, SurfaceIntegrator *si,
-                    VolumeIntegrator *vi, bool visIds,int nIterations,int nps,float rad,int rndSeed);
-    ~ProgressiveRenderer();
+    PGRenderer(Sampler *s, Camera *c,Camera *prc,Film* surface2surface,Film* surface2media,Film* media2surface, Film* media2media, ProgressiveSurfaceIntegrator *si,
+                    ProgressiveVolumeIntegrator *vi, bool visIds,int nIterations,int nps,float rad,int rndSeed);
+    ~PGRenderer();
     void Render(const Scene *scene);
     Spectrum Li(const Scene *scene, const RayDifferential &ray,
-				const Sample *sample, RNG &rng, MemoryArena &arena,
-				Intersection *isect = NULL, Spectrum *T = NULL) const;
-    Spectrum Transmittance(const Scene *scene, const RayDifferential &ray,
-						   const Sample *sample, RNG &rng, MemoryArena &arena) const;
+                const Sample *sample, RNG &rng, MemoryArena &arena,
+                Intersection *isect = NULL, Spectrum *T = NULL) const;
+    Spectrum Lms(const Scene *scene, const RayDifferential &ray, const Sample *sample, RNG &rng, MemoryArena &arena, Intersection *isect, Spectrum *T) const ;
+    Spectrum Lss(const Scene *scene,
+                 const RayDifferential &ray, const Sample *sample, RNG &rng,
+                 MemoryArena &arena, Intersection *isect, Spectrum *T) const ;
+    Spectrum Lsm(const Scene *scene,
+                 const RayDifferential &ray, const Sample *sample, RNG &rng,
+                 MemoryArena &arena, Intersection *isect, Spectrum *T) const ;
+    Spectrum Lmm(const Scene *scene,
+                 const RayDifferential &ray, const Sample *sample, RNG &rng,
+                 MemoryArena &arena, Intersection *isect, Spectrum *T) const ;
+    Spectrum Transmittance(const Scene *scene,
+                           const RayDifferential &ray, const Sample *sample,
+                           RNG &rng, MemoryArena &arena) const;
     float freeFlight(const Scene *scene, const Ray &r,Spectrum& tau,const RNG &rng) const;
 private:
-    // ProgressiveRenderer Private Data
+    // PGRenderer Private Data
     bool visualizeObjectIds;
     Sampler *sampler;
     Camera *camera;
-    SurfaceIntegrator *surfaceIntegrator;
-    VolumeIntegrator *volumeIntegrator;
+    ProgressiveSurfaceIntegrator *surfaceIntegrator;
+    ProgressiveVolumeIntegrator *volumeIntegrator;
 	//MC added nIterations for rendering
 	void renderIter(int currentIter,const Scene *scene,Sample* sample);
 	int nIter;
@@ -83,11 +94,11 @@ private:
 
 
 
-// ProgressiveRendererTask Declarations
-class ProgressiveRendererTask : public Task {
+// PGRendererTask Declarations
+class PGRendererTask : public Task {
 public:
-    // ProgressiveRendererTask Public Methods added prc Camera which is used to compute averaged image
-    ProgressiveRendererTask(const Scene *sc, Renderer *ren, Camera *c, Camera * prc,Film* surface2surface,Film* surface2media,Film* media2surface, Film* media2media,
+    // PGRendererTask Public Methods added prc Camera which is used to compute averaged image
+    PGRendererTask(const Scene *sc, ProgressiveRenderer *ren, Camera *c, Camera * prc,Film* surface2surface,Film* surface2media,Film* media2surface, Film* media2media,
                         ProgressReporter &pr, Sampler *ms, Sample *sam, 
                         bool visIds, int tn, int tc,int sd)
 	: reporter(pr)
@@ -103,12 +114,14 @@ public:
     }
     void Run();
 private:
-    // ProgressiveRendererTask Private Data
+    // PGRendererTask Private Data
     const Scene *scene;
-    const Renderer *renderer;
+    const ProgressiveRenderer *renderer;
     Camera *camera;
     Sampler *mainSampler;
     ProgressReporter &reporter;
+    ProgressiveSurfaceIntegrator *surfaceIntegrator;
+    ProgressiveVolumeIntegrator *volumeIntegrator;
     Sample *origSample;
     bool visualizeObjectIds;
     int taskNum, taskCount;
@@ -129,4 +142,4 @@ private:
 
 
 
-#endif // PBRT_RENDERERS_PROGRESSIVERENDERER_H
+#endif // PBRT_RENDERERS_PGRenderer_H

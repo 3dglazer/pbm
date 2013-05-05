@@ -13,7 +13,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "88"
          endingLineNumber = "88"
-         landmarkName = "ParticleShooter::shootParticles(const Scene * scene, Camera * camera, const Renderer *renderer, int nPaths,float radius)"
+         landmarkName = "ParticleShooter::shootParticles(const Scene * scene, Camera * camera, const ProgressiveRenderer *renderer, int nPaths,float radius)"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -26,7 +26,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "67"
          endingLineNumber = "67"
-         landmarkName = "ParticleShooter::shootParticles(const Scene * scene, Camera * camera, const Renderer *renderer, int nPaths,float radius)"
+         landmarkName = "ParticleShooter::shootParticles(const Scene * scene, Camera * camera, const ProgressiveRenderer *renderer, int nPaths,float radius)"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -39,7 +39,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "18"
          endingLineNumber = "18"
-         landmarkName = "ParticleShooter::shootParticles(const Scene * scene, Camera * camera, const Renderer *renderer, int nPaths,float radius)"
+         landmarkName = "ParticleShooter::shootParticles(const Scene * scene, Camera * camera, const ProgressiveRenderer *renderer, int nPaths,float radius)"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

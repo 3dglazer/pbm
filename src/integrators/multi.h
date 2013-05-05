@@ -17,9 +17,8 @@
 // integrators/single.h*
 #include "volume.h"
 #include "integrator.h"
-
 // MultiScatteringIntegrator Declarations
-class MultiScatteringIntegrator : public VolumeIntegrator {
+class MultiScatteringIntegrator : public ProgressiveVolumeIntegrator {
 public:
     // MultiScatteringIntegrator Public Methods
     MultiScatteringIntegrator(float ss) { stepSize = ss; }
@@ -30,10 +29,11 @@ public:
                         const Scene *scene);
     Spectrum Li(const Scene *, const Renderer *, const RayDifferential &ray,
                 const Sample *sample, RNG &rng, Spectrum *T, MemoryArena &arena) const;
-    Spectrum Lmm(const Scene *, const Renderer *, const RayDifferential &ray,
-                const Sample *sample, RNG &rng, Spectrum *T, MemoryArena &arena) const;
-    Spectrum Lsm(const Scene *, const Renderer *, const RayDifferential &ray,
-                 const Sample *sample, RNG &rng, Spectrum *T, MemoryArena &arena) const;
+    float freeFlight(const Scene *scene, const Ray &r,Spectrum& tau,const RNG &rng) const;
+    Spectrum Lmm(const Scene *, const ProgressiveRenderer *, const RayDifferential &ray,
+                 const Sample *sample, RNG &rng, Spectrum *T, MemoryArena &arena)  const;
+    Spectrum Lsm(const Scene *, const ProgressiveRenderer *, const RayDifferential &ray,
+                 const Sample *sample, RNG &rng, Spectrum *T, MemoryArena &arena)  const;
 private:
     // ------  TODO -----
     // Should add light cache structures

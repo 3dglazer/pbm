@@ -47,6 +47,7 @@ class Integrator {
 public:
     // Integrator Interface
     virtual ~Integrator();
+    Integrator(){};
     virtual void Preprocess(const Scene *scene, const Camera *camera,
                             const Renderer *renderer) {
     }
@@ -54,6 +55,7 @@ public:
     virtual void RequestSamples(Sampler *sampler, Sample *sample,
                                 const Scene *scene) {
     }
+    //MC
     void setSurfaceLights(std::vector<VirtualSphericalLight *> &vsl);
     void setVolumeLights(std::vector<VolumePath *> &vpth);
     std::vector<VirtualSphericalLight *> vsls;
@@ -66,7 +68,18 @@ public:
     // SurfaceIntegrator Interface
     virtual Spectrum Li(const Scene *scene, const Renderer *renderer,
         const RayDifferential &ray, const Intersection &isect,
-        const Sample *sample, RNG &rng, MemoryArena &arena) const = 0;
+                        const Sample *sample, RNG &rng, MemoryArena &arena) const = 0;
+};
+
+//MC
+class ProgressiveSurfaceIntegrator: public SurfaceIntegrator {
+public:
+    virtual Spectrum Lss(const Scene *scene, const ProgressiveRenderer *renderer,
+                 const RayDifferential &ray, const Intersection &isect,
+                 const Sample *sample, RNG &rng, MemoryArena &localArena) const = 0;
+    virtual Spectrum Lms(const Scene *scene, const ProgressiveRenderer *renderer,
+                 const RayDifferential &ray, const Intersection &isect,
+                 const Sample *sample, RNG &rng, MemoryArena &localArena) const = 0;
 };
 
 

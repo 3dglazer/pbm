@@ -59,7 +59,7 @@
 #include "integrators/photonmap.h"
 #include "integrators/single.h"
 //MC sem bych mel pridat svuj VolumeIntegrator
-
+#include "multi.h"
 #include "integrators/useprobes.h"
 #include "integrators/whitted.h"
 #include "lights/diffuse.h"
@@ -550,8 +550,8 @@ SurfaceIntegrator *MakeSurfaceIntegrator(const string &name,
         si = CreatePhotonMapSurfaceIntegrator(paramSet);
     else if (name == "irradiancecache")
         si = CreateIrradianceCacheIntegrator(paramSet);
-    else if (name == "igi")
-        si = CreateIGISurfaceIntegrator(paramSet);
+//    else if (name == "igi")
+//        si = CreateIGISurfaceIntegrator(paramSet);
     else if (name == "dipolesubsurface")
         si = CreateDipoleSubsurfaceIntegrator(paramSet);
     else if (name == "ambientocclusion")
@@ -568,6 +568,32 @@ SurfaceIntegrator *MakeSurfaceIntegrator(const string &name,
     paramSet.ReportUnused();
     return si;
 }
+//MC
+ProgressiveSurfaceIntegrator *MakeProgressiveSurfaceIntegrator(const string &name,
+                                         const ParamSet &paramSet) {
+    ProgressiveSurfaceIntegrator *si = NULL;
+    if (name == "igi")
+        si = CreateIGISurfaceIntegrator(paramSet);
+    else
+        Warning("Progressive Surface integrator \"%s\" unknown.", name.c_str());
+    
+    paramSet.ReportUnused();
+    return si;
+}
+
+ProgressiveVolumeIntegrator *MakeProgressiveVolumeIntegrator(const string &name,
+                                                  const ParamSet &paramSet) {
+    ProgressiveVolumeIntegrator *vi = NULL;
+	
+	//MC sem bych mel pridat svuj VolumeIntegrator
+    if (name == "multi")
+        vi = CreateMultiScatteringIntegrator(paramSet);
+    else
+        Warning("Progressive Volume integrator \"%s\" unknown.", name.c_str());
+    paramSet.ReportUnused();
+    return vi;
+}
+
 
 
 VolumeIntegrator *MakeVolumeIntegrator(const string &name,
@@ -1252,13 +1278,12 @@ Renderer *RenderOptions::MakeRenderer() const {
         Sampler *sampler = MakeSampler(SamplerName, SamplerParams, camera->film, camera);
         if (!sampler) Severe("Unable to create sampler.");
         // Create surface and volume integrators
-        SurfaceIntegrator *surfaceIntegrator = MakeSurfaceIntegrator(SurfIntegratorName,
+        ProgressiveSurfaceIntegrator *surfaceIntegrator = MakeProgressiveSurfaceIntegrator(SurfIntegratorName,
 																	 SurfIntegratorParams);
         if (!surfaceIntegrator) Severe("Unable to create surface integrator.");
-        VolumeIntegrator *volumeIntegrator = MakeVolumeIntegrator(VolIntegratorName,
-																  VolIntegratorParams);
+        ProgressiveVolumeIntegrator *volumeIntegrator =MakeProgressiveVolumeIntegrator(VolIntegratorName,VolIntegratorParams);
         if (!volumeIntegrator) Severe("Unable to create volume integrator.");
-        renderer = new ProgressiveRenderer(sampler, camera, progressiveCamera,ss,sm,ms, mm, surfaceIntegrator,volumeIntegrator, visIds,nIters,nPaths,radius,seed);
+        renderer = dynamic_cast<Renderer*>(new PGRenderer(sampler, camera, progressiveCamera,ss,sm,ms, mm, surfaceIntegrator,volumeIntegrator, visIds,nIters,nPaths,radius,seed));
         // Warn if no light sources are defined
         if (lights.size() == 0)
             Warning("No light sources defined in scene; "

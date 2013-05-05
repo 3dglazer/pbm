@@ -109,12 +109,13 @@ void AggregateTest::Render(const Scene *scene) {
     }
     prog.Done();
 }
-
+#ifdef FREEFLIGHTEXTENSION
 //MC
 float AggregateTest::freeFlight(const Scene *scene, const Ray &r,Spectrum& tau,const RNG &rng) const{
    // return volumeIntegrator->freeFlight(scene, r, tau, rng);
     return -1.;
 }
+#endif
 
 Spectrum AggregateTest::Li(const Scene *scene, const RayDifferential &ray,
         const Sample *sample, RNG &rng, MemoryArena &arena, Intersection *isect,

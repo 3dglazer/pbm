@@ -309,11 +309,12 @@ void CreateRadProbeTask::Run() {
     delete[] c_probe;
         prog.Update();
 }
+#ifdef FREEFLIGHTEXTENSION
 //MC
 float CreateRadianceProbes::freeFlight(const Scene *scene, const Ray &r,Spectrum& tau,const RNG &rng) const{
     return volumeIntegrator->freeFlight(scene, r, tau, rng);
 }
-
+#endif
 CreateRadianceProbes *CreateRadianceProbesRenderer(const Camera *camera,
         SurfaceIntegrator *surf, VolumeIntegrator *vol,
         const ParamSet &params) {

@@ -37,16 +37,32 @@ public:
     // Renderer Interface
     virtual ~Renderer();
     virtual void Render(const Scene *scene) = 0;
+    
     virtual Spectrum Li(const Scene *scene, const RayDifferential &ray,
         const Sample *sample, RNG &rng, MemoryArena &arena,
         Intersection *isect = NULL, Spectrum *T = NULL) const = 0;
+    
     virtual Spectrum Transmittance(const Scene *scene,
         const RayDifferential &ray, const Sample *sample,
         RNG &rng, MemoryArena &arena) const = 0;
-    //MC
-    virtual float freeFlight(const Scene *scene, const Ray &r,Spectrum& tau,const RNG &rng) const =0;
+    
+
+
 };
 
-
+class ProgressiveRenderer: public Renderer{
+    public:
+        virtual Spectrum Lms(const Scene *scene, const RayDifferential &ray, const Sample *sample, RNG &rng, MemoryArena &arena, Intersection *isect, Spectrum *T) const =0;
+        virtual Spectrum Lss(const Scene *scene,
+                     const RayDifferential &ray, const Sample *sample, RNG &rng,
+                     MemoryArena &arena, Intersection *isect, Spectrum *T) const = 0;
+        virtual Spectrum Lsm(const Scene *scene,
+                     const RayDifferential &ray, const Sample *sample, RNG &rng,
+                     MemoryArena &arena, Intersection *isect, Spectrum *T) const = 0;
+        virtual Spectrum Lmm(const Scene *scene,
+                     const RayDifferential &ray, const Sample *sample, RNG &rng,
+                     MemoryArena &arena, Intersection *isect, Spectrum *T) const = 0;
+        virtual float freeFlight(const Scene *scene, const Ray &r,Spectrum& tau,const RNG &rng) const = 0;
+};
 
 #endif // PBRT_CORE_RENDERER_H

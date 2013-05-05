@@ -244,8 +244,9 @@ Spectrum SamplerRenderer::Transmittance(const Scene *scene,
     return volumeIntegrator->Transmittance(scene, this, ray, sample,
                                            rng, arena);
 }
-
+#ifdef FREEFLIGHTEXTENSION
 //MC
 float SamplerRenderer::freeFlight(const Scene *scene, const Ray &r,Spectrum& tau,const RNG &rng) const{
     return volumeIntegrator->freeFlight(scene, r, tau, rng);
 }
+#endif

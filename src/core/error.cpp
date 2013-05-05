@@ -100,7 +100,6 @@ static void processError(const char *format, va_list args,
 #endif
 }
 
-
 void Info(const char *format, ...) {
     if (!PbrtOptions.verbose || PbrtOptions.quiet) return;
     va_list args;

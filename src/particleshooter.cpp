@@ -14,7 +14,7 @@
 
 
 // this method shoots light carrying paths from lights and stores these paths and when hit or scattering happens vsl is storred;
-void ParticleShooter::shootParticles(const Scene * scene, Camera * camera, const Renderer *renderer, int nPaths,float radius){
+void ParticleShooter::shootParticles(const Scene * scene, Camera * camera, const ProgressiveRenderer *renderer, int nPaths,float radius){
     printf("\n Photon caches are being destributed over volume and surfices.\n");
 	if (scene->lights.size() == 0) return;
 	

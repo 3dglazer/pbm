@@ -310,12 +310,10 @@ float VolumeRegion::freeFlight(const Ray &r,Spectrum& tau,const RNG &rng){
     return -1;
 }
 
-//MC added volume tracking
-float VolumeIntegrator::freeFlight(const Scene *scene, const Ray &r,Spectrum& tau,const RNG &rng){
-    if (!scene->volumeRegion) return -1.0;
-    return scene->volumeRegion->freeFlight(r, tau, rng);
-    
-}
+
+
+
+
 
 Spectrum DensityRegion::tau(const Ray &r, float stepSize,
                             float u) const {

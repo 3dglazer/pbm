@@ -202,17 +202,18 @@ void IGIIntegrator::Preprocess(const Scene *scene, const Camera *camera,
 	 */
 }
 
-Spectrum IGIIntegrator::Lms(const Scene *scene, const Renderer *renderer,
-                           const RayDifferential &ray, const Intersection &isect,
-                           const Sample *sample, RNG &rng, MemoryArena &localArena) const {
+Spectrum IGIIntegrator::Lms(const Scene *scene, const ProgressiveRenderer *renderer,
+                            const RayDifferential &ray, const Intersection &isect,
+                            const Sample *sample, RNG &rng, MemoryArena &localArena) const {
     Spectrum ms;
     return ms;
     
 }
 
-Spectrum IGIIntegrator::Lss(const Scene *scene, const Renderer *renderer,
-                               const RayDifferential &ray, const Intersection &isect,
-                               const Sample *sample, RNG &rng, MemoryArena &localArena) const {
+Spectrum IGIIntegrator::Lss(const Scene *scene, const ProgressiveRenderer *renderer,
+                            const RayDifferential &ray, const Intersection &isect,
+                            const Sample *sample, RNG &rng, MemoryArena &localArena) const {
+    //this code should be same as in the IGI integrator
     
     Spectrum ss;
     return ss;

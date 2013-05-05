@@ -801,9 +801,10 @@ Spectrum MetropolisRenderer::Transmittance(const Scene *scene, const RayDifferen
 	//MC commented return 1.f and added volumeIntegrator
 	//return volumeIntegrator->Transmittance(scene, this, ray, sample,rng, arena);
 }
-
+#ifdef FREEFLIGHTEXTENSION
 //MC
 float MetropolisRenderer::freeFlight(const Scene *scene, const Ray &r,Spectrum& tau,const RNG &rng) const{
    // return volumeIntegrator->freeFlight(scene, r, tau, rng);
     return -1.;
 }
+#endif
