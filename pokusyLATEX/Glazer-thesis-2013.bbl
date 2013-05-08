@@ -114,4 +114,10 @@ Thinkbox.
   rendering{@ONLINE}.
 \newblock URL: \url{http://www.thinkboxsoftware.com/krakatoa/}.
 
+\bibitem[VG97]{Veach97metropolislight}
+Eric Veach and Leonidas~J. Guibas.
+\newblock Metropolis light transport.
+\newblock In {\em Computer Graphics (SIGGRAPH '97 Proceedings}, pages 65--76.
+  Addison Wesley, 1997.
+
 \end{thebibliography}

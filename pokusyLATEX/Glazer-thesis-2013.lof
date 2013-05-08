@@ -22,17 +22,18 @@
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Nvidia smoke particle demo. Source \cite {NVIDIA}.}}{19}{figure.caption.23}
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Krakatoa particle and volume rendering.}}{20}{figure.caption.24}
 \contentsline {figure}{\numberline {3.4}{\ignorespaces Unbiased ray-tracing methods.}}{22}{figure.caption.25}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Importance sampling function based on arbitrary pdf.}}{22}{figure.caption.26}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Comparison vpl, vsl, vrl, vbl.}}{26}{figure.caption.26}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Comparison vpl, vsl, vrl, vbl.}}{26}{figure.caption.27}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Proposed progressive rendering system architecture}}{27}{figure.caption.27}
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Different light transport types. Source \cite {novak12vbls}}}{28}{figure.caption.28}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Proposed progressive rendering system architecture}}{27}{figure.caption.28}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Different light transport types. Source \cite {novak12vbls}}}{28}{figure.caption.29}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces PBRT architecture.}}{30}{figure.caption.29}
-\contentsline {figure}{\numberline {6.2}{\ignorespaces New renderer.}}{30}{figure.caption.30}
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Custom density 3D functions.}}{31}{figure.caption.31}
-\contentsline {figure}{\numberline {6.4}{\ignorespaces Fluid simulation data container, uniform grid.}}{31}{figure.caption.32}
-\contentsline {figure}{\numberline {6.5}{\ignorespaces Energy contribution of phase functions, inverse squared distance and both samples on ray lights.}}{32}{figure.caption.33}
+\contentsline {figure}{\numberline {6.1}{\ignorespaces PBRT architecture.}}{30}{figure.caption.30}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces New renderer.}}{30}{figure.caption.31}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Custom density 3D functions.}}{31}{figure.caption.32}
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Fluid simulation data container, uniform grid.}}{31}{figure.caption.33}
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Energy contribution of phase functions, inverse squared distance and both samples on ray lights.}}{32}{figure.caption.34}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

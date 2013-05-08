@@ -26,11 +26,15 @@
 \contentsline {section}{\numberline {3.2}Raytracing}{20}{section.3.2}
 \contentsline {subsection}{\numberline {3.2.1}Visibility evaluation}{21}{subsection.3.2.1}
 \contentsline {subsection}{\numberline {3.2.2}Unbiased methods}{21}{subsection.3.2.2}
-\contentsline {subsection}{\numberline {3.2.3}Biased methods}{21}{subsection.3.2.3}
-\contentsline {section}{\numberline {3.3}HardCode}{22}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}Monte Carlo Ray-tracing}{22}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}Bidirectional path tracing}{22}{subsection.3.3.2}
-\contentsline {subsection}{\numberline {3.3.3}Photon mapping}{22}{subsection.3.3.3}
+\contentsline {subsection}{\numberline {3.2.3}Monte Carlo Ray-tracing}{21}{subsection.3.2.3}
+\contentsline {subsubsection}{\numberline {3.2.3.1}Path tracing}{23}{subsubsection.3.2.3.1}
+\contentsline {subsubsection}{\numberline {3.2.3.2}Light tracing}{24}{subsubsection.3.2.3.2}
+\contentsline {subsubsection}{\numberline {3.2.3.3}Bidirectional methods}{24}{subsubsection.3.2.3.3}
+\contentsline {subsection}{\numberline {3.2.4}Biased methods}{24}{subsection.3.2.4}
+\contentsline {subsubsection}{\numberline {3.2.4.1}Photon mapping}{24}{subsubsection.3.2.4.1}
+\contentsline {subsubsection}{\numberline {3.2.4.2}Irradiance mapping}{24}{subsubsection.3.2.4.2}
+\contentsline {section}{\numberline {3.3}HardCode}{24}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Photon mapping}{24}{subsection.3.3.1}
 \contentsline {chapter}{\numberline {4}Consistant progressive methods}{25}{chapter.4}
 \contentsline {section}{\numberline {4.1}Stochastic progressive photon mapping}{25}{section.4.1}
 \contentsline {section}{\numberline {4.2}Beam mapping}{25}{section.4.2}
@@ -49,7 +53,7 @@
 \contentsline {chapter}{\numberline {7}Results}{33}{chapter.7}
 \contentsline {chapter}{\numberline {8}Conclusion}{35}{chapter.8}
 \contentsline {subsection}{\numberline {8.0.1}Future work}{35}{subsection.8.0.1}
-\contentsline {chapter}{Bibliography}{37}{chapter*.34}
-\contentsline {chapter}{Literatura}{38}{chapter*.34}
+\contentsline {chapter}{Bibliography}{37}{chapter*.35}
+\contentsline {chapter}{Literatura}{38}{chapter*.35}
 \contentsline {chapter}{\numberline {A}Appendix}{I}{appendix.A}
 \contentsline {chapter}{\numberline {B} DVD Content }{III}{appendix.B}
