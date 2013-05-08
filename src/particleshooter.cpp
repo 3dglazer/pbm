@@ -30,7 +30,10 @@ void ParticleShooter::shootParticles(const Scene * scene, Camera * camera, const
     vector<float> lightSampPos(2 * nPaths, 0.f);
     vector<float> lightSampComp(nPaths, 0.f);
     vector<float> lightSampDir(2 * nPaths, 0.f);
-	
+    LDShuffleScrambled1D(nPaths, 1, &lightNum[0], rng);
+    LDShuffleScrambled2D(nPaths, 1, &lightSampPos[0], rng);
+    LDShuffleScrambled1D(nPaths, 1, &lightSampComp[0], rng);
+    LDShuffleScrambled2D(nPaths, 1, &lightSampDir[0], rng);
 	// Precompute information for light sampling densities
     Distribution1D *lightDistribution = ComputeLightSamplingCDF(scene);
 	
@@ -57,7 +60,7 @@ void ParticleShooter::shootParticles(const Scene * scene, Camera * camera, const
 		
         //check whether intersect any scene primitive, including volumeRegions
 		while (scene->Intersect(ray, &isect)&&!alpha.IsBlack()) {
-            
+            float isectDist=DistanceSquared(ray.o, isect.dg.p);
             //perform Woodcock tracking
             float t0,t1;
             Spectrum tau;
@@ -65,6 +68,8 @@ void ParticleShooter::shootParticles(const Scene * scene, Camera * camera, const
             //perform intersection of volume agregate, gives us the t0 from, t1 to distance parametres 
             if (hasVolumes && scene->volumeRegion->IntersectP(ray, &t0, &t1)) {
                 //stop criteria in freeFlight are ray.mint and ray. maxt
+                if (isectDist<t0*t0)continue;
+                if (isectDist<t1*t1)t1=sqrtf(isectDist);
                 ray.mint=t0;
                 ray.maxt=t1;
                 //create a VRL the ray vector has to be normalizet otherwise wont work!!!!
@@ -89,6 +94,10 @@ void ParticleShooter::shootParticles(const Scene * scene, Camera * camera, const
                         if (rng.RandomFloat() > continueProb) break;
                     }
                 }// end of SCATTERING EVENTS
+                //if the tracking ended before reaching the end point of media we have to add the optical thickness of the rest of the media to it, to correctly attenuate the vsls.
+                if (d<t1) {
+                    tau+=(t1-d)*scene->volumeRegion->sigma_t(ray.o+ray.d*t1, ray.d, ray.time);
+                }
             }
             //VRL has been created only if volume interaction occured not it is time to create VPL
             //MC commented

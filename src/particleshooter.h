@@ -26,6 +26,14 @@ public:
 		psArena.FreeAll();
 	};
 	void shootParticles(const Scene * scene, Camera * camera, const ProgressiveRenderer *renderer, int nPaths,float radius=0.01);
+    void dumpVSLS(std::string fileName){
+        DataDumper dd;
+        dd.dumpVirtualSphericalLight(vsls,fileName.c_str());
+    }
+    void dumpVpths(std::string fileName){
+        DataDumper dd;
+        dd.dumpVolumePaths(volumePaths,fileName.c_str());
+    }
 	vector<VirtualSphericalLight *> vsls;
     std::vector<VolumePath *> volumePaths;
 private:

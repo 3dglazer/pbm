@@ -10,7 +10,8 @@
 #include "scene.h"
 #include "paramset.h"
 #include "montecarlo.h"
-
+//#include <cmath>
+//#include <math.h>
 // MultiScatteringIntegrator Method Definitions
 void MultiScatteringIntegrator::RequestSamples(Sampler *sampler, Sample *sample,
                                                 const Scene *scene) {
@@ -185,6 +186,21 @@ float sampleVRL(const Ray &r,const Ray &vrl, RNG& rng, float &h){
     return invSqrCDF(rnd, phi, h, v0d, v1d);
 }
 
+//unit vectors expected otherwise wont work
+inline float myline2line(const Point &p0,const Vector &v0,const Point &p1,const Vector &v1){
+    bool paralel=false;
+    Vector tmp=(v0-v1);
+    if(tmp.Length()<0.00001) paralel=true;
+    if (paralel) {
+        tmp=Cross(Vector(p1-p0), v0);
+        return tmp.Length();
+    }else{
+        tmp=Cross(v0,v1);
+        return Dot(Vector(p1-p0), tmp)/tmp.Length();
+    }
+}
+
+
 //Media -> Media integration part integration over VRLs
 Spectrum MultiScatteringIntegrator::Lmm(const Scene *scene, const ProgressiveRenderer * renderer, const RayDifferential &ray,const Sample *sample, RNG &rng, Spectrum *T, MemoryArena &arena)  const {
     VolumeRegion *vr = scene->volumeRegion;
@@ -325,15 +341,16 @@ Spectrum MultiScatteringIntegrator::vrlSamplingVIZ(float t0,float t1,const Scene
     // Prepare for volume integration stepping
     Point vrlSample;
     
-    float vrlRadius=1.3;
+    float vrlRadius=0.0001;
     if ( !this->vpths.empty()) {
             VolumePath *curPath;
             for (int vpthIdx=0; vpthIdx<vpths.size(); ++vpthIdx) {
                 curPath=vpths[vpthIdx];
                 float p0,p1;
-                float dist=ln2lnPP(ray,curPath->ray,p0,p1);
-                if (dist<vrlRadius) {
-                    Lv+=1.3;
+                float dist=myline2line(ray.o, Normalize(ray.d), curPath->ray.o, Normalize(curPath->ray.d));
+                //float dist=ln2lnPP(ray,curPath->ray,p0,p1);
+                if ((dist<0?-dist:dist)<vrlRadius) {
+                    Lv+=0.001;
                 }
             }
 
@@ -354,6 +371,7 @@ Spectrum MultiScatteringIntegrator::vslSamplingVIZ(float t0,float t1,const Scene
         for (int vpthIdx=0; vpthIdx<vsls.size(); ++vpthIdx) {
             curVsl=vsls[vpthIdx];
             float p0,p1;
+            
             float dist=(Cross( Vector(ray.o-curVsl->p),ray.d)).Length()/ray.d.Length();
             if (dist<curVsl->radius) {
                 Lv+=1.3;
@@ -489,18 +507,5 @@ Spectrum MultiScatteringIntegrator::vslSamplingBruteForce(float t0,float t1,cons
     }
     *T = Tr;
     return Lv * step;
-    
 }
-//unit vectors expected otherwise wont work
-//inline float line2line(const Point &p0,const Vector &v0,const Point &p1,const Vector &v1){
-//    bool paralel=false;
-//    Vector tmp=(v0-v1);
-//    if(tmp.Length()<0.00001) paralel=true;
-//    if (paralel) {
-//        tmp=Cross(Vector(p1-p0), v0);
-//        return tmp.Length();
-//    }else{
-//        tmp=Cross(v0,v1);
-//        return Dot(Vector(p1-p0), tmp)/tmp.Length();
-//    }
-//}
+

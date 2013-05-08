@@ -13,6 +13,10 @@
 #include "pbrt.h"
 #include "geometry.h"
 #include "integrator.h"
+
+
+
+
 // VirtualLight struct
 struct VirtualLight {
     VirtualLight() { }
@@ -57,6 +61,15 @@ struct VirtualSphericalLight {
 		ss<<"]";
 		return ss.str();	
 	}
+    string toPointString(){
+		std::ostringstream ss;
+		ss<<p.x;
+		ss<<",";
+		ss<<p.y;
+		ss<<",";
+		ss<<p.z;
+		return ss.str();
+	}
 	//aka vl
 	Point p;
     Normal n;
@@ -68,6 +81,17 @@ struct VirtualSphericalLight {
 	//MC added radius
 	float radius;
 };
+
+inline string toPointString(VirtualSphericalLight &vsl){
+    std::ostringstream ss;
+    ss<<vsl.p.x;
+    ss<<",";
+    ss<<vsl.p.y;
+    ss<<",";
+    ss<<vsl.p.z;
+    return ss.str();
+}
+
 
 struct VolumeVSL {
 	VolumeVSL();
@@ -96,6 +120,66 @@ struct VolumePath{
         return 0.;
     }
 };
+
+inline bool toLineString(VolumePath &vpth,string &data){
+    if (vpth.dists.size()==0) {
+        return false;
+    }
+    std::ostringstream ss;
+    
+    // Vector d=Normalize(vpth.ray.d);
+    float lastDist=0.;
+    Vector d=vpth.ray.d;
+    Point p=vpth.ray.o;
+    float distNorm=1./vpth.ray.maxt;
+    //printf("\n=======\n");
+    ss<<p.x;
+    ss<<",";
+    ss<<p.y;
+    ss<<",";
+    ss<<p.z;
+    ss<<",";
+    ss<<lastDist;
+    ss<<",";
+    for (int i=0; i<vpth.dists.size()-1; i++) {
+        p=vpth.ray.o +d*vpth.dists[i];
+        lastDist=vpth.dists[i]*distNorm;
+        //printf("%f,",vpth.dists[i]);
+        ss<<p.x;
+        ss<<",";
+        ss<<p.y;
+        ss<<",";
+        ss<<p.z;
+        ss<<",";
+        ss<<lastDist;
+        ss<<",";
+    }
+    if (vpth.dists.size()>0) {
+        int i=vpth.dists.size()-1;
+        p=vpth.ray.o +d*vpth.dists[i];
+        lastDist=vpth.dists[i]*distNorm;
+        ss<<p.x;
+        ss<<",";
+        ss<<p.y;
+        ss<<",";
+        ss<<p.z;
+        ss<<",";
+        ss<<lastDist;
+        ss<<",";
+    }
+    //and add the end point
+    p=vpth.ray.o + d*vpth.ray.maxt;
+    ss<<p.x;
+    ss<<",";
+    ss<<p.y;
+    ss<<",";
+    ss<<p.z;
+    ss<<",";
+    ss<<lastDist;
+    data= ss.str();
+    return true;
+}
+
 struct SurfaceLight{};
 
 
