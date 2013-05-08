@@ -250,8 +250,8 @@ void PGRenderer::renderIter(int currentIter,const Scene *scene, Sample *sample){
 	ParticleShooter * particleShooter=new ParticleShooter(seed*((currentIter+1)*1372568),8);
 	printf("Preprocessing stage shooting particles nPaths %d, %f",nParticles,radius);
 	particleShooter->shootParticles(scene, camera, this,nParticles,radius);
-    particleShooter->dumpVSLS("/Volumes/DISK2/developer/photonVIZ/pointCloud.txt");
-     particleShooter->dumpVpths("/Volumes/DISK2/developer/photonVIZ/volumePaths.txt");
+    particleShooter->dumpVSLS("/Volumes/DISK2/developer/pbm/photonVIZ/pointCloud.txt");
+     particleShooter->dumpVpths("/Volumes/DISK2/developer/pbm/photonVIZ/volumePaths.txt");
     printf("after particle shooting");
 	surfaceIntegrator->setSurfaceLights(particleShooter->vsls);
     surfaceIntegrator->setVolumeLights(particleShooter->volumePaths);

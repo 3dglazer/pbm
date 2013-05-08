@@ -210,8 +210,8 @@ Spectrum MultiScatteringIntegrator::Lmm(const Scene *scene, const ProgressiveRen
         *T = 1.f;
         return 0.f;
     }
-    //Spectrum Lmm= vrlSamplingBruteForce(t0, t1, scene, renderer, ray, sample, rng, T, arena);
-    Spectrum Lmm= vrlSamplingVIZ(t0, t1, scene, renderer, ray, sample, rng, T, arena);
+    Spectrum Lmm= vrlSamplingBruteForce(t0, t1, scene, renderer, ray, sample, rng, T, arena);
+    //Spectrum Lmm= vrlSamplingVIZ(t0, t1, scene, renderer, ray, sample, rng, T, arena);
 
     
         
@@ -233,11 +233,12 @@ Spectrum MultiScatteringIntegrator::Lsm(const Scene *scene, const ProgressiveRen
         return 0.f;
     }
     
-    //Lv=vslSamplingBruteForce(t0, t1, scene, renderer, ray, sample, rng, T, arena);
-    Lv=vslSamplingVIZ(t0, t1, scene, renderer, ray, sample, rng, T, arena);
+    Lv=vslSamplingBruteForce(t0, t1, scene, renderer, ray, sample, rng, T, arena);
+    //Lv=vslSamplingVIZ(t0, t1, scene, renderer, ray, sample, rng, T, arena);
     
     return Lv;
 }
+
 MultiScatteringIntegrator *CreateMultiScatteringIntegrator(const ParamSet &params) {
     float stepSize  = params.FindOneFloat("stepsize", 1.f);
     return new MultiScatteringIntegrator(stepSize);
@@ -288,25 +289,29 @@ Spectrum MultiScatteringIntegrator::vrlSamplingBruteForce(float t0,float t1,cons
             VolumePath *curPath;
             float vrlTr;
             
-            
-            
-
-            
             for (int vpthIdx=0; vpthIdx<vpths.size(); ++vpthIdx) {
                 curPath=vpths[vpthIdx];
-                float vrlD=(curPath->ray.maxt - curPath->ray.mint) * (rng.RandomFloat());
+                float vrlD=curPath->ray.mint+(curPath->ray.maxt - curPath->ray.mint) * (rng.RandomFloat());
                 vrlSample=curPath->ray.o+curPath->ray.d*vrlD;
+                Vector wo=Vector(vrlSample - p); //vector to the light
+                Ray connectRay= Ray(p, wo, 0.);
+                if (scene->IntersectP(connectRay)) {
+                    continue; //move on sample is obscured
+                }
                 vrlTr=curPath->getTransmittance(vrlD);
                 Spectrum vrlContrib=curPath->contrib * vrlTr;
-                Vector wo=Vector(vrlSample - p); //vector to the light
-                float pp=vr->p(p, w, -wo, ray.time); // phase phunction at current point
-                float pvrl=vr->p(vrlSample, curPath->ray.d, wo, ray.time);
+                
+                float d2=wo.LengthSquared();
+                wo=Normalize(wo);
+                float pp=vr->p(p, ray.d, wo, ray.time); // phase phunction at current point
+                float pvrl=vr->p(vrlSample, curPath->ray.d, -wo, ray.time);
                 Spectrum ssVrl= vr->sigma_s(vrlSample, curPath->ray.d, ray.time);
                 if (isnan(pp)||isnan(pvrl)) {
                     continue;
                 }
                 if (!vrlContrib.IsBlack() && !ss.IsBlack() && !ssVrl.IsBlack() && pp!=0 && pvrl!=0) {
-                    Lv+=Tr*vrlContrib*ss*pp*pvrl; //vrl ss is counted in the contrib ?? *ssVrl
+                    Lv+=Tr*vrlContrib*ss*pp*pvrl; //vrl ss is counted in the contrib ?? *ssVrl // the square dist term is missing
+                    Lv*=1./d2;  //test without phase functions
                 }
             }
              
@@ -461,7 +466,7 @@ Spectrum MultiScatteringIntegrator::vslSamplingBruteForce(float t0,float t1,cons
     
     uint32_t sampOffset = 0;
     
-    Point vrlSample;
+    Point vrlSample;    
     Spectrum Lv=0.f;
     for (int i = 0; i < nSamples; ++i, t0 += step) {
         // Advance to sample at _t0_ and update _T_
@@ -490,16 +495,21 @@ Spectrum MultiScatteringIntegrator::vslSamplingBruteForce(float t0,float t1,cons
                 // Compute virtual light's tentative contribution _Llight_
                 float d2 = DistanceSquared(p, vl->p);
                 Vector wi = Normalize(vl->p - p);
+                RayDifferential connectRay(p, wi, ray, NULL, sqrtf(d2) * (1.f - vl->rayEpsilon));
+                if (scene->IntersectP(connectRay)) { //move on the next light if the light is obscured
+                    continue;
+                }
                 float pp=vr->p(p, w, -wi, ray.time); // phase phunction at current point
                 float G = pp * AbsDot(wi, vl->n) / d2;
                 G = (G<10000.)?G:10000.;
                 Spectrum f = vl->bsdf->f(-wi, vl->i); // is -wi correct??
-                //Spectrum f = bsdf->f(wo, wi);
+//                //Spectrum f = bsdf->f(wo, wi);
                 if (G == 0.f || f.IsBlack()) continue;
                 Spectrum Llight = f * G * vl->pathContrib;
-                RayDifferential connectRay(p, wi, ray, NULL, sqrtf(d2) * (1.f - vl->rayEpsilon));
+                //Spectrum Llight = G * vl->pathContrib; //neuvazuju brdf jen pro zkousku
+                
                 Llight *= renderer->Transmittance(scene, connectRay, NULL, rng, arena);
-                if (!scene->IntersectP(connectRay) && !ss.IsBlack())
+                if (!ss.IsBlack())
                     Lv += Tr*ss*Llight;
             }
         }
