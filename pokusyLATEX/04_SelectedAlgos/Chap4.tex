@@ -1,7 +1,16 @@
 \chapter{Consistant progressive methods}
 what does it mean to be progressive
 \section{Stochastic progressive photon mapping}
-\cite{}
+Progressive photon mapping(PPM) was first introduced by \cite{} and later on extended by Blabla tosStochastic progressive photon mapping (SPPM). Both methods share the same photon shooting  step with photon mapping. The difference is in the photon map radiance evaluation. PPM samples the scene only once using distributed ray-tracing storing ray intersection points in the acceleration structure in the first pass. In the next passes, when the photons are shoot into the scene insted of saving them to the photon map, the intersection points in a given radius are querried and radiance values in the corresponding image samples are updated. Down side of this approach is that there are quite many intersections to be stored. Extended algorithm with volumetric photon mapping capability would havve to sore all transmittance evaluation points to, which would be very memory intensive.
+\\
+\\
+The SPPM approach raytraces the scene again for every new progressive pass (see figure \ref{fig::PPMSPPM}). This way it trades of some extra calculation for memory footprint. The extra ray samples might be very usefull when it comes to stochastic effects, such ass depth of field simulation or motion blur, because many rays with different spaciotemporal samplig have to be generated anyway for noise free result.
+\\
+\\
+In both cases multiple photon shooting passes are used with progressively reducing photon radius. The radius reduction ensures that the bias reduces to in the limit. Right reduction rate can 
+=========== TODO REDUCTION RADIUS RATE EQUATION ================
+
+\myFigure{0.55}{\cestaImg temp.jpg}{Unbiased ray-tracing methods.}{Examples of unbiased ray-tracing methods, from left \ita{path tracing, light tracing, bidirectional path tracing}. The principle is pictured on the top raw and example renderings are in the bottom one.}{fig::PPMSPPM}
 
 \myFigure{0.5}{images/vpl2vbl}{Comparison vpl, vsl, vrl, vbl.}{During the preprocessing stage photon paths are shoot into the participating media. This image compares the methods we can store and evaluate cached radiance in the form of virtual lights. This figure demonstrates the analogy of virtual spherical lights to virtual point lights with virtual beam lights to virtual ray lights. Source \cite{novak12vbls}.}{fig:vpl2vbl}
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.4.23)  8 MAY 2013 20:43
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.4.23)  9 MAY 2013 23:32
 entering extended mode
 **C:/Users/bl2/Documents/GitHub/pbm/pokusyLATEX/Glazer-thesis-2013.tex
 (C:/Users/bl2/Documents/GitHub/pbm/pokusyLATEX/Glazer-thesis-2013.tex
@@ -743,7 +743,7 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}] [2
 
 ]
-<figures/LogoCVUT.pdf, id=243, 93.34875pt x 70.2625pt>
+<figures/LogoCVUT.pdf, id=235, 93.34875pt x 70.2625pt>
 File: figures/LogoCVUT.pdf Graphic file (type pdf)
 
 <use figures/LogoCVUT.pdf>
@@ -811,7 +811,7 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.36 ...numberline {3.3}HardCode}{24}{section.3.3}
+l.36 ...istant progressive methods}{25}{chapter.4}
                                                    [5
 
 ])
@@ -839,7 +839,7 @@ l.238 \cleardoublepage
 
 ] (C:\Users\bl2\Documents\GitHub\pbm\pokusyLATEX\01_Intro/Intro.tex
 Chapter 1.
-<images/nasaearth.jpg, id=435, 1027.84pt x 687.56876pt>
+<images/nasaearth.jpg, id=427, 1027.84pt x 687.56876pt>
 File: images/nasaearth.jpg Graphic file (type jpg)
 
 <use images/nasaearth.jpg>
@@ -850,7 +850,7 @@ Underfull \hbox (badness 1629) in paragraph at lines 13--13
 []\T1/cmr/m/n/10 Figure 1.1: |Au-rora bo-re-alis one of the
  []
 
-<01_Intro/images/sunset.jpg, id=438, 1027.84pt x 687.56876pt>
+<01_Intro/images/sunset.jpg, id=430, 1027.84pt x 687.56876pt>
 File: 01_Intro/images/sunset.jpg Graphic file (type jpg)
 
 <use 01_Intro/images/sunset.jpg>
@@ -866,7 +866,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 2--25
 
  []
 
-<01_Intro/images/laseroptique.jpeg, id=443, 1027.84pt x 687.56876pt>
+<01_Intro/images/laseroptique.jpeg, id=435, 1027.84pt x 687.56876pt>
 File: 01_Intro/images/laseroptique.jpeg Graphic file (type jpg)
 
 <use 01_Intro/images/laseroptique.jpeg>
@@ -888,7 +888,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 26--34
 
  <C:/Users/bl2/Documents/GitHub/pbm/pokusyLATEX/images/nasaearth.jpg> <C:/Users
 /bl2/Documents/GitHub/pbm/pokusyLATEX/01_Intro/images/sunset.jpg>]
-<images/temp.jpg, id=454, 1027.84pt x 687.56876pt>
+<images/temp.jpg, id=446, 1027.84pt x 687.56876pt>
 File: images/temp.jpg Graphic file (type jpg)
  <use images/temp.jpg>
 Package pdftex.def Info: images/temp.jpg used on input line 39.
@@ -1035,7 +1035,7 @@ stein2dgraph-eps-converted-to.pdf 02_Chap2/Figures/heneygreenstein2dgraph.eps>
 (epstopdf)             \includegraphics on input line 226.
 Package epstopdf Info: Output file is already uptodate.
 
-<02_Chap2/Figures/heneygreenstein2dgraph-eps-converted-to.pdf, id=584, 495.8525
+<02_Chap2/Figures/heneygreenstein2dgraph-eps-converted-to.pdf, id=576, 495.8525
 pt x 405.515pt>
 File: 02_Chap2/Figures/heneygreenstein2dgraph-eps-converted-to.pdf Graphic file
  (type pdf)
@@ -1045,7 +1045,7 @@ Package pdftex.def Info: 02_Chap2/Figures/heneygreenstein2dgraph-eps-converted-
 to.pdf used on input line 226.
 (pdftex.def)             Requested size: 195.98047pt x 160.27257pt.
 
-<images/hg3d.png, id=585, 562.1pt x 420.57124pt>
+<images/hg3d.png, id=577, 562.1pt x 420.57124pt>
 File: images/hg3d.png Graphic file (type png)
  <use images/hg3d.png>
 Package pdftex.def Info: images/hg3d.png used on input line 234.
@@ -1059,7 +1059,7 @@ Overfull \hbox (17.0pt too wide) in paragraph at lines 223--240
 Underfull \vbox (badness 4673) has occurred while \output is active []
 
  [12]
-<images/sunsetbeach.jpg, id=598, 1027.84pt x 687.56876pt>
+<images/sunsetbeach.jpg, id=590, 1027.84pt x 687.56876pt>
 File: images/sunsetbeach.jpg Graphic file (type jpg)
 
 <use images/sunsetbeach.jpg>
@@ -1077,7 +1077,7 @@ converted-to.pdf images/reyleigh2dgraph.eps>
 (epstopdf)             \includegraphics on input line 274.
 Package epstopdf Info: Output file is already uptodate.
 
-<images/reyleigh2dgraph-eps-converted-to.pdf, id=599, 492.84125pt x 404.51125pt
+<images/reyleigh2dgraph-eps-converted-to.pdf, id=591, 492.84125pt x 404.51125pt
 >
 File: images/reyleigh2dgraph-eps-converted-to.pdf Graphic file (type pdf)
  <use images/reyleigh2dgraph-eps-converted-to.pdf>
@@ -1099,7 +1099,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 284--288
 
  []
 
-<images/r10PerpPolarLogA.png, id=621, 449.68pt x 445.665pt>
+<images/r10PerpPolarLogA.png, id=613, 449.68pt x 445.665pt>
 File: images/r10PerpPolarLogA.png Graphic file (type png)
 
 <use images/r10PerpPolarLogA.png>
@@ -1128,14 +1128,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 366--371
 LaTeX Warning: Reference `sec::VOLINTER' on page 17 undefined on input line 373
 .
 
-<images/juiceVolume.jpg, id=666, 646.415pt x 649.42625pt>
+<images/juiceVolume.jpg, id=658, 646.415pt x 649.42625pt>
 File: images/juiceVolume.jpg Graphic file (type jpg)
 
 <use images/juiceVolume.jpg>
 Package pdftex.def Info: images/juiceVolume.jpg used on input line 375.
 (pdftex.def)             Requested size: 217.75757pt x 218.77057pt.
 
-<images/volumerat.png, id=677, 659.46375pt x 324.21124pt>
+<images/volumerat.png, id=669, 659.46375pt x 324.21124pt>
 File: images/volumerat.png Graphic file (type png)
 
 <use images/volumerat.png>
@@ -1160,14 +1160,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 4--8
 
  []
 
-<images/halfanglenvidia.png, id=702, 562.1pt x 262.9825pt>
+<images/halfanglenvidia.png, id=694, 562.1pt x 262.9825pt>
 File: images/halfanglenvidia.png Graphic file (type png)
 
 <use images/halfanglenvidia.png>
 Package pdftex.def Info: images/halfanglenvidia.png used on input line 12.
 (pdftex.def)             Requested size: 195.98047pt x 91.68811pt.
 
-<images/nvidiasmokeparticles.jpg, id=705, 1027.84pt x 687.56876pt>
+<images/nvidiasmokeparticles.jpg, id=697, 1027.84pt x 687.56876pt>
 File: images/nvidiasmokeparticles.jpg Graphic file (type jpg)
 
 <use images/nvidiasmokeparticles.jpg>
@@ -1203,7 +1203,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 9--38
 
  <C:/Users/bl2/Documents/GitHub/pbm/pokusyLATEX/images/halfanglenvidia.png> <C:
 /Users/bl2/Documents/GitHub/pbm/pokusyLATEX/images/nvidiasmokeparticles.jpg>] <
-images/krakatoa.jpg, id=719, 1606.0pt x 301.125pt>
+images/krakatoa.jpg, id=711, 1606.0pt x 301.125pt>
 File: images/krakatoa.jpg Graphic file (type jpg)
 
 <use images/krakatoa.jpg>
@@ -1265,21 +1265,41 @@ Underfull \hbox (badness 10000) in paragraph at lines 93--103
 
 Underfull \vbox (badness 2884) has occurred while \output is active []
 
- [23])
-(C:\Users\bl2\Documents\GitHub\pbm\pokusyLATEX\04_SelectedAlgos/Chap4.tex
+ [23]
+Underfull \hbox (badness 10000) in paragraph at lines 121--129
+
+ []
+
+) (C:\Users\bl2\Documents\GitHub\pbm\pokusyLATEX\04_SelectedAlgos/Chap4.tex
 [24]
 Chapter 4.
-<images/vpl2vbl.png, id=765, 615.29875pt x 419.5675pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--12
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--12
+
+ []
+
+File: images/temp.jpg Graphic file (type jpg)
+<use images/temp.jpg>
+Package pdftex.def Info: images/temp.jpg used on input line 13.
+(pdftex.def)             Requested size: 239.53465pt x 160.23576pt.
+ <images/vpl2vbl.png, id=758, 615.29875pt x 419.5675pt>
 File: images/vpl2vbl.png Graphic file (type png)
 
 <use images/vpl2vbl.png>
-Package pdftex.def Info: images/vpl2vbl.png used on input line 6.
+Package pdftex.def Info: images/vpl2vbl.png used on input line 15.
 (pdftex.def)             Requested size: 217.75757pt x 148.48335pt.
-)
-(C:\Users\bl2\Documents\GitHub\pbm\pokusyLATEX\05_Proposedsolution/Chap5.tex
-[25
+ [25
 
-] [26 <C:/Users/bl2/Documents/GitHub/pbm/pokusyLATEX/images/vpl2vbl.png>]
+] [26 <C:/Users/bl2/Documents/GitHub/pbm/pokusyLATEX/images/vpl2vbl.png>])
+(C:\Users\bl2\Documents\GitHub\pbm\pokusyLATEX\05_Proposedsolution/Chap5.tex
+[27] [28
+
+]
 Chapter 5.
 
 Underfull \hbox (badness 10000) in paragraph at lines 3--9
@@ -1301,17 +1321,15 @@ File: images/temp.jpg Graphic file (type jpg)
 Package pdftex.def Info: images/temp.jpg used on input line 11.
 (pdftex.def)             Requested size: 217.75757pt x 145.66316pt.
 
-<images/fourlighttransports.jpg, id=786, 778.91pt x 796.9775pt>
+<images/fourlighttransports.jpg, id=788, 778.91pt x 796.9775pt>
 File: images/fourlighttransports.jpg Graphic file (type jpg)
 
 <use images/fourlighttransports.jpg>
 Package pdftex.def Info: images/fourlighttransports.jpg used on input line 16.
 (pdftex.def)             Requested size: 217.75757pt x 222.7995pt.
- [27
-
-])
+ [29])
 (C:\Users\bl2\Documents\GitHub\pbm\pokusyLATEX\06_Implementation/Chap6.tex
-[28 <C:/Users/bl2/Documents/GitHub/pbm/pokusyLATEX/images/fourlighttransports.j
+[30 <C:/Users/bl2/Documents/GitHub/pbm/pokusyLATEX/images/fourlighttransports.j
 pg>]
 Chapter 6.
 
@@ -1342,9 +1360,9 @@ File: images/temp.jpg Graphic file (type jpg)
  <use images/temp.jpg>
 Package pdftex.def Info: images/temp.jpg used on input line 17.
 (pdftex.def)             Requested size: 217.75757pt x 145.66316pt.
- [29
+ [31
 
-] [30]
+] [32]
 File: images/temp.jpg Graphic file (type jpg)
  <use images/temp.jpg>
 Package pdftex.def Info: images/temp.jpg used on input line 29.
@@ -1354,20 +1372,20 @@ File: images/temp.jpg Graphic file (type jpg)
 <use images/temp.jpg>
 Package pdftex.def Info: images/temp.jpg used on input line 31.
 (pdftex.def)             Requested size: 217.75757pt x 145.66316pt.
- <images/rr_sampling.png, id=816, 1027.84pt x 335.2525pt>
+ <images/rr_sampling.png, id=817, 1027.84pt x 335.2525pt>
 File: images/rr_sampling.png Graphic file (type png)
 
 <use images/rr_sampling.png>
 Package pdftex.def Info: images/rr_sampling.png used on input line 41.
 (pdftex.def)             Requested size: 391.96095pt x 127.84743pt.
- [31])
-(C:\Users\bl2\Documents\GitHub\pbm\pokusyLATEX\07_Results/Chap7.tex [32 <C:/Use
+ [33])
+(C:\Users\bl2\Documents\GitHub\pbm\pokusyLATEX\07_Results/Chap7.tex [34 <C:/Use
 rs/bl2/Documents/GitHub/pbm/pokusyLATEX/images/rr_sampling.png>]
 Chapter 7.
-) (C:\Users\bl2\Documents\GitHub\pbm\pokusyLATEX\04_Concl/Concl.tex [33
+) (C:\Users\bl2\Documents\GitHub\pbm\pokusyLATEX\04_Concl/Concl.tex [35
 
 ]
-[34
+[36
 
 ]
 Chapter 8.
@@ -1376,14 +1394,14 @@ Package hyperref Warning: Difference (2) between bookmark levels is greater
 (hyperref)                than one, level fixed on input line 4.
 
 ) (C:\Users\bl2\Documents\GitHub\pbm\pokusyLATEX\Glazer-thesis-2013.bbl
-[35] [36
+[37] [38
 
 ]
 LaTeX Font Info:    Try loading font information for T1+cmtt on input line 8.
  ("C:\Program Files\MiKTeX 2.9\tex\latex\base\t1cmtt.fd"
 File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-) [37])
-[38] (C:\Users\bl2\Documents\GitHub\pbm\pokusyLATEX\06_Appendix/Appen1.tex
+) [39])
+[40] (C:\Users\bl2\Documents\GitHub\pbm\pokusyLATEX\06_Appendix/Appen1.tex
 Appendinx A.
 ) (C:\Users\bl2\Documents\GitHub\pbm\pokusyLATEX\06_Appendix/Appen2.tex
 [1
@@ -1402,7 +1420,7 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 324.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 324.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 324.
 Package rerunfilecheck Info: File `Glazer-thesis-2013.out' has not changed.
-(rerunfilecheck)             Checksum: E438AE44833A76F59F55F60E9FACE790;8490.
+(rerunfilecheck)             Checksum: 560C1C966CC4B573CF815D20663AB4F2;8258.
 
 
 LaTeX Warning: There were undefined references.
@@ -1418,12 +1436,12 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 324.
 ### bottom level 
 Here is how much of TeX's memory you used:
  12308 strings out of 493921
- 175532 string characters out of 3147288
- 238276 words of memory out of 3000000
- 15072 multiletter control sequences out of 15000+200000
+ 175519 string characters out of 3147288
+ 238338 words of memory out of 3000000
+ 15071 multiletter control sequences out of 15000+200000
  31371 words of font info for 85 fonts, out of 3000000 for 9000
  846 hyphenation exceptions out of 8191
- 42i,16n,44p,998b,648s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 42i,16n,44p,1019b,648s stack positions out of 5000i,500n,10000p,200000b,50000s
 pdfTeX warning (dest): name{Hfootnote.18} has been referenced b
 ut does not exist, replaced by a fixed one
 
@@ -1464,9 +1482,9 @@ nts/type1/public/cm-super/sfti0900.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
 m-super/sfti1095.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/cm-super/s
 fti1440.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/cm-super/sftt1095.p
 fb>
-Output written on Glazer-thesis-2013.pdf (57 pages, 3550078 bytes).
+Output written on Glazer-thesis-2013.pdf (59 pages, 3552716 bytes).
 PDF statistics:
- 1047 PDF objects out of 1200 (max. 8388607)
- 227 named destinations out of 1000 (max. 500000)
- 547 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1048 PDF objects out of 1200 (max. 8388607)
+ 228 named destinations out of 1000 (max. 500000)
+ 531 words of extra memory for PDF output out of 10000 (max. 10000000)
 
