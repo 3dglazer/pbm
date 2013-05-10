@@ -100,12 +100,19 @@ Without a termination criteria the ray would travel infinitely, unfortunately fi
 \\
 \\
 The popularity of path tracing is based two fact. It's quite simple algorithm that can be easily extended to support participating media, multiple light scattering and other effects, while it's guaranteed that it converges to ground truth result in the limit. The only down side of this approach is that it's computationally demanding process, sometimes many thousand rays per pixel have to be traced to obtain acceptable image with low noise level.
+\\
+\\
+Unfortunatelly path tracing is not very effitient in rendering caustics because the probability of hiting light source trough multiple diffuse specular reflection is almost zero.
+
+
 
 
 \subsubsection{Light tracing}
+Is a dual algorithm to the path tracing. Paths are generated on the light sources and recursively traiced through the scene, when the sourface is hit or volume scattering event happens, shadow ray is casted to the camera. When the interaction point is unocluded on the path to camera, it gets projected and it's radiance value is added to the final image. 
+\\
+\\
+This algorithm can be very inefective in large scenes where the majority of the paths never reaches the camera. On the other hand it can be used on small scale scenes for evaulation purpouses, because it's unbiased and renders both surface and volume caustics much more efficiently than path tracing. See fig. \ref{fig:UNBRT} for the path tracing and light tracing algorithm comparison.
 
-Path tracing, light tracing fig. \ref{fig:UNBRT}
-Plus and cons - very slow no caching re-computation of visibility factor
 
 \subsubsection{Bidirectional methods}
 
@@ -114,6 +121,7 @@ However, bidirectional path tracing still fails to render specular reflection, r
 
 
 % ============ Biased methods =============
+
 \subsection{Biased methods}
 
 

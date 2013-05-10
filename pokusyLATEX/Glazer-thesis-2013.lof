@@ -24,7 +24,7 @@
 \contentsline {figure}{\numberline {3.4}{\ignorespaces Unbiased ray-tracing methods.}}{22}{figure.caption.25}
 \contentsline {figure}{\numberline {3.5}{\ignorespaces Importance sampling function based on arbitrary pdf.}}{22}{figure.caption.26}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Unbiased ray-tracing methods.}}{26}{figure.caption.27}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Progressive photon mapping and stochastic progressive photon mapping comparison. Source \cite {Hachisuka:2009:SPP}.}}{26}{figure.caption.27}
 \contentsline {figure}{\numberline {4.2}{\ignorespaces Comparison vpl, vsl, vrl, vbl.}}{26}{figure.caption.28}
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {5.1}{\ignorespaces Proposed progressive rendering system architecture}}{29}{figure.caption.29}
