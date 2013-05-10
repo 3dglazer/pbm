@@ -83,6 +83,7 @@ Spectrum PathIntegrator::Li(const Scene *scene, const Renderer *renderer,
         Vector wi;
         float pdf;
         BxDFType flags;
+        //wi is initialized to incomming direction
         Spectrum f = bsdf->Sample_f(wo, &wi, outgoingBSDFSample, &pdf,
                                     BSDF_ALL, &flags);
         if (f.IsBlack() || pdf == 0.)

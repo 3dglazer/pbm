@@ -189,7 +189,7 @@ Spectrum SpecularReflect(const RayDifferential &ray, BSDF *bsdf,
         if (ray.hasDifferentials) {
             rd.hasDifferentials = true;
             rd.rxOrigin = p + isect.dg.dpdx;
-            rd.ryOrigin = p + isect.dg.dpdy;
+            rd.ryOrigin = p + isect.dg.dpdy; 
             // Compute differential reflected directions
             Normal dndx = bsdf->dgShading.dndu * bsdf->dgShading.dudx +
                           bsdf->dgShading.dndv * bsdf->dgShading.dvdx;

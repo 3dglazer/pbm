@@ -133,8 +133,8 @@ void PGRendererTask::Run() {
                     //Ls[i] = rayWeight * renderer->Li(scene, rays[i], &samples[i], rng, arena, &isects[i], &Ts[i]);
                     if (scene->Intersect(currRay, isect)) {
                         //Lss[i] = rayWeight * surfaceIntegrator->Lss(scene, renderer, currRay, *isect, currSample,rng, arena);
-                        Lss[i] = rayWeight * surfaceIntegrator->Li(scene, renderer, currRay, *isect, currSample,rng, arena);
-                        Lms[i] = rayWeight * surfaceIntegrator->Lms(scene, renderer, currRay, *isect, currSample,rng, arena);
+                        //Lss[i] = rayWeight * surfaceIntegrator->Li(scene, renderer, currRay, *isect, currSample,rng, arena);
+                        //Lms[i] = rayWeight * surfaceIntegrator->Lms(scene, renderer, currRay, *isect, currSample,rng, arena);
                     }else{
                         // Handle ray that doesn't intersect any geometry
                         for (uint32_t i = 0; i < scene->lights.size(); ++i){

@@ -51,6 +51,9 @@ public:
     Spectrum Lss(const Scene *scene, const ProgressiveRenderer *renderer,
                  const RayDifferential &ray, const Intersection &isect,
                  const Sample *sample, RNG &rng, MemoryArena &localArena) const;
+    Spectrum sampleVRLBruteForce(const Scene *scene, const Renderer *renderer,
+                                                const RayDifferential &ray, const Intersection &isect,
+                                                const Sample *sample, RNG &rng, MemoryArena &localArena) const;
     void RequestSamples(Sampler *sampler, Sample *sample, const Scene *scene);
     void Preprocess(const Scene *scene, const Camera *camera, const Renderer *renderer);
 	void setSurfaceLights( vector<VirtualSphericalLight> &vsl);

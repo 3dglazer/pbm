@@ -119,6 +119,7 @@ struct VolumePath{
         }
         return 0.;
     }
+    
 };
 
 inline bool toLineString(VolumePath &vpth,string &data){
