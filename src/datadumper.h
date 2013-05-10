@@ -14,12 +14,50 @@
 #include <fstream>
 #include <sstream>
 #include <map>
+#include <ostream>
+//#include "vlstructs.h"
+struct VirtualSphericalLight;
+struct VolumePath;
+inline bool toLineString(VolumePath &vpth,string &data);
+inline string toPointString(VirtualSphericalLight &vsl);
 
 using namespace std;
 class DataDumper {
 	public:
 	DataDumper(){}
 	~DataDumper(){}
+    void dumpVirtualSphericalLight(std::vector<VirtualSphericalLight*> &vsls,const string &fileName){
+        ofstream myfile;
+		printf("data size is %d",vsls.size());
+		myfile.open(fileName.c_str());
+		VirtualSphericalLight* curl;
+		for (int i=0; i<vsls.size(); i++) {
+            curl=vsls[i];
+            myfile<<"p=";
+			myfile<<toPointString(*curl);
+			myfile<<"\n";
+		}
+		//myfile << "Writing this to a file.\n";
+		myfile.close();
+    }
+    
+    void dumpVolumePaths(std::vector<VolumePath*>vpths,const string &fileName){
+        ofstream myfile;
+		printf("data size is %d",vpths.size());
+		myfile.open(fileName.c_str());
+        VolumePath* curl;
+        std::string str;
+		for (int i=0; i<vpths.size(); i++) {
+            curl=vpths[i];
+            if(!toLineString(*curl,str)) continue;
+            myfile<<"l=";
+			myfile<<str;
+			myfile<<"\n";
+		}
+		//myfile << "Writing this to a file.\n";
+		myfile.close();
+
+    }
 	void dump2File(const string &fileName){
 		ofstream myfile;
 		printf("data size is %d",data.size());

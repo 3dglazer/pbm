@@ -37,7 +37,11 @@ float VolumeGridDensity::Density(const Point &Pobj) const {
     vox.z = vox.z * nz - .5f;
     int vx = Floor2Int(vox.x), vy = Floor2Int(vox.y), vz = Floor2Int(vox.z);
     float dx = vox.x - vx, dy = vox.y - vy, dz = vox.z - vz;
-
+//    //MC drawing the grid
+//    float gridThick=1.-0.001;
+//    if (dx>gridThick||dy>gridThick||dy>gridThick) {
+//        return 1000.;
+//    }
     // Trilinearly interpolate density values to compute local density
     float d00 = Lerp(dx, D(vx, vy, vz),     D(vx+1, vy, vz));
     float d10 = Lerp(dx, D(vx, vy+1, vz),   D(vx+1, vy+1, vz));

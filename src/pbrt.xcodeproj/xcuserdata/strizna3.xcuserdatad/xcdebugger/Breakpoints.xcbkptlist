@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "particleshooter.cpp"
-         timestampString = "389471193.382889"
+         timestampString = "389651936.097597"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "95"
-         endingLineNumber = "95"
+         startingLineNumber = "104"
+         endingLineNumber = "104"
          landmarkName = "ParticleShooter::shootParticles(const Scene * scene, Camera * camera, const ProgressiveRenderer *renderer, int nPaths,float radius)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -21,11 +21,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "particleshooter.cpp"
-         timestampString = "389471193.382889"
+         timestampString = "389651936.097597"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "74"
-         endingLineNumber = "74"
+         startingLineNumber = "79"
+         endingLineNumber = "79"
          landmarkName = "ParticleShooter::shootParticles(const Scene * scene, Camera * camera, const ProgressiveRenderer *renderer, int nPaths,float radius)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -34,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "renderers/progressiveRenderer.cpp"
-         timestampString = "389476458.174511"
+         timestampString = "389567970.786778"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "400"
-         endingLineNumber = "400"
+         startingLineNumber = "402"
+         endingLineNumber = "402"
          landmarkName = "PGRenderer::Lss(const Scene *scene, const RayDifferential &amp;ray, const Sample *sample, RNG &amp;rng, MemoryArena &amp;arena, Intersection *isect, Spectrum *T)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -47,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "renderers/progressiveRenderer.cpp"
-         timestampString = "389476458.174511"
+         timestampString = "389567970.786778"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "391"
-         endingLineNumber = "391"
+         startingLineNumber = "393"
+         endingLineNumber = "393"
          landmarkName = "PGRenderer::Lss(const Scene *scene, const RayDifferential &amp;ray, const Sample *sample, RNG &amp;rng, MemoryArena &amp;arena, Intersection *isect, Spectrum *T)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -60,11 +60,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "renderers/progressiveRenderer.cpp"
-         timestampString = "389476458.174511"
+         timestampString = "389567970.786778"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "254"
-         endingLineNumber = "254"
+         startingLineNumber = "256"
+         endingLineNumber = "256"
          landmarkName = "PGRenderer::renderIter(int currentIter,const Scene *scene, Sample *sample)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -77,9 +77,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "190"
-         endingLineNumber = "190"
-         landmarkName = "MultiScatteringIntegrator::Lmm(const Scene *scene, const ProgressiveRenderer * renderer, const RayDifferential &amp;ray,const Sample *sample, RNG &amp;rng, Spectrum *T, MemoryArena &amp;arena)"
-         landmarkType = "5">
+         endingLineNumber = "190">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -91,8 +89,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "195"
          endingLineNumber = "195"
-         landmarkName = "MultiScatteringIntegrator::Lmm(const Scene *scene, const ProgressiveRenderer * renderer, const RayDifferential &amp;ray,const Sample *sample, RNG &amp;rng, Spectrum *T, MemoryArena &amp;arena)"
-         landmarkType = "5">
+         landmarkName = "myline2line(const Point &amp;p0,const Vector &amp;v0,const Point &amp;p1,const Vector &amp;v1)"
+         landmarkType = "7">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -116,7 +114,9 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "229"
-         endingLineNumber = "229">
+         endingLineNumber = "229"
+         landmarkName = "MultiScatteringIntegrator::Lsm(const Scene *scene, const ProgressiveRenderer * renderer, const RayDifferential &amp;ray,const Sample *sample, RNG &amp;rng, Spectrum *T, MemoryArena &amp;arena)"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
@@ -145,7 +145,7 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "integrators/multi.cpp"
@@ -154,7 +154,20 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "335"
          endingLineNumber = "335"
-         landmarkName = "MultiScatteringIntegrator::vrlSamplingVIZ(float t0,float t1,const Scene *scene, const ProgressiveRenderer * renderer, const RayDifferential &amp;ray,const Sample *sample, RNG &amp;rng, Spectrum *T, MemoryArena &amp;arena)"
+         landmarkName = "MultiScatteringIntegrator::vrlSamplingBruteForce(float t0,float t1,const Scene *scene, const ProgressiveRenderer * renderer, const RayDifferential &amp;ray,const Sample *sample, RNG &amp;rng, Spectrum *T, MemoryArena &amp;arena)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "particleshooter.cpp"
+         timestampString = "389649613.694555"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "62"
+         endingLineNumber = "62"
+         landmarkName = "ParticleShooter::shootParticles(const Scene * scene, Camera * camera, const ProgressiveRenderer *renderer, int nPaths,float radius)"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
