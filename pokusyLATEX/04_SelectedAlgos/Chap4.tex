@@ -21,23 +21,29 @@ be generated anyway for noise free result.
 \\
 \\
 In both cases multiple photon shooting passes are used with progressively reducing photon
-radius. The radius reduction ensures that the bias reduces to in the limit. Right
-reduction rate can
+radius. The radius reduction ensures that the bias goes to zero in the limit.
 \\
 \\
  =========== TODO REDUCTION RADIUS RATE EQUATION
 \myFigure{1.}{images/ppmsppm}{Progressive photon mapping and stochastic progressive photon mapping comparison. Source \cite{Hachisuka:2009:SPP}.}{Progressive photon mapping and stochastic progressive photon mapping comparison. Source \cite{Hachisuka:2009:SPP}.}{fig::SPPMPPM}
 
 \myFigure{0.5}{images/vpl2vbl}{Comparison vpl, vsl, vrl, vbl.}{During the preprocessing stage photon paths are shoot into the participating media. This image compares the methods we can store and evaluate cached radiance in the form of virtual lights. This figure demonstrates the analogy of virtual spherical lights to virtual point lights with virtual beam lights to virtual ray lights. Source \cite{novak12vbls}.}{fig:vpl2vbl}
+\section{Virtual point lights}
+\cite{Keller97instantradiosity} %original paper about vpls 
+
+\section{Virtual spherical lights}
+\cite{HasanVSL} %virtual spherical lights
+
 
 \section{Beam mapping}
 \cite{jarosz11progressive}
 Hybrid solution cpu gpu rasterization..
-\section{Virtual point lights}
-\cite{Keller97instantradiosity} %original paper about vpls 
-\cite{HasanVSL} %virtual spherical lights
+
+
+
 \section{Virtual ray lights}
 \cite{novak12vrls}
+
 \section{Virtual beam lights}
 As you can se on the image fig \ref{fig:vpl2vbl}
 \cite{novak12vbls}

@@ -18,19 +18,18 @@ The main difference is the lack of progressive rendering stage which reuses scen
 
 \section{Volume representation}
 To test selected algorithms we have to decide which volume representations we will use to model different kinds of volumetric phenomenons.
-
-\begin{itemize}
-\item \bd{Bounding volumes}
+\\
+\\
+\paragraph*{Bounding volumes}
 We have chosen to implement a bounding volume representation, using a volume box. To model the heterogenous density inside the volume box, we use multiple octaves of 3D Perlin noise function and custom step function. This this way we have a memory friendly, easily expandable and adjustable volume representation we can use to test out selected algorithms. To see some examples of the functions used, have a look at fig \ref{fig:3DDENSITYFUNC}. As you can see 3D Perlin noise is very useful for modeling heterogenous fog environments. While the step function will help us in the debugging stage, where we will test the correctness of photon volume multiple scattering behavior.
-
-\item \bd{Unified grid}
+\\
+\\
+\paragraph*{Unified grid}
 To test out real world production scenarios, we have decided to use PBRT internal unified grid representation, where we can directly load any 3D fluid simulation. Have a look at \ref{fig:SIMDATA}, as you can see this way we can nicely represent smoke plumes.
 
 \myFigure{0.5}{images/temp.jpg}{Custom density 3D functions.}{Two distinct 3D functions were implemented to represent various heterogenous media. Multiple octaves of 3D Perlin noise on left and custom step function on right.}{fig:3DDENSITYFUNC}
 
 \myFigure{0.5}{images/temp.jpg}{Fluid simulation data container, uniform grid.}{PBRT 3D uniform grid structure used to hold fluid simulation data.}{fig:SIMDATA}
-
-\end{itemize}
 
 \section{Brdf}
 What brdf will be used, importance sampling implementaion

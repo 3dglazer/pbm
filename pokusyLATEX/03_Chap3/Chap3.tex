@@ -73,7 +73,6 @@ cdf(r)=-ln(1-r)/\kappa_\text{max}
 , where r is a uniformly distributed random variable and $\kappa_\text{max}$ is maximal extinction coefficient.
 
 % ============ Unbiased methods =============
-\subsection{Unbiased methods}
 
 \myFigure{0.55}{\cestaImg temp.jpg}{Unbiased ray-tracing methods.}{Examples of unbiased ray-tracing methods, from left \ita{path tracing, light tracing, bidirectional path tracing}. The principle is pictured on the top raw and example renderings are in the bottom one.}{fig:UNBRT}
 
@@ -89,7 +88,7 @@ Many optimization steps can be taken to speed up the convergence. Some most used
 Other methods are based on importance sampling. This strategy distributes samples according to given probability density function (pdf) which should be as close as possible to the actual unknown density we try to estimate (fig \ref{fig:IMPORTSAMPLING}). As stated before these techniques don't guarantee any speedup. Choice of pdb can either make our sampling more efficient or totally ruin it. In practice though, the importance sampling plays major role and is key component of fast and accurate estimation.
 
 
-\subsubsection{Path tracing}
+\subsection{Path tracing}
 Since the elements directly seen by the camera usually participate into the image most, concept of reverse radiance gathering from camera path to light is most popular Monte Carlo method of evaluating rendering equation. 
 \\
 \\
@@ -107,25 +106,28 @@ Unfortunatelly path tracing is not very effitient in rendering caustics because 
 
 
 
-\subsubsection{Light tracing}
+\subsection{Light tracing}
 Is a dual algorithm to the path tracing. Paths are generated on the light sources and recursively traiced through the scene, when the sourface is hit or volume scattering event happens, shadow ray is casted to the camera. When the interaction point is unocluded on the path to camera, it gets projected and it's radiance value is added to the final image. 
 \\
 \\
-This algorithm can be very inefective in large scenes where the majority of the paths never reaches the camera. On the other hand it can be used on small scale scenes for evaulation purpouses, because it's unbiased and renders both surface and volume caustics much more efficiently than path tracing. See fig. \ref{fig:UNBRT} for the path tracing and light tracing algorithm comparison.
+This algorithm can be very inefective in large scenes where the majority of the paths never reaches the camera. Further more it fails to capture objects visible trough refraction because the probability that the ray will pass multiple refractions right to the camera is quite low. On the other hand light tracing can be used on small scale scenes for indirectct illumination accuracy evaulation purpouses, because it's unbiased and renders both surface and volume caustics much more efficiently than path tracing. See fig. \ref{fig:UNBRT} for the path tracing and light tracing algorithm comparison.
 
 
-\subsubsection{Bidirectional methods}
-
-Metropolis light transport \cite{Veach97metropolislight}
-However, bidirectional path tracing still fails to render specular reflection, refractions of caustics. This is caused by the fact that the probability of light reflecting o connecting a point on a specular surface to the camera always results in zero contribution to the image.
+\subsection{Bidirectional methods}
+This method tries to combine benefits of both path and light tracing methods. Rays are shoot from both camera and light and new light paths are generated as a result of their connection. To spedup the high energy path search and sampling, more elaborate methods like Metropolis light transport \cite{Veach97metropolislight}, do exist. These methods generate new paths using mutation of already found high energy paths.
+\\
+\\
+However all these methods still fail to render specular reflection, refractions of caustics. This is caused by the fact that the probability of light reflecting of connecting a point on a specular surface to the camera results in zero contribution to the image.
+\\
+\\
+Even though the convergence of bidirectional path tracing is much better than in the case of path and light tracing alone, many thousand rays are still needed to obtain noise free results.
 
 
 % ============ Biased methods =============
 
-\subsection{Biased methods}
+%\subsection{Biased methods}
 
-
-\subsubsection{Photon mapping}
+\subsection{Photon mapping}
 Photon mapping is two pass method, first introduced by Jensen in the \cite{Jensen:1996} paper. It's loosely based on a bidirectional Monte Carlo ray tracing. Instead of direct light - camera path connecting, the flux carrying light paths of length at least two are cached in the form of so called "photons". These imaginary particles are shoot in the first pass of the algorithm and end up in one of the two photon map acceleration structures. Caustic photon map holds photons created by direct specular reflection/refraction paths from light. Or they end up in the indirect photon map structure, which holds photons after an interaction with the diffuse surface.
 \\
 \\
@@ -136,7 +138,7 @@ usually exhibit strong sharp features, while the slowly changing indirect lighti
 using final gathering the indirect photon map.
 
 
-\subsubsection{Irradiance mapping}
+\subsection{Irradiance mapping}
 \cite{jarosz08thesis} %jarosz thesis irradiance caching
 irradiance caching, Photon tracing, final gather ...
 Plus and cons
