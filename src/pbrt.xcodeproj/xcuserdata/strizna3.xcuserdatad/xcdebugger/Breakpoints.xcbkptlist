@@ -34,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "renderers/progressiveRenderer.cpp"
-         timestampString = "389567970.786778"
+         timestampString = "389958104.861479"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "402"
-         endingLineNumber = "402"
+         startingLineNumber = "425"
+         endingLineNumber = "425"
          landmarkName = "PGRenderer::Lss(const Scene *scene, const RayDifferential &amp;ray, const Sample *sample, RNG &amp;rng, MemoryArena &amp;arena, Intersection *isect, Spectrum *T)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -47,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "renderers/progressiveRenderer.cpp"
-         timestampString = "389567970.786778"
+         timestampString = "389958104.861479"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "393"
-         endingLineNumber = "393"
+         startingLineNumber = "416"
+         endingLineNumber = "416"
          landmarkName = "PGRenderer::Lss(const Scene *scene, const RayDifferential &amp;ray, const Sample *sample, RNG &amp;rng, MemoryArena &amp;arena, Intersection *isect, Spectrum *T)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -60,11 +60,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "renderers/progressiveRenderer.cpp"
-         timestampString = "389567970.786778"
+         timestampString = "389958104.861479"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "256"
-         endingLineNumber = "256"
+         startingLineNumber = "279"
+         endingLineNumber = "279"
          landmarkName = "PGRenderer::renderIter(int currentIter,const Scene *scene, Sample *sample)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -97,11 +97,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "renderers/progressiveRenderer.cpp"
-         timestampString = "389476458.174511"
+         timestampString = "389958104.861479"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "149"
-         endingLineNumber = "149"
+         startingLineNumber = "172"
+         endingLineNumber = "172"
          landmarkName = "PGRendererTask::Run()"
          landmarkType = "5">
       </FileBreakpoint>
@@ -168,6 +168,19 @@
          startingLineNumber = "62"
          endingLineNumber = "62"
          landmarkName = "ParticleShooter::shootParticles(const Scene * scene, Camera * camera, const ProgressiveRenderer *renderer, int nPaths,float radius)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "integrators/igi.cpp"
+         timestampString = "389958104.861479"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "323"
+         endingLineNumber = "323"
+         landmarkName = "IGIIntegrator::sampleVRLBruteForce(const Scene *scene, const Renderer *renderer, const RayDifferential &amp;ray, const Intersection &amp;isect, const Sample *sample, RNG &amp;rng, MemoryArena &amp;localArena)"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

@@ -208,6 +208,7 @@ Spectrum IGIIntegrator::Lms(const Scene *scene, const ProgressiveRenderer *rende
     //should be called in every raycast in lss for every intersection point
     
     Spectrum ms=this->sampleVRLBruteForce(scene,renderer,ray,isect,sample,rng,localArena);
+   // Spectrum ms=this->Li(scene, renderer, ray, isect, sample, rng, localArena);
    return ms;
     return NULL;
 }
@@ -229,8 +230,8 @@ Spectrum IGIIntegrator::Lss(const Scene *scene, const ProgressiveRenderer *rende
 Spectrum IGIIntegrator::Li(const Scene *scene, const Renderer *renderer,
         const RayDifferential &ray, const Intersection &isect,
         const Sample *sample, RNG &rng, MemoryArena &localArena) const {
-    rng=RNG();
-    rng.Seed(12487);
+//    rng=RNG();
+//    rng.Seed(12487);
     Spectrum L(0.);
     Vector wo = -ray.d;
     // Compute emitted light if ray hit an area light source
@@ -320,6 +321,7 @@ Spectrum IGIIntegrator::Li(const Scene *scene, const Renderer *renderer,
 Spectrum IGIIntegrator::sampleVRLBruteForce(const Scene *scene, const Renderer *renderer,
                                               const RayDifferential &ray, const Intersection &isect,
                                               const Sample *sample, RNG &rng, MemoryArena &localArena) const {
+    Assert(!ray.HasNaNs());
     VolumeRegion* vr=scene->volumeRegion;
     Spectrum L(0.);
     Vector wo = -ray.d;
@@ -337,32 +339,39 @@ Spectrum IGIIntegrator::sampleVRLBruteForce(const Scene *scene, const Renderer *
     for (int i=0; i<vpths.size(); ++i) {
         curVpth=vpths[i];
         //sample every vrl 5 times
-        for (int s=0; s<1; ++s) {
-            float d=0.5;//rng.RandomFloat();
+        for (int s=0; s<30; ++s) {
+            float d=rng.RandomFloat();
             float rayPoint=curVpth->ray.mint+(curVpth->ray.maxt-curVpth->ray.mint)*d;
             vpthPoint=curVpth->ray.o+curVpth->ray.d*rayPoint;
-            Vector wi=Vector(vpthPoint-p);
-//            RayDifferential connectRay(p, wi, ray, isect.rayEpsilon,NULL);
-//            //if it's ocluded continue
-//            if (scene->IntersectP(connectRay)) {
-//                continue;
-//            }
-            float d2 =wi.LengthSquared();
-//            float pp=vr->p(vpthPoint, curVpth->ray.d, -wi, ray.time); // phase phunction at current point
-//            float G = pp * AbsDot(wi, n) / d2;
-            float G= 1.f/d2;
+            Vector wi=Normalize(vpthPoint-p);
+            float d2 =DistanceSquared(vpthPoint, p);
+            //RayDifferential connectRay(p,wi,NULL, isect.rayEpsilon,NULL);
+            RayDifferential connectRay;
+            connectRay.o=p;
+            connectRay.d=wi;
+            connectRay.mint=isect.rayEpsilon;
+           // RayDifferential connectRay(p, wi, ray, isect.rayEpsilon,NULL);
+            //if it's ocluded continue
+            if (scene->IntersectP(connectRay)) {
+                continue;
+            }
+            
+            float pp=vr->p(vpthPoint, curVpth->ray.d, -wi, ray.time); // phase phunction at current point
+            float G = pp * AbsDot(wi, n) / d2;
+            //float G= 1.f/d2;
             G = (G<10.)?G:10.;
-//            Spectrum f = bsdf->f(wo, wi);
-//            if (G == 0.f || f.IsBlack()) continue;
+            Spectrum f = bsdf->f(wo, wi);
+            if (G == 0.f || f.IsBlack()) continue;
             //weight contribution with vrl transmittance and transmittance between surface point and sample point on vrl
-//            vpthContrib=curVpth->contrib*curVpth->getTransmittance(rayPoint)*renderer->Transmittance(scene, connectRay, NULL, rng, localArena);
+            vpthContrib=curVpth->contrib*curVpth->getTransmittance(rayPoint)*renderer->Transmittance(scene, connectRay, NULL, rng, localArena);
             //weight the contribution with scattering coeficient of the media in the sample point the vector here is not needed 
-            //vpthContrib*=vr->sigma_s(vpthPoint, wi, ray.time);
+            vpthContrib*=vr->sigma_s(vpthPoint, wi, ray.time);
             //weight the contribution with cos(theta) plus inverse squared distance pluss phase function in the vrl sample point
-            //vpthContrib*=G;
+            vpthContrib*=G;
             //weight the contribution with surface brdf
-//            L+=vpthContrib*f;
-            L+=curVpth->contrib*G*renderer->Transmittance(scene, RayDifferential(Ray(p, wi, 0)), NULL, rng, localArena);
+            L+=vpthContrib*f;
+            //L+=curVpth->contrib*G*renderer->Transmittance(scene, RayDifferential(Ray(p, wi, 0)), NULL, rng, localArena);
+           // L+=0.1*G*renderer->Transmittance(scene, RayDifferential(Ray(p, wi, 0)), NULL, rng, localArena)*renderer->Transmittance(scene, connectRay, NULL, rng, localArena);;
         }
     }
     return L;

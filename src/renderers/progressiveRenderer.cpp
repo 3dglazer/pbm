@@ -97,7 +97,8 @@ void PGRendererTask::Run() {
     Spectrum *Lms = new Spectrum[maxSamples];
     //end of MC
     Intersection *isects = new Intersection[maxSamples];
-	
+	float rgbdef[3]={0.,0.,0.};
+    Spectrum zero=Spectrum::FromRGB(rgbdef);
     // Get samples from _Sampler_ and update image
     int sampleCount;
     while ((sampleCount = sampler->GetMoreSamples(samples, rng)) > 0) {
@@ -121,32 +122,54 @@ void PGRendererTask::Run() {
                     Ls[i] /= 255.f;
                 }
                 else
+                    //if the ray doesnt intersect geometry
+//                    for (uint32_t j = 0; j < scene->lights.size(); ++j){
+//                        Li += scene->lights[j]->Le(rays[i]);
+//                    }
+//                    Lss[i]=Li;
                     Ls[i] = 0.f;
+                
             }
             else {
 				if (rayWeight > 0.f){
+                    
+                    Ls[i]=zero;
+                    Lss[i]=zero;
+                    Lsm[i]=zero;
+                    Lms[i]=zero;
+                    Lmm[i]=zero;
                     Intersection *isect=&isects[i];
                     RayDifferential currRay=rays[i];
+                    currRay.maxt=10000.f;
                     Sample *currSample=&samples[i];
                     Spectrum tempT=1.;
                     Spectrum Li;
+                    //printf("weightGreater than zero\n");
+//                    Spectrum rd=RGBSpectrum();
+//                    float* rcl=new float[3];
+//                    rcl[0]=1.0;
+//                    rcl[1]=0.;
+//                    rcl[2]=0.;
+//                    rd.FromRGB(&rcl[0]);
+                    //printf("%f,%f,%f",rd);
+                    //scene->Intersect(currRay, isect);
                     //Ls[i] = rayWeight * renderer->Li(scene, rays[i], &samples[i], rng, arena, &isects[i], &Ts[i]);
-                    if (scene->Intersect(currRay, isect)) {
-                        //Lss[i] = rayWeight * surfaceIntegrator->Lss(scene, renderer, currRay, *isect, currSample,rng, arena);
-                        //Lss[i] = rayWeight * surfaceIntegrator->Li(scene, renderer, currRay, *isect, currSample,rng, arena);
-                        //Lms[i] = rayWeight * surfaceIntegrator->Lms(scene, renderer, currRay, *isect, currSample,rng, arena);
+                    if (scene->Intersect(rays[i], &isects[i])) {
+                        //printf("intersection happened");
+                        //Ls[i] = rayWeight * surfaceIntegrator->Li(scene, renderer, rays[i], isects[i], currSample,rng, arena);
+                        Lss[i] = rayWeight * surfaceIntegrator->Li(scene, renderer, currRay, *isect, currSample,rng, arena);
+                        //Lss[i]=rd;
+                        Lms[i] = rayWeight * surfaceIntegrator->Lms(scene, renderer, currRay, *isect, currSample,rng, arena);
                     }else{
                         // Handle ray that doesn't intersect any geometry
-                        for (uint32_t i = 0; i < scene->lights.size(); ++i){
-                            Li += scene->lights[i]->Le(currRay);
-                        }
-                        Lss[i]=Li;
+
                     }
-                    Lmm[i]= rayWeight * volumeIntegrator->Lmm(scene, renderer, currRay, currSample, rng, &Ts[i], arena);
+                    Lmm[i]= rayWeight * volumeIntegrator->Lmm(scene, renderer, RayDifferential(currRay), currSample, rng, &Ts[i], arena);
                     Spectrum tr=Ts[i];
                     //Lmm[i]= rayWeight * volumeIntegrator->Li(scene, renderer, currRay, currSample, rng, &Ts[i], arena);
-                    Lsm[i]= rayWeight * volumeIntegrator->Lsm(scene, renderer, currRay, currSample, rng, &tempT, arena);
-                    Ls[i]= (Lss[i]+Lms[i])*(Ts[i])+ Lmm[i] + Lsm[i];
+                    Lsm[i]= rayWeight * volumeIntegrator->Lsm(scene, renderer, RayDifferential(currRay), currSample, rng, &tempT, arena);
+                    //Ts[i]=tempT;
+                    Ls[i]= (Lss[i]*0.5+Lms[i]*0.5)*(Ts[i])+ Lmm[i] + Lsm[i];
                 }else {
 					Ls[i] = 0.f;
                     //MC

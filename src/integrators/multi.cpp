@@ -291,27 +291,27 @@ Spectrum MultiScatteringIntegrator::vrlSamplingBruteForce(float t0,float t1,cons
             
             for (int vpthIdx=0; vpthIdx<vpths.size(); ++vpthIdx) {
                 curPath=vpths[vpthIdx];
-                float vrlD=curPath->ray.mint+(curPath->ray.maxt - curPath->ray.mint) * (rng.RandomFloat());
-                vrlSample=curPath->ray.o+curPath->ray.d*vrlD;
-                Vector wo=Vector(vrlSample - p); //vector to the light
-                Ray connectRay= Ray(p, wo, 0.);
-                if (scene->IntersectP(connectRay)) {
-                    continue; //move on sample is obscured
-                }
-                vrlTr=curPath->getTransmittance(vrlD);
-                Spectrum vrlContrib=curPath->contrib * vrlTr;
-                
-                float d2=wo.LengthSquared();
-                wo=Normalize(wo);
-                float pp=vr->p(p, ray.d, wo, ray.time); // phase phunction at current point
-                float pvrl=vr->p(vrlSample, curPath->ray.d, -wo, ray.time);
-                Spectrum ssVrl= vr->sigma_s(vrlSample, curPath->ray.d, ray.time);
-                if (isnan(pp)||isnan(pvrl)) {
-                    continue;
-                }
-                if (!vrlContrib.IsBlack() && !ss.IsBlack() && !ssVrl.IsBlack() && pp!=0 && pvrl!=0) {
-                    Lv+=Tr*vrlContrib*ss*pp*pvrl; //vrl ss is counted in the contrib ?? *ssVrl // the square dist term is missing
-                    Lv*=1./d2;  //test without phase functions
+                //sample few places on vrl
+                for (int did=0; did<10; ++did) {
+                    float vrlD=curPath->ray.mint+(curPath->ray.maxt - curPath->ray.mint) * (rng.RandomFloat());
+                    vrlSample=curPath->ray.o+curPath->ray.d*vrlD;
+                    Vector wo=Normalize(vrlSample - p); //vector to the light
+                    Ray connectRay= Ray(p, wo, 0.);
+                    if (scene->IntersectP(connectRay)) {
+                        continue; //move on sample is obscured
+                    }
+                    vrlTr=curPath->getTransmittance(vrlD);
+                    Spectrum vrlContrib=curPath->contrib * vrlTr;
+                    float d2=DistanceSquared(vrlSample, p);
+                    float pp=vr->p(p, ray.d, wo, ray.time); // phase phunction at current point
+                    float pvrl=vr->p(vrlSample, curPath->ray.d, -wo, ray.time);
+                    Spectrum ssVrl= vr->sigma_s(vrlSample, curPath->ray.d, ray.time);
+                    if (isnan(pp)||isnan(pvrl)) {
+                        continue;
+                    }
+                    if (!vrlContrib.IsBlack() && !ss.IsBlack() && !ssVrl.IsBlack() && pp!=0 && pvrl!=0) {
+                        Lv+=Tr*vrlContrib*ss*pp*pvrl*ssVrl*renderer->Transmittance(scene, RayDifferential(connectRay), NULL, rng, arena)*1./d2; //vrl ss is counted in the contrib ?? *ssVrl // the square dist term is missing
+                    }
                 }
             }
              
