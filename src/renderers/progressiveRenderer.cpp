@@ -51,18 +51,18 @@ static uint32_t hash(char *key, uint32_t len)
 void PGRendererTask::repairSample(Spectrum &s){
     // Issue warning if unexpected radiance value returned
     if (s.HasNaNs()) {
-        Error("Not-a-number radiance value returned "
-              "for image sample.  Setting to black.");
+//        Error("Not-a-number radiance value returned "
+//              "for image sample.  Setting to black.");
         s = Spectrum(0.f);
     }
     else if (s.y() < -1e-5) {
-        Error("Negative luminance value, %f, returned"
-              "for image sample.  Setting to black.", s.y());
+//        Error("Negative luminance value, %f, returned"
+//              "for image sample.  Setting to black.", s.y());
         s = Spectrum(0.f);
     }
     else if (isinf(s.y())) {
-        Error("Infinite luminance value returned"
-              "for image sample.  Setting to black.");
+//        Error("Infinite luminance value returned"
+//              "for image sample.  Setting to black.");
         s = Spectrum(0.f);
     }
 }
@@ -169,7 +169,7 @@ void PGRendererTask::Run() {
                     //Lmm[i]= rayWeight * volumeIntegrator->Li(scene, renderer, currRay, currSample, rng, &Ts[i], arena);
                     Lsm[i]= rayWeight * volumeIntegrator->Lsm(scene, renderer, RayDifferential(currRay), currSample, rng, &tempT, arena);
                     //Ts[i]=tempT;
-                    Ls[i]= (Lss[i]*0.5+Lms[i]*0.5)*(Ts[i])+ Lmm[i] + Lsm[i];
+                    Ls[i]= (Lss[i]+Lms[i])*(Ts[i])+ Lmm[i] + Lsm[i];
                 }else {
 					Ls[i] = 0.f;
                     //MC
@@ -332,7 +332,7 @@ void PGRenderer::Render(const Scene *scene) {
 	for (int n=0; n<nIter; n++) {
 		renderIter(n, scene,sample);
 		//delete all the information by now
-		camera->film->resetPixels();
+		//camera->film->resetPixels(); //might cause problem originaly was not commented and displayed individual iterations
 	}
 
     //MC write all the different transport averaged images to separate files

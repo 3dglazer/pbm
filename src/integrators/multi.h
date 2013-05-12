@@ -15,6 +15,7 @@
 #include "integrator.h"
 #include <math.h>
 #include <stdlib.h>
+#include "samplingmethods.h"
 // MultiScatteringIntegrator Declarations
 class MultiScatteringIntegrator : public ProgressiveVolumeIntegrator {
 public:
@@ -42,6 +43,7 @@ private:
     // VPL sampling methods
     Spectrum vslSamplingBruteForce(float t0,float t1,const Scene *scene, const ProgressiveRenderer * renderer, const RayDifferential &ray,const Sample *sample, RNG &rng, Spectrum *T, MemoryArena &arena) const;
     Spectrum vslSamplingVIZ(float t0,float t1,const Scene *scene, const ProgressiveRenderer * renderer, const RayDifferential &ray,const Sample *sample, RNG &rng, Spectrum *T, MemoryArena &arena) const;
+    Spectrum vslSamplingCDF(float t0,float t1,const Scene *scene, const ProgressiveRenderer * renderer, const RayDifferential &ray,const Sample *sample, RNG &rng, Spectrum *T, MemoryArena &arena) const;
     float stepSize;
     int tauSampleOffset, scatterSampleOffset;
 };

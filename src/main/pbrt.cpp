@@ -28,9 +28,31 @@
 #include "probes.h"
 #include "parser.h"
 #include "parallel.h"
-
+#include "samplingmethods.h"
 // main program
 int main(int argc, char *argv[]) {
+    
+    Point vrl0=Point(0,0,0);
+    Point vrlend=Point(1,0,0);
+    
+    Point p=Point(0.5,1.,0.);
+    float sParam;
+    float h=p2Ray(p, vrl0, vrlend, sParam);
+    float s=0;
+    printf("\nh=%f; sParam=%f;\n",h,sParam);
+    float rayPoint=invEqAngCDF(s, h, 0.-sParam, 1.-sParam);
+    float u0=0.-sParam;
+    float u1=1.-sParam;
+    float val0=atanf(u0/h);
+    float val1=atanf(u1/h);
+    float lrp1=Lerp(s, val0, val1);
+    float lrp0=Lerp(val0, val1, s);
+    
+    float newRayPoint=h*tan(s);
+    
+    printf("\n newRayPoint=%f",newRayPoint);
+    
+    
     Options options;
     vector<string> filenames;
     // Process command-line arguments

@@ -118,87 +118,7 @@ float MultiScatteringIntegrator::freeFlight(const Scene *scene, const Ray &r,Spe
     return scene->volumeRegion->freeFlight(r, tau, rng);
 }
 
-// Variation of the Code from http://geomalgorithms.com/a07-_distance.html
-// References David Eberly, "Distance Methods" in 3D Game Engine Design (2006)
-//Seth Teller, line_line_closest_points3d() (2000) cited in the Graphics  Algorithms FAQ (2001)
-// Returns closest distance between lines and creates two closest points on these lines.
-float ln2lnPP(const Ray &L1,const Ray &L2, float &p1, float &p2)
-{
-    Vector u = L1.d;
-    Vector v = L2.d;
-    Vector w = L1.o - L2.o;
-    float a = Dot(u,u);         
-    float b = Dot(u,v);
-    float c = Dot(v,v);         
-    float d = Dot(u,w);
-    float e = Dot(v,w);
-    float D = a*c - b*b;        
-    float sc, tc;
-    if (D < 0.000001) {          // parallel
-        sc = 0.0;
-        tc = (b>c ? d/b : e/c);    
-    }
-    else {
-        sc = (b*e - c*d) / D;
-        tc = (a*e - b*d) / D;
-    }
-//    if (p1==0 || p2==0) {
-//        Vector   dP = w + (sc * u) - (tc * v);  // =  L1(sc) - L2(tc)
-//        return dP.Length();   // return the closest distance
-//    }else{
-        //p1=new Point(L1.o+sc*u);
-        //p2=new Point(L2.o+tc*v);
-        //u= Vector(*p1-*p2);
-    p1=sc;
-    p2=tc;
-    return u.Length();
-//    }
-}
-//===================================================================
 
-inline float A(float x, float phi, float h){
-    return asinhf((x/h)*sinf(phi));
-}
-
-// analytical marginal inverse CDF for inverse squared sampling points vrl, phi is angle between camera vector and vrl vector
-inline float invSqrCDF(float r,float phi,float h, float v0, float v1){
-    return h*sinhf(Lerp(A(v0, phi, h), A(v1,phi,h), r))/sinf(phi);
-}
-
-inline float B(float x,float h){
-    return atan(x/h);
-}
-
-//generates equiangular samples on the camera ray between u0 and u1 parametric distances, r is random number
-inline float invEqAngCDF(float r,float h,float u0,float u1){
-    return h*tanf(Lerp(B(u0,h), B(u1,h), r));
-}
-
-//both rays have to be normalized + the vrl.mint is beginning of the media and vrl.maxt is the end of interraction. h will contain the smallest distance between the vectors
-float sampleVRL(const Ray &r,const Ray &vrl, RNG& rng, float &h){
-    float uh; //closest point parameter on camera ray
-    float vh; //closest point parameter on vrl
-    h=ln2lnPP(r, vrl, uh, vh);
-    float phi=acosf(Dot(r.d, vrl.d));
-    float v0d= vrl.mint-h;
-    float v1d= vrl.maxt-h;
-    float rnd=rng.RandomFloat();
-    return invSqrCDF(rnd, phi, h, v0d, v1d);
-}
-
-//unit vectors expected otherwise wont work
-inline float myline2line(const Point &p0,const Vector &v0,const Point &p1,const Vector &v1){
-    bool paralel=false;
-    Vector tmp=(v0-v1);
-    if(tmp.Length()<0.00001) paralel=true;
-    if (paralel) {
-        tmp=Cross(Vector(p1-p0), v0);
-        return tmp.Length();
-    }else{
-        tmp=Cross(v0,v1);
-        return Dot(Vector(p1-p0), tmp)/tmp.Length();
-    }
-}
 
 
 //Media -> Media integration part integration over VRLs
@@ -210,11 +130,10 @@ Spectrum MultiScatteringIntegrator::Lmm(const Scene *scene, const ProgressiveRen
         *T = 1.f;
         return 0.f;
     }
-    Spectrum Lmm= vrlSamplingBruteForce(t0, t1, scene, renderer, ray, sample, rng, T, arena);
+    //Spectrum Lmm= vrlSamplingBruteForce(t0, t1, scene, renderer, ray, sample, rng, T, arena);
+    Spectrum Lmm=vrlSamplingPaper1(t0, t1, scene, renderer, ray, sample, rng, T, arena);
     //Spectrum Lmm= vrlSamplingVIZ(t0, t1, scene, renderer, ray, sample, rng, T, arena);
 
-    
-        
     return Lmm;
 }
 
@@ -235,6 +154,7 @@ Spectrum MultiScatteringIntegrator::Lsm(const Scene *scene, const ProgressiveRen
     
     Lv=vslSamplingBruteForce(t0, t1, scene, renderer, ray, sample, rng, T, arena);
     //Lv=vslSamplingVIZ(t0, t1, scene, renderer, ray, sample, rng, T, arena);
+    //Lv=vslSamplingCDF(t0, t1, scene, renderer, ray, sample, rng, T, arena);
     
     return Lv;
 }
@@ -388,6 +308,151 @@ Spectrum MultiScatteringIntegrator::vslSamplingVIZ(float t0,float t1,const Scene
 }
 
 Spectrum MultiScatteringIntegrator::vrlSamplingPaper1(float t0,float t1,const Scene *scene, const ProgressiveRenderer * renderer, const RayDifferential &ray,const Sample *sample, RNG &rng, Spectrum *T, MemoryArena &arena) const{
+    
+#ifndef OLDIMPL
+    
+    VolumeRegion *vr = scene->volumeRegion;
+    Vector w = -ray.d;
+    RayDifferential lray(ray);
+    //sample every vrl nSamples times
+    const int nSamples=10;
+    const float stepSize=1./(float)nSamples;
+    float pdfVals[nSamples];
+    float rayPoint=0;
+    const int camSamples=10;
+    //first save transmitance to VolumePath take from particleShooter
+    //maybe add some constraining criteria like maximum scattering events in the original VRL paper is 16
+    Spectrum tau(0.);
+    Spectrum maxtau;
+    float d;
+    float dmax=-INFINITY;
+    VolumePath rayTransmCache(ray);
+    //rayTransmCache.ray.d=-ray.d;
+    rayTransmCache.ray.mint=t0;
+    rayTransmCache.ray.maxt=t1;
+    Spectrum vslsContrib;
+    Spectrum L(0.);
+    Spectrum alpha(1.);
+    for (int evnts=0; evnts < camSamples; ++evnts) {
+        d=renderer->freeFlight(scene, lray, maxtau, rng); //the tau could be used for multiple scattering
+        if (d==-1.){
+            continue; //scattering did not happened tau should be valid
+        }else{
+            if (d>dmax) {
+                dmax=d;
+                tau=maxtau;
+            }
+            rayTransmCache.dists.push_back(d);
+        }
+    }// end of SCATTERING EVENTS
+    
+    //if full transmitance needed
+    if (dmax<t1) {
+        alpha*=renderer->Transmittance(scene, ray, NULL, rng, arena); //attnuation to the vsl
+        //tau+=(t1-d)*scene->volumeRegion->sigma_t(ray.o+ray.d*t1, ray.d, ray.time);
+    }
+    
+    *T = alpha;
+    
+    
+    if (vsls.empty()) {
+        return L;
+    }
+    
+    
+    //for now fixed point in the middle of the vrl is used 
+    float vrlSampleDist;
+    Ray mray=rayTransmCache.ray;
+    
+    //nead point to line
+    Point minP=mray.o+mray.d*mray.mint;
+    Point maxP=mray.o+mray.d*mray.maxt;
+    Point p;
+    Point vpthPoint;
+    //iterating over Volume paths sigle sample on every vpl
+    for (uint32_t i = 0; i < this->vpths.size(); ++i) {
+        //printf("\n======iterating over vsls========");
+        VolumePath *currVrl = vpths[i];
+        vrlSampleDist=(currVrl->ray.maxt-currVrl->ray.mint)/2.0;
+        Point vrlPoint=currVrl->ray.o+currVrl->ray.d*(vrlSampleDist);
+        float sParam=0.; //parametric distance to vector beginning
+        float h=p2Ray(vrlPoint, minP,maxP,sParam);
+        //printf("\nh=%f; sParam=%f;\n",h,sParam);
+        float v0=mray.mint-sParam;
+        float v1=mray.maxt-sParam;
+        int smpl=0;
+        // generate analytical marginal pdf for vrl Sampling using 10 equiAngular samples on VRL
+        for (float s=0; s<=1.; s+=stepSize) {
+            //generate 10 eq angular samples
+            rayPoint=invEqAngCDF(s, h, v0, v1);
+            rayPoint+=sParam; //move the sample to ray origin
+
+            p=minP+mray.d*rayPoint;
+            Vector wi = Normalize(vrlPoint - p);
+            float pp=vr->p(p, w, -wi, ray.time); // phase phunction at current pointat current point
+            float ppVrl=vr->p(vrlPoint, currVrl->ray.d, wi, ray.time);
+            float G = pp * ppVrl;
+            pdfVals[smpl]=G;
+            smpl++;
+        }
+        
+        //sample according to the pdf distribution
+        float ret,pdf;
+        Distribution1D distrib=Distribution1D(&pdfVals[0], nSamples);
+        // sample ten points on vrl acording to the inverse squared cdf
+        for (int vrlS=0; vrlS<10; ++vrlS) {
+            ret=distrib.SampleContinuous(rng.RandomFloat(),&pdf); //what is the pdf and what is the ret
+            //generate 10 eq angular samples
+            rayPoint=invEqAngCDF(ret, h, v0, v1);
+            rayPoint+=sParam; //move the sample to ray origin
+            
+            p=minP+mray.d*rayPoint;
+            float d2 = DistanceSquared(p, vrlPoint);
+            Vector wi = Normalize(vrlPoint - p);
+            RayDifferential connectRay(p, wi, ray, NULL, sqrtf(d2));
+            if (scene->IntersectP(connectRay)) { //move on the next light if the light is obscured
+                continue;
+            }
+            float pp=vr->p(p, w, -wi, ray.time); // phase phunction at current pointat current point
+            float ppVrl=vr->p(vrlPoint, currVrl->ray.d, wi, ray.time);
+            float G = pp * ppVrl/d2;
+            G = (G<10000.)?G:10000.;
+            if (G == 0.f) continue;
+            Spectrum Llight = G * currVrl->contrib*currVrl->getTransmittance(vrlSampleDist);
+            //Spectrum Llight = G * vl->pathContrib; //neuvazuju brdf jen pro zkousku
+            Spectrum ss = vr->sigma_s(p, w, ray.time);
+            Spectrum ssVrl= vr->sigma_s(vrlPoint, currVrl->ray.d, ray.time);
+            if (ss.IsBlack()||ssVrl.IsBlack()) {
+                continue;
+            }
+            Llight *= renderer->Transmittance(scene, connectRay, NULL, rng, arena);
+            float rdstnc=rayPoint+mray.mint;
+            float Tr =rayTransmCache.getTransmittance(rdstnc);
+            if (Tr==0) {
+                if (!alpha.IsBlack()) {
+                    Tr=Lerp(rdstnc, 1., alpha.y());
+                }
+                continue;
+            }
+            if (!ss.IsBlack())
+                L += Tr*ss*ssVrl*Llight;
+            
+        }
+    }
+
+    return L;
+    
+    
+    
+#else
+    
+    
+    
+    
+    
+    
+    
+    
     Spectrum tau;
     Spectrum Lmm=0.f;
     float d;
@@ -397,27 +462,29 @@ Spectrum MultiScatteringIntegrator::vrlSamplingPaper1(float t0,float t1,const Sc
     rayTransm.ray.maxt=t1;
     
     
-    //maybe add some constraining criteria like maximum scattering events in the original VRL paper is 16
-    for (int evnts=0; evnts < 8; ++evnts) {
-        d=renderer->freeFlight(scene, rayTransm.ray, tau, rng); //the tau could be used for multiple scattering
+    Spectrum maxtau;
+    float dmax=-INFINITY;
+    for (int evnts=0; evnts < 16; ++evnts) {
+        d=renderer->freeFlight(scene, ray, maxtau, rng); //the tau could be used for multiple scattering
         if (d==-1.){
-            break; //scattering did not happened tau should be valid
+            continue; //scattering did not happened tau should be valid
         }else{
-            ray.mint=d; //save event distance for next tracking
+            if (d>dmax) {
+                dmax=d;
+                tau=maxtau;
+            }
+            //ray.mint=d; //save event distance for next tracking
             //add the transmittance and distance to the VRL
             rayTransm.dists.push_back(d);
             //phase function doesn't have to be saved can be querried directly from scene->volumeRegion->p(....) returns probability float.
         }
-        //possibly terminate tracking if the transmittance is really small
-        if (tau.returnOne() < 1e-3) {
-            const float continueProb = .5f;
-            if (rng.RandomFloat() > continueProb) break;
-        }
     }// end of SCATTERING EVENTS
-    //the scattering might end before reaching the surface we have to compute the tau
-    if (d<t1) {
-        tau+=(t1-d)*scene->volumeRegion->sigma_t(ray.o+ray.d*ray.mint, ray.d, ray.time);
+    //if the tracking ended before reaching the end point of media we have to add the optical thickness of the rest of the media to it, to correctly attenuate the vsls.
+    if (dmax<t1) {
+        *T=renderer->Transmittance(scene, ray, NULL, rng, arena); //attnuation to the vsl
+        //tau+=(t1-d)*scene->volumeRegion->sigma_t(ray.o+ray.d*t1, ray.d, ray.time);
     }
+    std::sort((rayTransm.dists.begin()), (rayTransm.dists.end()));
     //computed transmittance to be returned
     *T=Exp(-tau);
     
@@ -450,8 +517,10 @@ Spectrum MultiScatteringIntegrator::vrlSamplingPaper1(float t0,float t1,const Sc
             Lmm+=(curPath->contrib * vrlTr * rayTr) * (rayP * vrlP);
         }
     }
-    
     return Lmm;
+#endif
+    
+    
 }
 
 Spectrum MultiScatteringIntegrator::vslSamplingBruteForce(float t0,float t1,const Scene *scene, const ProgressiveRenderer * renderer, const RayDifferential &ray,const Sample *sample, RNG &rng, Spectrum *T, MemoryArena &arena) const{
@@ -518,4 +587,176 @@ Spectrum MultiScatteringIntegrator::vslSamplingBruteForce(float t0,float t1,cons
     *T = Tr;
     return Lv * step;
 }
+
+Spectrum MultiScatteringIntegrator::vslSamplingCDF(float t0,float t1,const Scene *scene, const ProgressiveRenderer * renderer, const RayDifferential &ray,const Sample *sample, RNG &rng, Spectrum *T, MemoryArena &arena) const{
+    VolumeRegion *vr = scene->volumeRegion;
+    Vector w = -ray.d;
+    RayDifferential lray(ray);
+    //sample every vrl nSamples times
+    const int nSamples=10;
+    const float stepSize=1./(float)nSamples;
+    float pdfVals[nSamples];
+    float rayPoint=0;
+    const int camSamples=10;
+    //first save transmitance to VolumePath take from particleShooter
+    //maybe add some constraining criteria like maximum scattering events in the original VRL paper is 16
+    Spectrum tau(0.);
+    Spectrum maxtau;
+    float d;
+    float dmax=-INFINITY;
+    VolumePath rayTransmCache(ray);
+    //rayTransmCache.ray.d=-ray.d;
+    rayTransmCache.ray.mint=t0;
+    rayTransmCache.ray.maxt=t1;
+    Spectrum vslsContrib;
+    Spectrum L(0.);
+    Spectrum alpha(1.);
+    for (int evnts=0; evnts < camSamples; ++evnts) {
+        d=renderer->freeFlight(scene, lray, maxtau, rng); //the tau could be used for multiple scattering
+        if (d==-1.){
+            continue; //scattering did not happened tau should be valid
+        }else{
+            if (d>dmax) {
+                dmax=d;
+                tau=maxtau;
+            }
+            rayTransmCache.dists.push_back(d);
+        }
+    }// end of SCATTERING EVENTS
+    
+    //if full transmitance needed
+    if (dmax<t1) {
+        alpha*=renderer->Transmittance(scene, ray, NULL, rng, arena); //attnuation to the vsl
+        //tau+=(t1-d)*scene->volumeRegion->sigma_t(ray.o+ray.d*t1, ray.d, ray.time);
+    }
+    
+    *T = alpha;
+    
+    
+    if (vsls.empty()) {
+        return L;
+    }
+    
+    
+    Ray mray=rayTransmCache.ray;
+    
+    //nead point to line
+    Point minP=mray.o+mray.d*mray.mint;
+    Point maxP=mray.o+mray.d*mray.maxt;
+    Point p;
+    Point vpthPoint;
+    //iterating over Volume paths sigle sample on every vpl
+    for (uint32_t i = 0; i < this->vsls.size(); ++i) {
+        //printf("\n======iterating over vsls========");
+        VirtualSphericalLight *vl = vsls[i];
+
+        float sParam=0.; //parametric distance to vector beginning
+        float h=p2Ray(vl->p, minP,maxP,sParam);
+        //printf("\nh=%f; sParam=%f;\n",h,sParam);
+        float v0=mray.mint-sParam;
+        float v1=mray.maxt-sParam;
+        int smpl=0;
+        // generate analytical marginal pdf for vrl Sampling using 10 equiAngular samples on VRL
+        for (float s=0; s<=1.; s+=stepSize) {
+            //generate 10 eq angular samples
+            rayPoint=invEqAngCDF(s, h, v0, v1);
+            rayPoint+=sParam; //move the sample to ray origin
+
+            p=minP+mray.d*rayPoint;
+            Vector wi = Normalize(vl->p - p);
+            float pp=vr->p(p, w, -wi, ray.time); // phase phunction at current pointat current point
+            float G = pp * AbsDot(wi, vl->n);
+            //G = (G<10000.)?G:10000.;
+            Spectrum f = vl->bsdf->f(-wi, vl->i);
+            if (G == 0.f || f.IsBlack()){
+                pdfVals[smpl]=0;
+            }else{
+                pdfVals[smpl]=G*f.y();
+            }
+            smpl++;
+        }
+        
+        //sample according to the pdf distribution
+        float ret,pdf;
+        Distribution1D distrib=Distribution1D(&pdfVals[0], nSamples);
+        // sample ten points on vrl acording to the inverse squared cdf
+        for (int vrlS=0; vrlS<10; ++vrlS) {
+            ret=distrib.SampleContinuous(rng.RandomFloat(),&pdf); //what is the pdf and what is the ret
+            //generate 10 eq angular samples
+            rayPoint=invEqAngCDF(ret, h, v0, v1);
+            rayPoint+=sParam; //move the sample to ray origin
+            
+            p=minP+mray.d*rayPoint;
+            float d2 = DistanceSquared(p, vl->p);
+            Vector wi = Normalize(vl->p - p);
+            RayDifferential connectRay(p, wi, ray, NULL, sqrtf(d2) * (1.f - vl->rayEpsilon));
+            if (scene->IntersectP(connectRay)) { //move on the next light if the light is obscured
+                continue;
+            }
+            float pp=vr->p(p, w, -wi, ray.time); // phase phunction at current point
+            float G = pp * AbsDot(wi, vl->n) / d2;
+            G = (G<10000.)?G:10000.;
+            Spectrum f = vl->bsdf->f(-wi, vl->i); // is -wi correct??
+            //                //Spectrum f = bsdf->f(wo, wi);
+            if (G == 0.f || f.IsBlack()) continue;
+            Spectrum Llight = f * G * vl->pathContrib;
+            //Spectrum Llight = G * vl->pathContrib; //neuvazuju brdf jen pro zkousku
+            Spectrum ss = vr->sigma_s(p, w, ray.time);
+            Llight *= renderer->Transmittance(scene, connectRay, NULL, rng, arena);
+            float rdstnc=rayPoint+mray.mint;
+            float Tr =rayTransmCache.getTransmittance(rdstnc);
+            if (Tr==0) {
+                if (!alpha.IsBlack()) {
+                    Tr=Lerp(rdstnc, 1., alpha.y());
+                }
+                continue;
+            }
+            if (!ss.IsBlack())
+                L += Tr*ss*Llight;
+            
+        }
+    }
+//
+//    Spectrum Tr(0.);
+//    const Spectrum one(1.);
+//    alpha*=Exp(-tau); //transmittance from optical thickness
+//    for (float raydst=0.; raydst<=1.0; raydst+=0.03) {
+//        float raylength=(rayTransmCache.ray.maxt-rayTransmCache.ray.mint);
+//        Tr =one*rayTransmCache.getTransmittance(raydst*raylength);
+//        Point p=rayTransmCache.ray.o+rayTransmCache.ray.d*raylength*raydst;
+//        
+//        // Compute single-scattering source term at _p_
+//        //Lv += Tr * vr->Lve(p, w, ray.time); //emmission
+//        Spectrum ss = vr->sigma_s(p, w, ray.time);
+//        if (!ss.IsBlack() && !this->vsls.empty()) {
+//            //iterating over Volume paths sigle sample on every vpl
+//            for (uint32_t i = 0; i < this->vsls.size(); ++i) {
+//                //printf("\n======iterating over vsls========");
+//                VirtualSphericalLight *vl = vsls[i];
+//                // Compute virtual light's tentative contribution _Llight_
+//                float d2 = DistanceSquared(p, vl->p);
+//                Vector wi = Normalize(vl->p - p);
+//                RayDifferential connectRay(p, wi, ray, NULL, sqrtf(d2) * (1.f - vl->rayEpsilon));
+//                if (scene->IntersectP(connectRay)) { //move on the next light if the light is obscured
+//                    continue;
+//                }
+//                float pp=vr->p(p, w, -wi, ray.time); // phase phunction at current point
+//                float G = pp * AbsDot(wi, vl->n) / d2;
+//                G = (G<10000.)?G:10000.;
+//                Spectrum f = vl->bsdf->f(-wi, vl->i); // is -wi correct??
+//                //                //Spectrum f = bsdf->f(wo, wi);
+//                if (G == 0.f || f.IsBlack()) continue;
+//                Spectrum Llight = f * G * vl->pathContrib;
+//                //Spectrum Llight = G * vl->pathContrib; //neuvazuju brdf jen pro zkousku
+//                
+//                Llight *= renderer->Transmittance(scene, connectRay, NULL, rng, arena);
+//                if (!ss.IsBlack())
+//                    L += Tr*ss*Llight;
+//            }
+//        }
+//    }
+    
+    return L;
+}
+
 

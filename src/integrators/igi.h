@@ -34,8 +34,19 @@
 #include "integrator.h"
 //#include "vlstructs.h"
 #include "particleshooter.h"
+#include "samplingmethods.h"
+#include "scene.h"
+#include "montecarlo.h"
+#include "progressreporter.h"
+#include "sampler.h"
+#include "intersection.h"
+#include "paramset.h"
+#include "camera.h"
 
 
+//MC tests with volumetric photon mapping
+#include "photonDisc.h"
+#include "bvh.h"
 
 // IGIIntegrator Declarations
 class IGIIntegrator : public ProgressiveSurfaceIntegrator {
@@ -51,6 +62,7 @@ public:
     Spectrum Lss(const Scene *scene, const ProgressiveRenderer *renderer,
                  const RayDifferential &ray, const Intersection &isect,
                  const Sample *sample, RNG &rng, MemoryArena &localArena) const;
+    Spectrum  sampleVRLCDF(const Scene *scene, const Renderer *renderer, const RayDifferential &ray, const Intersection &isect, const Sample *sample, RNG &rng, MemoryArena &localArena) const ;
     Spectrum sampleVRLBruteForce(const Scene *scene, const Renderer *renderer,
                                                 const RayDifferential &ray, const Intersection &isect,
                                                 const Sample *sample, RNG &rng, MemoryArena &localArena) const;

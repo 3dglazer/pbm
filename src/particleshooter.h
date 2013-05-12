@@ -19,7 +19,7 @@
 
 class ParticleShooter {
 public:	
-	ParticleShooter(int rngSeed=1,int maxScatteringEvents = 8){seed=rngSeed;maxScattering=maxScatteringEvents;};
+	ParticleShooter(int rngSeed=1,int maxScatteringEvents = 16){seed=rngSeed;maxScattering=maxScatteringEvents;};
 	~ParticleShooter(){
 		volumePaths.erase(volumePaths.begin(),volumePaths.end()); //ensure the objects will be deleted
 		vsls.erase(vsls.begin(),vsls.end());

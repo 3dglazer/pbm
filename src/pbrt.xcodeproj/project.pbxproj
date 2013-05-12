@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		53028DA3173436C100AC0B34 /* multi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 53028DA1173436C100AC0B34 /* multi.cpp */; };
+		53496F9A173F9C0000C1F410 /* samplingmethods.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 53496F98173F9C0000C1F410 /* samplingmethods.cpp */; };
 		53773EE117303E6E00E6AE08 /* libHalf.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 53773ED717303E6E00E6AE08 /* libHalf.6.dylib */; };
 		53773EE317303E6E00E6AE08 /* libIex.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 53773ED917303E6E00E6AE08 /* libIex.6.dylib */; };
 		53773EE517303E6E00E6AE08 /* libIlmImf.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 53773EDB17303E6E00E6AE08 /* libIlmImf.6.dylib */; };
@@ -181,6 +182,8 @@
 /* Begin PBXFileReference section */
 		53028DA1173436C100AC0B34 /* multi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = multi.cpp; sourceTree = "<group>"; };
 		53028DA2173436C100AC0B34 /* multi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = multi.h; sourceTree = "<group>"; };
+		53496F98173F9C0000C1F410 /* samplingmethods.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = samplingmethods.cpp; sourceTree = "<group>"; };
+		53496F99173F9C0000C1F410 /* samplingmethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = samplingmethods.h; sourceTree = "<group>"; };
 		53773ED717303E6E00E6AE08 /* libHalf.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libHalf.6.dylib; path = externresources/lib/libHalf.6.dylib; sourceTree = "<group>"; };
 		53773ED817303E6E00E6AE08 /* libHalf.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libHalf.6.dylib; path = externresources/lib/libHalf.6.dylib; sourceTree = "<group>"; };
 		53773ED917303E6E00E6AE08 /* libIex.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIex.6.dylib; path = externresources/lib/libIex.6.dylib; sourceTree = "<group>"; };
@@ -882,6 +885,8 @@
 				D99207371680CE290091B470 /* particleshooter.h */,
 				D99207381680CE290091B470 /* particleshooter.cpp */,
 				D992073B1680D3A00091B470 /* vlstructs.h */,
+				53496F98173F9C0000C1F410 /* samplingmethods.cpp */,
+				53496F99173F9C0000C1F410 /* samplingmethods.h */,
 			);
 			name = mc;
 			sourceTree = "<group>";
@@ -1069,6 +1074,7 @@
 				D92F04BA16862E3F00892A43 /* photonDisc.cpp in Sources */,
 				D92C4C3F168DC93A001AA401 /* lighttracer.cpp in Sources */,
 				53028DA3173436C100AC0B34 /* multi.cpp in Sources */,
+				53496F9A173F9C0000C1F410 /* samplingmethods.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

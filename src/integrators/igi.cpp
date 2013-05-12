@@ -25,18 +25,6 @@
 // integrators/igi.cpp*
 #include "stdafx.h"
 #include "integrators/igi.h"
-#include "scene.h"
-#include "montecarlo.h"
-#include "progressreporter.h"
-#include "sampler.h"
-#include "intersection.h"
-#include "paramset.h"
-#include "camera.h"
-
-
-//MC tests with volumetric photon mapping
-#include "photonDisc.h"
-#include "bvh.h"
 
 // IGIIntegrator Method Definitions
 IGIIntegrator::~IGIIntegrator() {
@@ -209,6 +197,7 @@ Spectrum IGIIntegrator::Lms(const Scene *scene, const ProgressiveRenderer *rende
     
     Spectrum ms=this->sampleVRLBruteForce(scene,renderer,ray,isect,sample,rng,localArena);
    // Spectrum ms=this->Li(scene, renderer, ray, isect, sample, rng, localArena);
+    //Spectrum ms=this->sampleVRLCDF(scene,renderer,ray,isect,sample,rng,localArena);
    return ms;
     return NULL;
 }
@@ -318,6 +307,116 @@ Spectrum IGIIntegrator::Li(const Scene *scene, const Renderer *renderer,
     return L;
 }
 
+
+
+Spectrum IGIIntegrator::sampleVRLCDF(const Scene *scene, const Renderer *renderer, const RayDifferential &ray, const Intersection &isect, const Sample *sample, RNG &rng, MemoryArena &localArena) const {
+    Assert(!ray.HasNaNs());
+    VolumeRegion* vr=scene->volumeRegion;
+    Spectrum L(0.);
+    Vector wo = -ray.d;
+    // Compute emitted light if ray hit an area light source
+    L += isect.Le(wo);
+    
+    // Evaluate BSDF at hit point
+    BSDF *bsdf = isect.GetBSDF(ray, localArena);
+    const Point &p = bsdf->dgShading.p;
+    const Normal &n = bsdf->dgShading.nn;
+    VolumePath* curVpth;
+    Point vpthPoint;
+    Spectrum vpthContrib;
+    
+    //sample every vrl 5 times
+    const int nSamples=10;
+    const float stepSize=1./(float)nSamples;
+    float pdfVals[nSamples];
+    float rayPoint=0;
+    //evaluate every vrl
+    for (int i=0; i<vpths.size(); ++i) {
+        curVpth=vpths[i];
+
+        //nead point to line
+        Point minP=curVpth->ray.o+curVpth->ray.d*curVpth->ray.mint;
+        Point maxP=curVpth->ray.o+curVpth->ray.d*curVpth->ray.maxt;
+        float sParam=0.; //parametric distance to vector beginning
+        Ray r;
+        float h=p2Ray(p, minP,maxP,sParam);
+        //printf("\nh=%f; sParam=%f;\n",h,sParam);
+        float v0=curVpth->ray.mint-sParam;
+        float v1=curVpth->ray.maxt-sParam;
+        int smpl=0;
+        // generate analytical marginal pdf for vrl Sampling using 10 equiAngular samples on VRL
+        for (float s=0; s<=1.; s+=stepSize) {
+            //generate 10 eq angular samples
+            rayPoint=invEqAngCDF(s, h, v0, v1);
+            rayPoint+=sParam; //move the sample to ray origin
+            //printf("rayPoint=%f; iter=%f; ray.mint=%f; h=%f; sParam=%f;\n",rayPoint,s,curVpth->ray.mint,h,sParam);
+            vpthPoint=minP+curVpth->ray.d*rayPoint;
+            Vector wi=Normalize(vpthPoint-p);
+            //float d2 =DistanceSquared(vpthPoint, p);
+            //RayDifferential connectRay(p,wi,NULL, isect.rayEpsilon,NULL);
+            RayDifferential connectRay;
+            connectRay.o=p;
+            connectRay.d=wi;
+            connectRay.mint=isect.rayEpsilon;
+            // RayDifferential connectRay(p, wi, ray, isect.rayEpsilon,NULL);
+            //if it's ocluded continue
+//            if (scene->IntersectP(connectRay)) {
+//                continue;
+//            }
+            float pp=vr->p(vpthPoint, curVpth->ray.d, -wi, ray.time); // phase phunction at current point
+            float G = pp * AbsDot(wi, n);// / d2;disnace is already accounted with in the sampling scheme
+            Spectrum f = bsdf->f(wo, wi);
+            if (G == 0.f || f.IsBlack()){
+                pdfVals[smpl]=0;
+            }else{
+                pdfVals[smpl]=G*f.y();
+            }
+            smpl++;
+        }
+        float ret,pdf;
+        Distribution1D distrib=Distribution1D(&pdfVals[0], nSamples);
+        // sample ten points on vrl acording to the inverse squared cdf
+        for (int vrlS=0; vrlS<10; ++vrlS) {
+            ret=distrib.SampleContinuous(rng.RandomFloat(),&pdf); //what is the pdf and what is the ret
+            rayPoint=invEqAngCDF(ret, h, v0, v1);
+            rayPoint+=sParam; //move the sample to ray origin
+            //vpthPoint=curVpth->ray.o+curVpth->ray.d*rayPoint;
+            vpthPoint=minP+curVpth->ray.d*rayPoint;
+            //printf("\ncdf Sampled rayPoint=%f; ret=%f;\n",rayPoint,ret);
+            Vector wi=Normalize(vpthPoint-p);
+            float d2 =DistanceSquared(vpthPoint, p);
+            //RayDifferential connectRay(p,wi,NULL, isect.rayEpsilon,NULL);
+            RayDifferential connectRay;
+            connectRay.o=p;
+            connectRay.d=wi;
+            connectRay.mint=isect.rayEpsilon;
+            // RayDifferential connectRay(p, wi, ray, isect.rayEpsilon,NULL);
+            //if it's ocluded continue
+            if (scene->IntersectP(connectRay)) {
+                continue;
+            }
+            float pp=vr->p(vpthPoint, curVpth->ray.d, -wi, ray.time); // phase phunction at current point
+            float G = pp * AbsDot(wi, n) / d2;
+            //float G= 1.f/d2;
+            G = (G<10.)?G:10.;
+            Spectrum f = bsdf->f(wo, wi);
+            if (G == 0.f || f.IsBlack()) continue;
+            //weight contribution with vrl transmittance and transmittance between surface point and sample point on vrl
+            vpthContrib=curVpth->contrib*curVpth->getTransmittance(rayPoint)*renderer->Transmittance(scene, connectRay, NULL, rng, localArena);
+            //weight the contribution with scattering coeficient of the media in the sample point the vector here is not needed
+            vpthContrib*=vr->sigma_s(vpthPoint, wi, ray.time);
+            //weight the contribution with cos(theta) plus inverse squared distance pluss phase function in the vrl sample point
+            vpthContrib*=G;
+            //weight the contribution with surface brdf
+            L+=vpthContrib*f;
+            //L+=curVpth->contrib*G*renderer->Transmittance(scene, RayDifferential(Ray(p, wi, 0)), NULL, rng, localArena);
+            // L+=0.1*G*renderer->Transmittance(scene, RayDifferential(Ray(p, wi, 0)), NULL, rng, localArena)*renderer->Transmittance(scene, connectRay, NULL, rng, localArena);;
+
+        }
+    }
+    return L;
+}
+
 Spectrum IGIIntegrator::sampleVRLBruteForce(const Scene *scene, const Renderer *renderer,
                                               const RayDifferential &ray, const Intersection &isect,
                                               const Sample *sample, RNG &rng, MemoryArena &localArena) const {
@@ -339,7 +438,7 @@ Spectrum IGIIntegrator::sampleVRLBruteForce(const Scene *scene, const Renderer *
     for (int i=0; i<vpths.size(); ++i) {
         curVpth=vpths[i];
         //sample every vrl 5 times
-        for (int s=0; s<30; ++s) {
+        for (int s=0; s<10; ++s) {
             float d=rng.RandomFloat();
             float rayPoint=curVpth->ray.mint+(curVpth->ray.maxt-curVpth->ray.mint)*d;
             vpthPoint=curVpth->ray.o+curVpth->ray.d*rayPoint;
