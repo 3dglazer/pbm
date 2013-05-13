@@ -59,7 +59,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "&apos;/Volumes/DISK2/developer/pbrt-scenes/spotfog_hetero_igi_multi.pbrt&apos;"
+            argument = "&apos;/Volumes/DISK2/developer/pbrt-scenes/spotfog_hetero_single.pbrt&apos;"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

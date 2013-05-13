@@ -194,10 +194,12 @@ Spectrum IGIIntegrator::Lms(const Scene *scene, const ProgressiveRenderer *rende
                             const RayDifferential &ray, const Intersection &isect,
                             const Sample *sample, RNG &rng, MemoryArena &localArena) const {
     //should be called in every raycast in lss for every intersection point
-    
+#ifdef BRUTE
     Spectrum ms=this->sampleVRLBruteForce(scene,renderer,ray,isect,sample,rng,localArena);
+#else
    // Spectrum ms=this->Li(scene, renderer, ray, isect, sample, rng, localArena);
-    //Spectrum ms=this->sampleVRLCDF(scene,renderer,ray,isect,sample,rng,localArena);
+    Spectrum ms=this->sampleVRLCDF(scene,renderer,ray,isect,sample,rng,localArena);
+#endif
    return ms;
     return NULL;
 }
@@ -225,7 +227,6 @@ Spectrum IGIIntegrator::Li(const Scene *scene, const Renderer *renderer,
     Vector wo = -ray.d;
     // Compute emitted light if ray hit an area light source
     L += isect.Le(wo);
-
     // Evaluate BSDF at hit point
     BSDF *bsdf = isect.GetBSDF(ray, localArena);
     const Point &p = bsdf->dgShading.p;
@@ -249,8 +250,18 @@ Spectrum IGIIntegrator::Li(const Scene *scene, const Renderer *renderer,
         Spectrum f = bsdf->f(wo, wi);
         if (G == 0.f || f.IsBlack()) continue;
         Spectrum Llight = f * G * vl->pathContrib;
+        
+        // Possibly skip virtual light shadow ray with Russian roulette
+        if (Llight.y() < rrThreshold) {
+            float continueProbability = .1f;
+            if (rng.RandomFloat() > continueProbability)
+                continue;
+            Llight /= continueProbability;
+        }
+        
         RayDifferential connectRay(p, wi, ray, isect.rayEpsilon,
                                    sqrtf(d2) * (1.f - vl->rayEpsilon));
+        if (scene->IntersectP(connectRay)) continue;
         Llight *= renderer->Transmittance(scene, connectRay, NULL, rng, localArena);
 
         // Possibly skip virtual light shadow ray with Russian roulette
@@ -262,7 +273,7 @@ Spectrum IGIIntegrator::Li(const Scene *scene, const Renderer *renderer,
 //        }
 
         // Add contribution from _VirtualLight_ _vl_
-        if (!scene->IntersectP(connectRay))
+        
             L += Llight;
     }
 	/*

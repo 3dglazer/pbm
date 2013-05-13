@@ -34,8 +34,8 @@
 #include "geometry.h"
 #include "transform.h"
 #include "integrator.h"
-
-
+// MC
+#define FREEFLIGHTCNC 2.
 // Volume Scattering Declarations
 float PhaseIsotropic(const Vector &w, const Vector &wp);
 float PhaseRayleigh(const Vector &w, const Vector &wp);

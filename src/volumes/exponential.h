@@ -40,7 +40,7 @@ public:
                        const Transform &v2w, float aa, float bb,
                        const Vector &up)
         : DensityRegion(sa, ss, gg, emit, v2w), extent(e), a(aa), b(bb) {
-        sigmaTMax=sa+ss;
+        sigmaTMax=(sa+ss)*FREEFLIGHTCNC;
         invSigmaTMax=1./maxFromSpectrum(sigmaTMax);
         upDir = Normalize(up);
     }

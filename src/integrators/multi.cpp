@@ -119,8 +119,6 @@ float MultiScatteringIntegrator::freeFlight(const Scene *scene, const Ray &r,Spe
 }
 
 
-
-
 //Media -> Media integration part integration over VRLs
 Spectrum MultiScatteringIntegrator::Lmm(const Scene *scene, const ProgressiveRenderer * renderer, const RayDifferential &ray,const Sample *sample, RNG &rng, Spectrum *T, MemoryArena &arena)  const {
     VolumeRegion *vr = scene->volumeRegion;
@@ -130,8 +128,11 @@ Spectrum MultiScatteringIntegrator::Lmm(const Scene *scene, const ProgressiveRen
         *T = 1.f;
         return 0.f;
     }
-    //Spectrum Lmm= vrlSamplingBruteForce(t0, t1, scene, renderer, ray, sample, rng, T, arena);
+#ifdef BRUTE
+    Spectrum Lmm= vrlSamplingBruteForce(t0, t1, scene, renderer, ray, sample, rng, T, arena);
+#else
     Spectrum Lmm=vrlSamplingPaper1(t0, t1, scene, renderer, ray, sample, rng, T, arena);
+#endif
     //Spectrum Lmm= vrlSamplingVIZ(t0, t1, scene, renderer, ray, sample, rng, T, arena);
 
     return Lmm;
@@ -151,10 +152,12 @@ Spectrum MultiScatteringIntegrator::Lsm(const Scene *scene, const ProgressiveRen
         *T = 1.f;
         return 0.f;
     }
-    
+#ifdef BRUTE
     Lv=vslSamplingBruteForce(t0, t1, scene, renderer, ray, sample, rng, T, arena);
+#else
     //Lv=vslSamplingVIZ(t0, t1, scene, renderer, ray, sample, rng, T, arena);
-    //Lv=vslSamplingCDF(t0, t1, scene, renderer, ray, sample, rng, T, arena);
+    Lv=vslSamplingCDF(t0, t1, scene, renderer, ray, sample, rng, T, arena);
+#endif
     
     return Lv;
 }
@@ -223,14 +226,15 @@ Spectrum MultiScatteringIntegrator::vrlSamplingBruteForce(float t0,float t1,cons
                     vrlTr=curPath->getTransmittance(vrlD);
                     Spectrum vrlContrib=curPath->contrib * vrlTr;
                     float d2=DistanceSquared(vrlSample, p);
-                    float pp=vr->p(p, ray.d, wo, ray.time); // phase phunction at current point
+                    float pp=vr->p(p, w, wo, ray.time); // phase phunction at current point
                     float pvrl=vr->p(vrlSample, curPath->ray.d, -wo, ray.time);
-                    Spectrum ssVrl= vr->sigma_s(vrlSample, curPath->ray.d, ray.time);
+                    //Spectrum ssVrl= vr->sigma_s(vrlSample, curPath->ray.d, ray.time);
                     if (isnan(pp)||isnan(pvrl)) {
                         continue;
                     }
-                    if (!vrlContrib.IsBlack() && !ss.IsBlack() && !ssVrl.IsBlack() && pp!=0 && pvrl!=0) {
-                        Lv+=Tr*vrlContrib*ss*pp*pvrl*ssVrl*renderer->Transmittance(scene, RayDifferential(connectRay), NULL, rng, arena)*1./d2; //vrl ss is counted in the contrib ?? *ssVrl // the square dist term is missing
+                    //&& !ssVrl.IsBlack()&& !ssVrl.IsBlack()
+                    if (!vrlContrib.IsBlack() && !ss.IsBlack() && pp!=0 && pvrl!=0) {
+                        Lv+=Tr*vrlContrib*pp*pvrl*renderer->Transmittance(scene, RayDifferential(connectRay), NULL, rng, arena)*1./d2*ss;//*ssVrl; //vrl ss is counted in the contrib ?? *ssVrl // the square dist term is missing
                     }
                 }
             }
@@ -315,11 +319,11 @@ Spectrum MultiScatteringIntegrator::vrlSamplingPaper1(float t0,float t1,const Sc
     Vector w = -ray.d;
     RayDifferential lray(ray);
     //sample every vrl nSamples times
-    const int nSamples=10;
+    const int nSamples=100;
     const float stepSize=1./(float)nSamples;
     float pdfVals[nSamples];
     float rayPoint=0;
-    const int camSamples=10;
+    const int camSamples=16;
     //first save transmitance to VolumePath take from particleShooter
     //maybe add some constraining criteria like maximum scattering events in the original VRL paper is 16
     Spectrum tau(0.);
@@ -336,6 +340,7 @@ Spectrum MultiScatteringIntegrator::vrlSamplingPaper1(float t0,float t1,const Sc
     for (int evnts=0; evnts < camSamples; ++evnts) {
         d=renderer->freeFlight(scene, lray, maxtau, rng); //the tau could be used for multiple scattering
         if (d==-1.){
+            rayTransmCache.dists.push_back(ray.maxt);
             continue; //scattering did not happened tau should be valid
         }else{
             if (d>dmax) {
@@ -373,8 +378,11 @@ Spectrum MultiScatteringIntegrator::vrlSamplingPaper1(float t0,float t1,const Sc
     for (uint32_t i = 0; i < this->vpths.size(); ++i) {
         //printf("\n======iterating over vsls========");
         VolumePath *currVrl = vpths[i];
-        vrlSampleDist=(currVrl->ray.maxt-currVrl->ray.mint)/2.0;
+        //for (int ksicht=0; ksicht<10; ++ksicht) {
+        vrlSampleDist=currVrl->ray.mint+(currVrl->ray.maxt-currVrl->ray.mint)*rng.RandomFloat();
+        //vrlSampleDist=currVrl->ray.mint;
         Point vrlPoint=currVrl->ray.o+currVrl->ray.d*(vrlSampleDist);
+        Spectrum ssVrl= vr->sigma_s(vrlPoint, currVrl->ray.d, ray.time);
         float sParam=0.; //parametric distance to vector beginning
         float h=p2Ray(vrlPoint, minP,maxP,sParam);
         //printf("\nh=%f; sParam=%f;\n",h,sParam);
@@ -421,13 +429,15 @@ Spectrum MultiScatteringIntegrator::vrlSamplingPaper1(float t0,float t1,const Sc
             Spectrum Llight = G * currVrl->contrib*currVrl->getTransmittance(vrlSampleDist);
             //Spectrum Llight = G * vl->pathContrib; //neuvazuju brdf jen pro zkousku
             Spectrum ss = vr->sigma_s(p, w, ray.time);
-            Spectrum ssVrl= vr->sigma_s(vrlPoint, currVrl->ray.d, ray.time);
+            
             if (ss.IsBlack()||ssVrl.IsBlack()) {
                 continue;
             }
             Llight *= renderer->Transmittance(scene, connectRay, NULL, rng, arena);
             float rdstnc=rayPoint+mray.mint;
             float Tr =rayTransmCache.getTransmittance(rdstnc);
+            //possibly compute single scattering term
+            L += Tr * vr->Lve(p, w, ray.time); //emmission
             if (Tr==0) {
                 if (!alpha.IsBlack()) {
                     Tr=Lerp(rdstnc, 1., alpha.y());
@@ -436,7 +446,7 @@ Spectrum MultiScatteringIntegrator::vrlSamplingPaper1(float t0,float t1,const Sc
             }
             if (!ss.IsBlack())
                 L += Tr*ss*ssVrl*Llight;
-            
+           // }
         }
     }
 
@@ -467,6 +477,7 @@ Spectrum MultiScatteringIntegrator::vrlSamplingPaper1(float t0,float t1,const Sc
     for (int evnts=0; evnts < 16; ++evnts) {
         d=renderer->freeFlight(scene, ray, maxtau, rng); //the tau could be used for multiple scattering
         if (d==-1.){
+            rayTransm.dists.push_back(ray.maxt);
             continue; //scattering did not happened tau should be valid
         }else{
             if (d>dmax) {
@@ -614,6 +625,7 @@ Spectrum MultiScatteringIntegrator::vslSamplingCDF(float t0,float t1,const Scene
     for (int evnts=0; evnts < camSamples; ++evnts) {
         d=renderer->freeFlight(scene, lray, maxtau, rng); //the tau could be used for multiple scattering
         if (d==-1.){
+            rayTransmCache.dists.push_back(lray.maxt);
             continue; //scattering did not happened tau should be valid
         }else{
             if (d>dmax) {
@@ -649,7 +661,8 @@ Spectrum MultiScatteringIntegrator::vslSamplingCDF(float t0,float t1,const Scene
     for (uint32_t i = 0; i < this->vsls.size(); ++i) {
         //printf("\n======iterating over vsls========");
         VirtualSphericalLight *vl = vsls[i];
-
+        
+        
         float sParam=0.; //parametric distance to vector beginning
         float h=p2Ray(vl->p, minP,maxP,sParam);
         //printf("\nh=%f; sParam=%f;\n",h,sParam);
@@ -699,7 +712,7 @@ Spectrum MultiScatteringIntegrator::vslSamplingCDF(float t0,float t1,const Scene
             Spectrum f = vl->bsdf->f(-wi, vl->i); // is -wi correct??
             //                //Spectrum f = bsdf->f(wo, wi);
             if (G == 0.f || f.IsBlack()) continue;
-            Spectrum Llight = f * G * vl->pathContrib;
+             Spectrum Llight = f * G * vl->pathContrib;
             //Spectrum Llight = G * vl->pathContrib; //neuvazuju brdf jen pro zkousku
             Spectrum ss = vr->sigma_s(p, w, ray.time);
             Llight *= renderer->Transmittance(scene, connectRay, NULL, rng, arena);

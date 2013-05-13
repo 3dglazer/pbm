@@ -178,6 +178,7 @@ class SurfaceIntegrator;
 class Integrator;
 class VolumeIntegrator;
 
+
 // Global Constants
 #define PBRT_VERSION "2.0.0"
 #ifdef M_PI

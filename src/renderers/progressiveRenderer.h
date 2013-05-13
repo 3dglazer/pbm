@@ -35,7 +35,8 @@
 #include "renderer.h"
 #include "parallel.h"
 #include "particleshooter.h"
-
+//MC BRUTEFORCE ON OFF
+//#define BRUTE
 
 // PGRenderer Declarations
 class PGRenderer:public ProgressiveRenderer {

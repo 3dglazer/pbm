@@ -25,7 +25,7 @@ public:
                        float gg, const Spectrum &emit, const BBox &e,
                        const Transform &v2w,int nOctaves,float omega,float frequency,bool inv)
 	: DensityRegion(sa, ss, gg, emit, v2w), extent(e) ,omg(omega),octaves(nOctaves),freq(frequency),inverted(inv){
-        sigmaTMax=sa+ss;
+        sigmaTMax=(sa+ss)*FREEFLIGHTCNC;
         invSigmaTMax=1./maxFromSpectrum(sigmaTMax);
     }
     BBox WorldBound() const { return Inverse(WorldToVolume)(extent); }

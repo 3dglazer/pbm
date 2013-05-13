@@ -37,8 +37,11 @@ void ParticleShooter::shootParticles(const Scene * scene, Camera * camera, const
     LDShuffleScrambled2D(nPaths*nTimesTries, 1, &lightSampDir[0], rng);
 	// Precompute information for light sampling densities
     Distribution1D *lightDistribution = ComputeLightSamplingCDF(scene);
-	
-	for (int currPath=0; vsls.size()<=nPaths || (currPath<nPaths*nTimesTries); currPath++) {
+	int alreadyAdded=0;
+	for (int currPath=0;(currPath<nPaths*nTimesTries); currPath++) {
+        if (alreadyAdded>=nPaths ) {
+            break;
+        }
 		// Choose light source to trace virtual light path from
 		float lightPdf;
 		int ln = lightDistribution->SampleDiscrete(lightNum[currPath],
@@ -59,9 +62,12 @@ void ParticleShooter::shootParticles(const Scene * scene, Camera * camera, const
 		alpha /= pdf * lightPdf;
         alpha /=nPaths;
 		Intersection isect;	
-		
+		bool isFirst=true;
         //check whether intersect any scene primitive, including volumeRegions
 		while (scene->Intersect(ray, &isect)&&!alpha.IsBlack()) {
+            if (isFirst) {
+                alreadyAdded++;isFirst=false;
+            }
             float isectDist=DistanceSquared(ray.o, isect.dg.p);
             //perform Woodcock tracking
             float t0,t1;
@@ -85,6 +91,7 @@ void ParticleShooter::shootParticles(const Scene * scene, Camera * camera, const
                 for (int evnts=0; evnts < maxScattering; ++evnts) {
                     d=renderer->freeFlight(scene, ray, maxtau, rng); //the tau could be used for multiple scattering
                     if (d==-1.){
+                        currPath->dists.push_back(ray.maxt);
                         continue; //scattering did not happened tau should be valid
                     }else{
                         if (d>dmax) {

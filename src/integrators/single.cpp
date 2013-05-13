@@ -1,24 +1,31 @@
-
 /*
-    pbrt source code Copyright(c) 1998-2010 Matt Pharr and Greg Humphreys.
-
-    This file is part of pbrt.
-
-    pbrt is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.  Note that the text contents of
-    the book "Physically Based Rendering" are *not* licensed under the
-    GNU GPL.
-
-    pbrt is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+ pbrt source code Copyright(c) 1998-2012 Matt Pharr and Greg Humphreys.
+ 
+ This file is part of pbrt.
+ 
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are
+ met:
+ 
+ - Redistributions of source code must retain the above copyright
+ notice, this list of conditions and the following disclaimer.
+ 
+ - Redistributions in binary form must reproduce the above copyright
+ notice, this list of conditions and the following disclaimer in the
+ documentation and/or other materials provided with the distribution.
+ 
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+ TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ 
  */
 
 
@@ -31,15 +38,15 @@
 
 // SingleScatteringIntegrator Method Definitions
 void SingleScatteringIntegrator::RequestSamples(Sampler *sampler, Sample *sample,
-        const Scene *scene) {
+                                                const Scene *scene) {
     tauSampleOffset = sample->Add1D(1);
     scatterSampleOffset = sample->Add1D(1);
 }
 
 
 Spectrum SingleScatteringIntegrator::Transmittance(const Scene *scene,
-        const Renderer *renderer, const RayDifferential &ray,
-        const Sample *sample, RNG &rng, MemoryArena &arena) const {
+                                                   const Renderer *renderer, const RayDifferential &ray,
+                                                   const Sample *sample, RNG &rng, MemoryArena &arena) const {
     if (!scene->volumeRegion) return Spectrum(1.f);
     float step, offset;
     if (sample) {
@@ -56,8 +63,8 @@ Spectrum SingleScatteringIntegrator::Transmittance(const Scene *scene,
 
 
 Spectrum SingleScatteringIntegrator::Li(const Scene *scene, const Renderer *renderer,
-        const RayDifferential &ray, const Sample *sample, RNG &rng,
-        Spectrum *T, MemoryArena &arena) const {
+                                        const RayDifferential &ray, const Sample *sample, RNG &rng,
+                                        Spectrum *T, MemoryArena &arena) const {
     VolumeRegion *vr = scene->volumeRegion;
     float t0, t1;
     if (!vr || !vr->IntersectP(ray, &t0, &t1) || (t1-t0) == 0.f) {
@@ -66,7 +73,7 @@ Spectrum SingleScatteringIntegrator::Li(const Scene *scene, const Renderer *rend
     }
     // Do single scattering volume integration in _vr_
     Spectrum Lv(0.);
-
+    
     // Prepare for volume integration stepping
     int nSamples = Ceil2Int((t1-t0) / stepSize);
     float step = (t1 - t0) / nSamples;
@@ -74,7 +81,7 @@ Spectrum SingleScatteringIntegrator::Li(const Scene *scene, const Renderer *rend
     Point p = ray(t0), pPrev;
     Vector w = -ray.d;
     t0 += sample->oneD[scatterSampleOffset][0] * step;
-
+    
     // Compute sample patterns for single scattering samples
     float *lightNum = arena.Alloc<float>(nSamples);
     LDShuffleScrambled1D(1, nSamples, lightNum, rng);
@@ -91,14 +98,17 @@ Spectrum SingleScatteringIntegrator::Li(const Scene *scene, const Renderer *rend
         Spectrum stepTau = vr->tau(tauRay,
                                    .5f * stepSize, rng.RandomFloat());
         Tr *= Exp(-stepTau);
-
+        
         // Possibly terminate ray marching if transmittance is small
         if (Tr.y() < 1e-3) {
             const float continueProb = .5f;
-            if (rng.RandomFloat() > continueProb) break;
+            if (rng.RandomFloat() > continueProb) {
+                Tr = 0.f;
+                break;
+            }
             Tr /= continueProb;
         }
-
+        
         // Compute single-scattering source term at _p_
         Lv += Tr * vr->Lve(p, w, ray.time);
         Spectrum ss = vr->sigma_s(p, w, ray.time);
@@ -118,7 +128,7 @@ Spectrum SingleScatteringIntegrator::Li(const Scene *scene, const Renderer *rend
             if (!L.IsBlack() && pdf > 0.f && vis.Unoccluded(scene)) {
                 Spectrum Ld = L * vis.Transmittance(scene, renderer, NULL, rng, arena);
                 Lv += Tr * ss * vr->p(p, w, -wo, ray.time) * Ld * float(nLights) /
-                        pdf;
+                pdf;
             }
         }
         ++sampOffset;
@@ -132,5 +142,3 @@ SingleScatteringIntegrator *CreateSingleScatteringIntegrator(const ParamSet &par
     float stepSize  = params.FindOneFloat("stepsize", 1.f);
     return new SingleScatteringIntegrator(stepSize);
 }
-
-
