@@ -308,7 +308,7 @@ float VolumeRegion::freeFlight(const Ray &r,Spectrum& tau,const RNG &rng){
         //rn.d is there because of the phase functions rn(t0) is offset start point of ray
         sigmaTX=sigma_t(rn(t0), rn.d, r.time);
         tau += sigmaTX*dist; //we consider extinction coeficient constant over the step size so optical thicknes is equal to distance*sigmaTX
-        if (rng.RandomFloat() < sigmaTX.returnOne()*invSigmaTMax) { //Return one is an optimization step might cause problems
+        if (rng.RandomFloat() < sigmaTX.y()*invSigmaTMax) { //Return one is an optimization step might cause problems
             break;
         }
     }

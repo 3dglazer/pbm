@@ -122,11 +122,6 @@ void PGRendererTask::Run() {
                     Ls[i] /= 255.f;
                 }
                 else
-                    //if the ray doesnt intersect geometry
-//                    for (uint32_t j = 0; j < scene->lights.size(); ++j){
-//                        Li += scene->lights[j]->Le(rays[i]);
-//                    }
-//                    Lss[i]=Li;
                     Ls[i] = 0.f;
                 
             }
@@ -139,35 +134,26 @@ void PGRendererTask::Run() {
                     Lms[i]=zero;
                     Lmm[i]=zero;
                     Intersection *isect=&isects[i];
-                    RayDifferential currRay=rays[i];
-                    currRay.maxt=10000.f;
+                    RayDifferential *currRay=&(rays[i]);
+                    currRay->maxt=10000.f;
                     Sample *currSample=&samples[i];
                     Spectrum tempT=1.;
                     Spectrum Li;
-                    //printf("weightGreater than zero\n");
-//                    Spectrum rd=RGBSpectrum();
-//                    float* rcl=new float[3];
-//                    rcl[0]=1.0;
-//                    rcl[1]=0.;
-//                    rcl[2]=0.;
-//                    rd.FromRGB(&rcl[0]);
-                    //printf("%f,%f,%f",rd);
-                    //scene->Intersect(currRay, isect);
-                    //Ls[i] = rayWeight * renderer->Li(scene, rays[i], &samples[i], rng, arena, &isects[i], &Ts[i]);
+
                     if (scene->Intersect(rays[i], &isects[i])) {
                         //printf("intersection happened");
                         //Ls[i] = rayWeight * surfaceIntegrator->Li(scene, renderer, rays[i], isects[i], currSample,rng, arena);
-                        Lss[i] = rayWeight * surfaceIntegrator->Li(scene, renderer, currRay, *isect, currSample,rng, arena);
+                        Lss[i] = rayWeight * surfaceIntegrator->Li(scene, renderer, *currRay, *isect, currSample,rng, arena);
                         //Lss[i]=rd;
-                        Lms[i] = rayWeight * surfaceIntegrator->Lms(scene, renderer, currRay, *isect, currSample,rng, arena);
+                        Lms[i] = rayWeight * surfaceIntegrator->Lms(scene, renderer, *currRay, *isect, currSample,rng, arena);
                     }else{
                         // Handle ray that doesn't intersect any geometry
 
                     }
-                    Lmm[i]= rayWeight * volumeIntegrator->Lmm(scene, renderer, RayDifferential(currRay), currSample, rng, &Ts[i], arena);
+                    Lmm[i]= rayWeight * volumeIntegrator->Lmm(scene, renderer, *currRay, currSample, rng, &Ts[i], arena);
                     Spectrum tr=Ts[i];
                     //Lmm[i]= rayWeight * volumeIntegrator->Li(scene, renderer, currRay, currSample, rng, &Ts[i], arena);
-                    Lsm[i]= rayWeight * volumeIntegrator->Lsm(scene, renderer, RayDifferential(currRay), currSample, rng, &tempT, arena);
+                    Lsm[i]= rayWeight * volumeIntegrator->Lsm(scene, renderer, *currRay, currSample, rng, &tempT, arena);
                     //Ts[i]=tempT;
                     Ls[i]= (Lss[i]+Lms[i])*(Ts[i])+ Lmm[i] + Lsm[i];
                 }else {
@@ -314,12 +300,7 @@ void PGRenderer::renderIter(int currentIter,const Scene *scene, Sample *sample){
     
 	//MC adding frame number after name 
     camera->film->WriteIterImage(currentIter);
-//    mm->WriteIterImage(currentIter);
-//    ms->WriteIterImage(currentIter);
-//    ss->WriteIterImage(currentIter);
-//    sm->WriteIterImage(currentIter);
 	delete particleShooter;//have to be deleted last, because of the memory arena which holds brdf information from the virtual light shooting
-	// have to 
 }
 
 void PGRenderer::Render(const Scene *scene) {
@@ -331,8 +312,6 @@ void PGRenderer::Render(const Scene *scene) {
 
 	for (int n=0; n<nIter; n++) {
 		renderIter(n, scene,sample);
-		//delete all the information by now
-		//camera->film->resetPixels(); //might cause problem originaly was not commented and displayed individual iterations
 	}
 
     //MC write all the different transport averaged images to separate files
@@ -347,15 +326,6 @@ void PGRenderer::Render(const Scene *scene) {
 	PBRT_FINISHED_RENDERING();
 	
 }
-
-
-// ve volume integratoru
-//Spectrum ::Lmm
-//Spectrum ::Lsm
-// ve vrl integratoru
-//Spectrum ::Lms
-//Spectrum ::Lss
-
 
 Spectrum PGRenderer::Li(const Scene *scene,
 							 const RayDifferential &ray, const Sample *sample, RNG &rng,

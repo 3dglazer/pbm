@@ -26,15 +26,16 @@ plot(smpls,smpls_val,'b');
 figure
 nrnd=20;
 maxVal=max(m_pdf);
-for i=[1:10]
+for i=[1:2]
 	clf ();
 	randomPoints=unifrnd (0,1,[1,nrnd]);
 	samples=interp1(smpls_val,smpls,randomPoints);
 	hold on
 	for sgline=samples*(ln-1)
-		plot([sgline,sgline],[0,maxVal],'r');
+		plot([sgline,sgline],[0,maxVal],'r','linewidth',1);
 	end
 	hold on
-	plot([0:ln-1],m_pdf,'b');
+	plot([0:ln-1],m_pdf,'b','linewidth',2);
 	sleep(1);
 end
+print -depsc2 mtest2.eps

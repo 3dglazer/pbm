@@ -10,8 +10,8 @@
 #include "scene.h"
 #include "paramset.h"
 #include "montecarlo.h"
-//#include <cmath>
-//#include <math.h>
+#define BRUTE
+
 // MultiScatteringIntegrator Method Definitions
 void MultiScatteringIntegrator::RequestSamples(Sampler *sampler, Sample *sample,
                                                 const Scene *scene) {
@@ -48,6 +48,9 @@ Spectrum MultiScatteringIntegrator::Li(const Scene *scene, const Renderer *rende
     if (!vr || !vr->IntersectP(ray, &t0, &t1) || (t1-t0) == 0.f) {
         *T = 1.f;
         return 0.f;
+    }
+    if(ray.maxt<t1){
+        t1=ray.maxt;
     }
     // Do single scattering volume integration in _vr_
     Spectrum Lv(0.);
@@ -123,11 +126,16 @@ float MultiScatteringIntegrator::freeFlight(const Scene *scene, const Ray &r,Spe
 Spectrum MultiScatteringIntegrator::Lmm(const Scene *scene, const ProgressiveRenderer * renderer, const RayDifferential &ray,const Sample *sample, RNG &rng, Spectrum *T, MemoryArena &arena)  const {
     VolumeRegion *vr = scene->volumeRegion;
     RayDifferential localRay(ray);
+    
     float t0,t1;
     if (!vr || !vr->IntersectP(localRay, &t0, &t1) || (t1-t0) == 0.f) {
         *T = 1.f;
         return 0.f;
     }
+    if(ray.maxt<t1){
+        t1=ray.maxt;
+    }
+    
 #ifdef BRUTE
     Spectrum Lmm= vrlSamplingBruteForce(t0, t1, scene, renderer, ray, sample, rng, T, arena);
 #else
@@ -213,6 +221,9 @@ Spectrum MultiScatteringIntegrator::vrlSamplingBruteForce(float t0,float t1,cons
             float vrlTr;
             
             for (int vpthIdx=0; vpthIdx<vpths.size(); ++vpthIdx) {
+                if (rng.RandomFloat()>0.5) {
+                    continue;
+                }
                 curPath=vpths[vpthIdx];
                 //sample few places on vrl
                 for (int did=0; did<10; ++did) {
@@ -334,13 +345,16 @@ Spectrum MultiScatteringIntegrator::vrlSamplingPaper1(float t0,float t1,const Sc
     //rayTransmCache.ray.d=-ray.d;
     rayTransmCache.ray.mint=t0;
     rayTransmCache.ray.maxt=t1;
+    lray.maxt=t1;
+    lray.mint=t0;
     Spectrum vslsContrib;
     Spectrum L(0.);
     Spectrum alpha(1.);
     for (int evnts=0; evnts < camSamples; ++evnts) {
         d=renderer->freeFlight(scene, lray, maxtau, rng); //the tau could be used for multiple scattering
         if (d==-1.){
-            rayTransmCache.dists.push_back(ray.maxt);
+            rayTransmCache.dists.push_back(lray.maxt);
+            dmax=lray.maxt;
             continue; //scattering did not happened tau should be valid
         }else{
             if (d>dmax) {
@@ -350,7 +364,7 @@ Spectrum MultiScatteringIntegrator::vrlSamplingPaper1(float t0,float t1,const Sc
             rayTransmCache.dists.push_back(d);
         }
     }// end of SCATTERING EVENTS
-    
+    std::sort((rayTransmCache.dists.begin()), (rayTransmCache.dists.end()));
     //if full transmitance needed
     if (dmax<t1) {
         alpha*=renderer->Transmittance(scene, ray, NULL, rng, arena); //attnuation to the vsl
@@ -382,7 +396,7 @@ Spectrum MultiScatteringIntegrator::vrlSamplingPaper1(float t0,float t1,const Sc
         vrlSampleDist=currVrl->ray.mint+(currVrl->ray.maxt-currVrl->ray.mint)*rng.RandomFloat();
         //vrlSampleDist=currVrl->ray.mint;
         Point vrlPoint=currVrl->ray.o+currVrl->ray.d*(vrlSampleDist);
-        Spectrum ssVrl= vr->sigma_s(vrlPoint, currVrl->ray.d, ray.time);
+        //Spectrum ssVrl= vr->sigma_s(vrlPoint, currVrl->ray.d, ray.time);
         float sParam=0.; //parametric distance to vector beginning
         float h=p2Ray(vrlPoint, minP,maxP,sParam);
         //printf("\nh=%f; sParam=%f;\n",h,sParam);
@@ -424,13 +438,14 @@ Spectrum MultiScatteringIntegrator::vrlSamplingPaper1(float t0,float t1,const Sc
             float pp=vr->p(p, w, -wi, ray.time); // phase phunction at current pointat current point
             float ppVrl=vr->p(vrlPoint, currVrl->ray.d, wi, ray.time);
             float G = pp * ppVrl/d2;
+            //G = (G<10.)?G:10.;
             G = (G<10000.)?G:10000.;
             if (G == 0.f) continue;
             Spectrum Llight = G * currVrl->contrib*currVrl->getTransmittance(vrlSampleDist);
             //Spectrum Llight = G * vl->pathContrib; //neuvazuju brdf jen pro zkousku
             Spectrum ss = vr->sigma_s(p, w, ray.time);
             
-            if (ss.IsBlack()||ssVrl.IsBlack()) {
+            if (ss.IsBlack()){//||ssVrl.IsBlack()) {
                 continue;
             }
             Llight *= renderer->Transmittance(scene, connectRay, NULL, rng, arena);
@@ -445,7 +460,7 @@ Spectrum MultiScatteringIntegrator::vrlSamplingPaper1(float t0,float t1,const Sc
                 continue;
             }
             if (!ss.IsBlack())
-                L += Tr*ss*ssVrl*Llight;
+                L += Tr*ss*Llight;//ssVrl;
            // }
         }
     }
@@ -570,6 +585,9 @@ Spectrum MultiScatteringIntegrator::vslSamplingBruteForce(float t0,float t1,cons
         if (!ss.IsBlack() && !this->vsls.empty()) {
             //iterating over Volume paths sigle sample on every vpl
             for (uint32_t i = 0; i < this->vsls.size(); ++i) {
+                if (rng.RandomFloat()>0.5) {
+                    continue;
+                }
                 //printf("\n======iterating over vsls========");
                 VirtualSphericalLight *vl = vsls[i];
                 // Compute virtual light's tentative contribution _Llight_
@@ -619,6 +637,8 @@ Spectrum MultiScatteringIntegrator::vslSamplingCDF(float t0,float t1,const Scene
     //rayTransmCache.ray.d=-ray.d;
     rayTransmCache.ray.mint=t0;
     rayTransmCache.ray.maxt=t1;
+    lray.mint=t0;
+    lray.maxt=t1;
     Spectrum vslsContrib;
     Spectrum L(0.);
     Spectrum alpha(1.);
@@ -626,6 +646,7 @@ Spectrum MultiScatteringIntegrator::vslSamplingCDF(float t0,float t1,const Scene
         d=renderer->freeFlight(scene, lray, maxtau, rng); //the tau could be used for multiple scattering
         if (d==-1.){
             rayTransmCache.dists.push_back(lray.maxt);
+            dmax=lray.maxt;
             continue; //scattering did not happened tau should be valid
         }else{
             if (d>dmax) {
@@ -635,7 +656,7 @@ Spectrum MultiScatteringIntegrator::vslSamplingCDF(float t0,float t1,const Scene
             rayTransmCache.dists.push_back(d);
         }
     }// end of SCATTERING EVENTS
-    
+    std::sort((rayTransmCache.dists.begin()), (rayTransmCache.dists.end()));
     //if full transmitance needed
     if (dmax<t1) {
         alpha*=renderer->Transmittance(scene, ray, NULL, rng, arena); //attnuation to the vsl
